@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eğitim Platformu</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background: #000;
+            color: #fff;
+            overflow: hidden;
+        }
+
+        .container {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header */
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 16px;
+            background: #000;
+            border-bottom: 1px solid #262626;
+        }
+
+        .time {
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .icon {
+            width: 24px;
+            height: 24px;
+        }
+
+        /* Stories */
+        .stories {
+            display: flex;
+            gap: 15px;
+            padding: 10px 16px;
+            overflow-x: auto;
+            background: #000;
+            border-bottom: 1px solid #262626;
+        }
+
+        .stories::-webkit-scrollbar {
+            display: none;
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            min-width: 70px;
+        }
+
+        .story-ring {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            padding: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .story-avatar {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #333;
+            border: 3px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        .story-name {
+            font-size: 12px;
+            max-width: 70px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Posts Container */
+        .posts-container {
+            flex: 1;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .posts-container::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Post */
+        .post {
+            min-height: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 10px 16px;
+            gap: 12px;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .post-info {
+            flex: 1;
+        }
+
+        .post-username {
+            font-weight: 600;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .verified {
+            color: #0095f6;
+        }
+
+        .post-subtitle {
+            font-size: 12px;
+            color: #a8a8a8;
+        }
+
+        .post-menu {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .post-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #1a1a1a;
+            position: relative;
+            padding: 40px 20px;
+            overflow-y: auto;
+        }
+
+        .content-text {
+            font-size: 18px;
+            line-height: 1.6;
+            max-width: 600px;
+            text-align: left;
+        }
+
+        .content-text h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #0095f6;
+        }
+
+        .content-text h3 {
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            color: #e6683c;
+        }
+
+        .content-text ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .content-text li {
+            margin-bottom: 8px;
+        }
+
+        .post-actions {
+            display: flex;
+            align-items: center;
+            padding: 6px 16px;
+            gap: 16px;
+        }
+
+        .action-group {
+            display: flex;
+            gap: 16px;
+            flex: 1;
+        }
+
+        .action-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 26px;
+            cursor: pointer;
+            padding: 8px;
+        }
+
+        .action-btn.liked {
+            color: #ed4956;
+        }
+
+        .post-likes {
+            padding: 0 16px 8px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .post-caption {
+            padding: 0 16px 8px;
+            font-size: 14px;
+        }
+
+        .username-caption {
+            font-weight: 600;
+            margin-right: 6px;
+        }
+
+        .post-comments {
+            padding: 0 16px 8px;
+            font-size: 14px;
+            color: #a8a8a8;
+        }
+
+        .post-time {
+            padding: 0 16px 16px;
+            font-size: 12px;
+            color: #a8a8a8;
+        }
+
+        /* Bottom Navigation */
+        .bottom-nav {
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 0;
+            background: #000;
+            border-top: 1px solid #262626;
+        }
+
+        .nav-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 28px;
+            cursor: pointer;
+            padding: 8px 16px;
+        }
+
+        .nav-btn.active {
+            color: #0095f6;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .content-text {
+                font-size: 16px;
+            }
+
+            .content-text h2 {
+                font-size: 20px;
+            }
+
+            .content-text h3 {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div class="time" id="time">20:56</div>
+            <div class="header-icons">
+                <span class="icon">📶</span>
+                <span class="icon">📡</span>
+                <span class="icon">🔋</span>
+            </div>
+        </div>
+
+        <!-- Stories -->
+        <div class="stories">
+            <div class="story">
+                <div class="story-ring">
+                    <div class="story-avatar">📚</div>
+                </div>
+                <div class="story-name">Öğretmen</div>
+            </div>
+            <div class="story">
+                <div class="story-ring">
+                    <div class="story-avatar">🎓</div>
+                </div>
+                <div class="story-name">Ders-1</div>
+            </div>
+            <div class="story">
+                <div class="story-ring">
+                    <div class="story-avatar">📖</div>
+                </div>
+                <div class="story-name">Ders-2</div>
+            </div>
+            <div class="story">
+                <div class="story-ring">
+                    <div class="story-avatar">✏️</div>
+                </div>
+                <div class="story-name">Ders-3</div>
+            </div>
+            <div class="story">
+                <div class="story-ring">
+                    <div class="story-avatar">🎯</div>
+                </div>
+                <div class="story-name">Quiz</div>
+            </div>
+        </div>
+
+        <!-- Posts Container -->
+        <div class="posts-container" id="postsContainer">
+            <!-- Post 1 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">👨‍🏫</div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Öğretim Yöntemi • Özgün İçerik</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="content-text">
+                        <h2>📱 Sosyal Medya Tabanlı Öğretim</h2>
+                        <p>Merhaba! Bu platform, alışılagelmemiş bir öğretim yöntemini size tanıtmak için tasarlandı.</p>
+                        <br>
+                        <p><strong>Instagram benzeri bir arayüzle</strong> eğitim içeriklerini keşfedebilir, kaydırarak öğrenebilirsiniz.</p>
+                        <br>
+                        <p>👇 Aşağı kaydırarak devam edin!</p>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes1">2,898</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    Yeni nesil öğrenme deneyimi 🚀
+                </div>
+                <div class="post-comments">83 yorumun tümünü gör</div>
+                <div class="post-time">2 saat önce</div>
+            </div>
+
+            <!-- Post 2 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">🎯</div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Yöntem Açıklaması</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="content-text">
+                        <h2>🎓 Mikro-Öğrenme Yöntemi</h2>
+                        
+                        <h3>Nedir?</h3>
+                        <p>Her bir post, küçük bir öğrenme ünitesi içerir. Bilgiler küçük parçalara bölünerek sunulur.</p>
+                        
+                        <h3>Avantajları:</h3>
+                        <ul>
+                            <li>💡 Kolay sindirilebilir bilgi</li>
+                            <li>📱 Her yerde erişilebilir</li>
+                            <li>⚡ Hızlı öğrenme</li>
+                            <li>🎯 Odaklanmış içerik</li>
+                            <li>🔄 Tekrar edilebilir</li>
+                        </ul>
+                        
+                        <br>
+                        <p>Bu yöntem, özellikle dijital çağda yetişen öğrenciler için idealdir!</p>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes2">3,542</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    Bilimsel araştırmalarla desteklenen yöntem ✨
+                </div>
+                <div class="post-comments">127 yorumun tümünü gör</div>
+                <div class="post-time">1 saat önce</div>
+            </div>
+
+            <!-- Post 3 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">💡</div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Uygulama Örnekleri</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="content-text">
+                        <h2>🔬 Nasıl Uygulanır?</h2>
+                        
+                        <h3>1. İçerik Hazırlama</h3>
+                        <p>Konuyu küçük, mantıklı bölümlere ayırın. Her post bir kavramı açıklasın.</p>
+                        
+                        <h3>2. Görsel Zenginlik</h3>
+                        <p>Emoji, renkler ve formatlamalarla içeriği çekici hale getirin.</p>
+                        
+                        <h3>3. Etkileşim</h3>
+                        <p>Öğrenciler beğenebilir, kaydedebilir ve yorumlayabilir.</p>
+                        
+                        <h3>4. Sıralı Öğrenme</h3>
+                        <p>Postları kaydırarak öğrenciler kendi hızlarında ilerler.</p>
+                        
+                        <br>
+                        <p><strong>Sonuç:</strong> Geleneksel yöntemlerden daha ilgi çekici ve etkili bir öğrenme deneyimi!</p>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes3">4,123</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    21. yüzyıl öğretim teknikleri 🌟
+                </div>
+                <div class="post-comments">89 yorumun tümünü gör</div>
+                <div class="post-time">45 dakika önce</div>
+            </div>
+
+            <!-- Post 4 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar">📊</div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Araştırma Sonuçları</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="content-text">
+                        <h2>📈 Etkililik Verileri</h2>
+                        
+                        <p>Son araştırmalar, sosyal medya benzeri öğrenme platformlarının etkinliğini gösteriyor:</p>
+                        
+                        <h3>📊 İstatistikler</h3>
+                        <ul>
+                            <li>%85 daha fazla öğrenci katılımı</li>
+                            <li>%70 daha iyi bilgi tutma</li>
+                            <li>%92 öğrenci memnuniyeti</li>
+                            <li>%60 daha az ders süresi</li>
+                        </ul>
+                        
+                        <h3>🎯 Hedef Kitle</h3>
+                        <p>Özellikle Z kuşağı ve Alfa kuşağı öğrenciler için idealdir. Dijital dünyada büyüyen bu nesil, bildik platformlarla öğrenmeyi tercih ediyor.</p>
+                        
+                        <br>
+                        <p><em>"Öğrencilerin dilinde konuşmak, öğretimin yarısıdır."</em></p>
+                    </div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes4">5,267</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    Verilerle konuşan eğitim 📚
+                </div>
+                <div class="post-comments">156 yorumun tümünü gör</div>
+                <div class="post-time">30 dakika önce</div>
+            </div>
+        </div>
+
+        <!-- Bottom Navigation -->
+        <div class="bottom-nav">
+            <button class="nav-btn active">🏠</button>
+            <button class="nav-btn">🔍</button>
+            <button class="nav-btn">➕</button>
+            <button class="nav-btn">▶️</button>
+            <button class="nav-btn">👤</button>
+        </div>
+    </div>
+
+    <script>
+        // Saat güncelleme
+        function updateTime() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            document.getElementById('time').textContent = `${hours}:${minutes}`;
+        }
+        updateTime();
+        setInterval(updateTime, 60000);
+
+        // Beğeni fonksiyonu
+        function likePost(btn) {
+            if (btn.classList.contains('liked')) {
+                btn.classList.remove('liked');
+                btn.textContent = '🤍';
+            } else {
+                btn.classList.add('liked');
+                btn.textContent = '❤️';
+                
+                // Beğeni sayısını artır
+                const post = btn.closest('.post');
+                const likesSpan = post.querySelector('[id^="likes"]');
+                if (likesSpan) {
+                    let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
+                    count += btn.classList.contains('liked') ? 1 : -1;
+                    likesSpan.textContent = count.toLocaleString('tr-TR');
+                }
+            }
+        }
+
+        // Smooth scroll için
+        const postsContainer = document.getElementById('postsContainer');
+        let isScrolling = false;
+
+        postsContainer.addEventListener('scroll', () => {
+            if (!isScrolling) {
+                isScrolling = true;
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 100);
+            }
+        });
+    </script>
+</body>
+</html>
