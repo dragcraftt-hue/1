@@ -719,6 +719,40 @@
                 <div class="post-comments">3120 yorumun tümünü gör</div>
                 <div class="post-time">Şimdi</div>
             </div>
+    </div> <!-- container kapanışı -->
+
+    <script>
+        const postsContainer = document.getElementById("postsContainer");
+
+        let startY = 0;
+        let isPulling = false;
+
+        postsContainer.addEventListener("touchstart", (e) => {
+            if (postsContainer.scrollTop === 0) {
+                startY = e.touches[0].clientY;
+                isPulling = true;
+            }
+        });
+
+        postsContainer.addEventListener("touchmove", (e) => {
+            if (!isPulling) return;
+            let currentY = e.touches[0].clientY;
+            let diff = currentY - startY;
+
+            if (diff > 80) { // 80px aşağı çekildiğinde
+                location.reload(); // Sayfayı yenile
+                isPulling = false;
+            }
+        });
+
+        postsContainer.addEventListener("touchend", () => {
+            isPulling = false;
+        });
+    </script>
+
+</body>
+</html>
+
 
 
 
