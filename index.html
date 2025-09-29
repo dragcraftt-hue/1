@@ -749,9 +749,29 @@
             isPulling = false;
         });
     </script>
+<script>
+function updateTime() {
+    const timeElement = document.getElementById("time");
+    const now = new Date();
+    let hours = now.getHours();
+    let minutes = now.getMinutes();
+
+    // Tek basamaklı sayılara 0 ekle (09:05 gibi)
+    if (hours < 10) hours = "0" + hours;
+    if (minutes < 10) minutes = "0" + minutes;
+
+    timeElement.textContent = hours + ":" + minutes;
+}
+
+// İlk çalıştırma
+updateTime();
+// Her 1 saniyede bir saati güncelle
+setInterval(updateTime, 1000);
+</script>
 
 </body>
 </html>
+
 
 
 
