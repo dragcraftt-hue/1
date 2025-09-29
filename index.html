@@ -216,6 +216,78 @@
         .action-btn.liked {
     color: #ed4956; /* kırmızı */
 }
+        .comment-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+}
+
+.comment-modal.hidden {
+    display: none;
+}
+
+.comment-modal-content {
+    background: #121212;
+    border-radius: 12px;
+    padding: 16px;
+    width: 90%;
+    max-width: 400px;
+    max-height: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.close-btn {
+    font-size: 22px;
+    align-self: flex-end;
+    cursor: pointer;
+}
+
+.comments-list {
+    flex: 1;
+    overflow-y: auto;
+    margin-bottom: 12px;
+}
+
+.comment-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+}
+
+.comment-item .user {
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+.add-comment {
+    display: flex;
+    gap: 8px;
+}
+
+.add-comment input {
+    flex: 1;
+    background: #1e1e1e;
+    border: none;
+    color: white;
+    padding: 6px;
+    border-radius: 6px;
+}
+
+.add-comment .add-btn {
+    background: #0095f6;
+    border: none;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -800,9 +872,68 @@ function likePost(button) {
     }
 }
 </script>
+<!-- Yorum Penceresi (Modal) -->
+<div id="commentModal" class="comment-modal hidden">
+    <div class="comment-modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="comments-list">
+            <!-- Burada yorumlar görünecek -->
+        </div>
+        <div class="add-comment">
+            <input type="text" placeholder="Yorum ekle..." />
+            <button class="add-btn">Gönder</button>
+        </div>
+    </div>
+</div>
+<script>
+const commentModal = document.getElementById("commentModal");
+const commentsList = commentModal.querySelector(".comments-list");
+const addCommentInput = commentModal.querySelector("input");
+const addCommentBtn = commentModal.querySelector(".add-btn");
+const closeBtn = commentModal.querySelector(".close-btn");
+
+let activePost = null;
+
+// Tüm yorum butonlarına event ekle
+document.querySelectorAll(".action-btn").forEach(btn => {
+    if (btn.textContent.includes("💬")) {
+        btn.addEventListener("click", () => {
+            activePost = btn.closest(".post");
+            openCommentModal(activePost);
+        });
+    }
+});
+
+function openCommentModal(post) {
+    commentsList.innerHTML = ""; // Önceki yorumları temizle
+    const comments = post.querySelectorAll(".post-comments .comment-template");
+    comments.forEach(c => {
+        const newComment = document.createElement("div");
+        newComment.className = "comment-item";
+        newComment.innerHTML = `<span class="user">${c.dataset.user}</span> ${c.dataset.text}`;
+        commentsList.appendChild(newComment);
+    });
+    commentModal.classList.remove("hidden");
+}
+
+closeBtn.addEventListener("click", () => {
+    commentModal.classList.add("hidden");
+});
+
+// Yeni yorum ekleme
+addCommentBtn.addEventListener("click", () => {
+    if (addCommentInput.value.trim() === "") return;
+    const newComment = document.createElement("div");
+    newComment.className = "comment-item";
+    newComment.innerHTML = `<span class="user">sen</span> ${addCommentInput.value}`;
+    commentsList.appendChild(newComment);
+    addCommentInput.value = "";
+});
+</script>
 
 </body>
 </html>
+
 
 
 
