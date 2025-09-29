@@ -28,7 +28,7 @@
         .header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
             padding: 10px 16px;
             background: #000;
             border-bottom: 1px solid #262626;
@@ -37,70 +37,6 @@
         .time {
             font-size: 15px;
             font-weight: 600;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .icon {
-            width: 24px;
-            height: 24px;
-        }
-
-        /* Stories */
-        .stories {
-            display: flex;
-            gap: 15px;
-            padding: 10px 16px;
-            overflow-x: auto;
-            background: #000;
-            border-bottom: 1px solid #262626;
-        }
-
-        .stories::-webkit-scrollbar {
-            display: none;
-        }
-
-        .story {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            min-width: 70px;
-        }
-
-        .story-ring {
-            width: 66px;
-            height: 66px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            padding: 2px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .story-avatar {
-            width: 62px;
-            height: 62px;
-            border-radius: 50%;
-            background: #333;
-            border: 3px solid #000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-        }
-
-        .story-name {
-            font-size: 12px;
-            max-width: 70px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
         }
 
         /* Posts Container */
@@ -135,11 +71,8 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
+            background: #333;
+            border: 2px solid #555;
         }
 
         .post-info {
@@ -175,37 +108,14 @@
             justify-content: center;
             background: #1a1a1a;
             position: relative;
-            padding: 40px 20px;
-            overflow-y: auto;
+            overflow: hidden;
         }
 
-        .content-text {
-            font-size: 18px;
-            line-height: 1.6;
-            max-width: 600px;
-            text-align: left;
-        }
-
-        .content-text h2 {
-            font-size: 24px;
-            margin-bottom: 15px;
-            color: #0095f6;
-        }
-
-        .content-text h3 {
-            font-size: 20px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            color: #e6683c;
-        }
-
-        .content-text ul {
-            margin-left: 20px;
-            margin-top: 10px;
-        }
-
-        .content-text li {
-            margin-bottom: 8px;
+        .post-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            background: #2a2a2a;
         }
 
         .post-actions {
@@ -284,19 +194,24 @@
             color: #0095f6;
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .content-text {
-                font-size: 16px;
-            }
+        /* Alert */
+        .alert {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px 40px;
+            border-radius: 12px;
+            border: 1px solid #262626;
+            z-index: 1000;
+            display: none;
+            animation: fadeIn 0.3s;
+        }
 
-            .content-text h2 {
-                font-size: 20px;
-            }
-
-            .content-text h3 {
-                font-size: 18px;
-            }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
     </style>
 </head>
@@ -305,45 +220,6 @@
         <!-- Header -->
         <div class="header">
             <div class="time" id="time">20:56</div>
-            <div class="header-icons">
-                <span class="icon">📶</span>
-                <span class="icon">📡</span>
-                <span class="icon">🔋</span>
-            </div>
-        </div>
-
-        <!-- Stories -->
-        <div class="stories">
-            <div class="story">
-                <div class="story-ring">
-                    <div class="story-avatar">📚</div>
-                </div>
-                <div class="story-name">Öğretmen</div>
-            </div>
-            <div class="story">
-                <div class="story-ring">
-                    <div class="story-avatar">🎓</div>
-                </div>
-                <div class="story-name">Ders-1</div>
-            </div>
-            <div class="story">
-                <div class="story-ring">
-                    <div class="story-avatar">📖</div>
-                </div>
-                <div class="story-name">Ders-2</div>
-            </div>
-            <div class="story">
-                <div class="story-ring">
-                    <div class="story-avatar">✏️</div>
-                </div>
-                <div class="story-name">Ders-3</div>
-            </div>
-            <div class="story">
-                <div class="story-ring">
-                    <div class="story-avatar">🎯</div>
-                </div>
-                <div class="story-name">Quiz</div>
-            </div>
         </div>
 
         <!-- Posts Container -->
@@ -351,25 +227,18 @@
             <!-- Post 1 -->
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar">👨‍🏫</div>
+                    <div class="post-avatar"></div>
                     <div class="post-info">
                         <div class="post-username">
                             egitim_platformu
                             <span class="verified">✓</span>
                         </div>
-                        <div class="post-subtitle">Öğretim Yöntemi • Özgün İçerik</div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="content-text">
-                        <h2>📱 Sosyal Medya Tabanlı Öğretim</h2>
-                        <p>Merhaba! Bu platform, alışılagelmemiş bir öğretim yöntemini size tanıtmak için tasarlandı.</p>
-                        <br>
-                        <p><strong>Instagram benzeri bir arayüzle</strong> eğitim içeriklerini keşfedebilir, kaydırarak öğrenebilirsiniz.</p>
-                        <br>
-                        <p>👇 Aşağı kaydırarak devam edin!</p>
-                    </div>
+                    <div class="post-image"></div>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -379,47 +248,30 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes1">2,898</span> beğenme</div>
+                <div class="post-likes"><span id="likes1">1,234</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">egitim_platformu</span>
-                    Yeni nesil öğrenme deneyimi 🚀
+                    İçerik açıklaması buraya gelecek
                 </div>
-                <div class="post-comments">83 yorumun tümünü gör</div>
+                <div class="post-comments">45 yorumun tümünü gör</div>
                 <div class="post-time">2 saat önce</div>
             </div>
 
             <!-- Post 2 -->
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar">🎯</div>
+                    <div class="post-avatar"></div>
                     <div class="post-info">
                         <div class="post-username">
                             egitim_platformu
                             <span class="verified">✓</span>
                         </div>
-                        <div class="post-subtitle">Yöntem Açıklaması</div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="content-text">
-                        <h2>🎓 Mikro-Öğrenme Yöntemi</h2>
-                        
-                        <h3>Nedir?</h3>
-                        <p>Her bir post, küçük bir öğrenme ünitesi içerir. Bilgiler küçük parçalara bölünerek sunulur.</p>
-                        
-                        <h3>Avantajları:</h3>
-                        <ul>
-                            <li>💡 Kolay sindirilebilir bilgi</li>
-                            <li>📱 Her yerde erişilebilir</li>
-                            <li>⚡ Hızlı öğrenme</li>
-                            <li>🎯 Odaklanmış içerik</li>
-                            <li>🔄 Tekrar edilebilir</li>
-                        </ul>
-                        
-                        <br>
-                        <p>Bu yöntem, özellikle dijital çağda yetişen öğrenciler için idealdir!</p>
-                    </div>
+                    <div class="post-image"></div>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -429,47 +281,30 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes2">3,542</span> beğenme</div>
+                <div class="post-likes"><span id="likes2">2,456</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">egitim_platformu</span>
-                    Bilimsel araştırmalarla desteklenen yöntem ✨
+                    İçerik açıklaması buraya gelecek
                 </div>
-                <div class="post-comments">127 yorumun tümünü gör</div>
+                <div class="post-comments">67 yorumun tümünü gör</div>
                 <div class="post-time">1 saat önce</div>
             </div>
 
             <!-- Post 3 -->
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar">💡</div>
+                    <div class="post-avatar"></div>
                     <div class="post-info">
                         <div class="post-username">
                             egitim_platformu
                             <span class="verified">✓</span>
                         </div>
-                        <div class="post-subtitle">Uygulama Örnekleri</div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="content-text">
-                        <h2>🔬 Nasıl Uygulanır?</h2>
-                        
-                        <h3>1. İçerik Hazırlama</h3>
-                        <p>Konuyu küçük, mantıklı bölümlere ayırın. Her post bir kavramı açıklasın.</p>
-                        
-                        <h3>2. Görsel Zenginlik</h3>
-                        <p>Emoji, renkler ve formatlamalarla içeriği çekici hale getirin.</p>
-                        
-                        <h3>3. Etkileşim</h3>
-                        <p>Öğrenciler beğenebilir, kaydedebilir ve yorumlayabilir.</p>
-                        
-                        <h3>4. Sıralı Öğrenme</h3>
-                        <p>Postları kaydırarak öğrenciler kendi hızlarında ilerler.</p>
-                        
-                        <br>
-                        <p><strong>Sonuç:</strong> Geleneksel yöntemlerden daha ilgi çekici ve etkili bir öğrenme deneyimi!</p>
-                    </div>
+                    <div class="post-image"></div>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -479,10 +314,10 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes3">4,123</span> beğenme</div>
+                <div class="post-likes"><span id="likes3">3,789</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">egitim_platformu</span>
-                    21. yüzyıl öğretim teknikleri 🌟
+                    İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">89 yorumun tümünü gör</div>
                 <div class="post-time">45 dakika önce</div>
@@ -491,36 +326,18 @@
             <!-- Post 4 -->
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar">📊</div>
+                    <div class="post-avatar"></div>
                     <div class="post-info">
                         <div class="post-username">
                             egitim_platformu
                             <span class="verified">✓</span>
                         </div>
-                        <div class="post-subtitle">Araştırma Sonuçları</div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="content-text">
-                        <h2>📈 Etkililik Verileri</h2>
-                        
-                        <p>Son araştırmalar, sosyal medya benzeri öğrenme platformlarının etkinliğini gösteriyor:</p>
-                        
-                        <h3>📊 İstatistikler</h3>
-                        <ul>
-                            <li>%85 daha fazla öğrenci katılımı</li>
-                            <li>%70 daha iyi bilgi tutma</li>
-                            <li>%92 öğrenci memnuniyeti</li>
-                            <li>%60 daha az ders süresi</li>
-                        </ul>
-                        
-                        <h3>🎯 Hedef Kitle</h3>
-                        <p>Özellikle Z kuşağı ve Alfa kuşağı öğrenciler için idealdir. Dijital dünyada büyüyen bu nesil, bildik platformlarla öğrenmeyi tercih ediyor.</p>
-                        
-                        <br>
-                        <p><em>"Öğrencilerin dilinde konuşmak, öğretimin yarısıdır."</em></p>
-                    </div>
+                    <div class="post-image"></div>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -530,69 +347,321 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes4">5,267</span> beğenme</div>
+                <div class="post-likes"><span id="likes4">4,123</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">egitim_platformu</span>
-                    Verilerle konuşan eğitim 📚
+                    İçerik açıklaması buraya gelecek
                 </div>
-                <div class="post-comments">156 yorumun tümünü gör</div>
+                <div class="post-comments">92 yorumun tümünü gör</div>
                 <div class="post-time">30 dakika önce</div>
             </div>
-        </div>
 
-        <!-- Bottom Navigation -->
-        <div class="bottom-nav">
-            <button class="nav-btn active">🏠</button>
-            <button class="nav-btn">🔍</button>
-            <button class="nav-btn">➕</button>
-            <button class="nav-btn">▶️</button>
-            <button class="nav-btn">👤</button>
-        </div>
-    </div>
+            <!-- Post 5 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes5">5,567</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">134 yorumun tümünü gör</div>
+                <div class="post-time">15 dakika önce</div>
+            </div>
 
-    <script>
-        // Saat güncelleme
-        function updateTime() {
-            const now = new Date();
-            const hours = String(now.getHours()).padStart(2, '0');
-            const minutes = String(now.getMinutes()).padStart(2, '0');
-            document.getElementById('time').textContent = `${hours}:${minutes}`;
-        }
-        updateTime();
-        setInterval(updateTime, 60000);
+            <!-- Post 6 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes6">6,234</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">156 yorumun tümünü gör</div>
+                <div class="post-time">10 dakika önce</div>
+            </div>
 
-        // Beğeni fonksiyonu
-        function likePost(btn) {
-            if (btn.classList.contains('liked')) {
-                btn.classList.remove('liked');
-                btn.textContent = '🤍';
-            } else {
-                btn.classList.add('liked');
-                btn.textContent = '❤️';
-                
-                // Beğeni sayısını artır
-                const post = btn.closest('.post');
-                const likesSpan = post.querySelector('[id^="likes"]');
-                if (likesSpan) {
-                    let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
-                    count += btn.classList.contains('liked') ? 1 : -1;
-                    likesSpan.textContent = count.toLocaleString('tr-TR');
-                }
-            }
-        }
+            <!-- Post 7 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes7">7,891</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">178 yorumun tümünü gör</div>
+                <div class="post-time">5 dakika önce</div>
+            </div>
 
-        // Smooth scroll için
-        const postsContainer = document.getElementById('postsContainer');
-        let isScrolling = false;
+            <!-- Post 8 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes8">8,345</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">201 yorumun tümünü gör</div>
+                <div class="post-time">3 dakika önce</div>
+            </div>
 
-        postsContainer.addEventListener('scroll', () => {
-            if (!isScrolling) {
-                isScrolling = true;
-                setTimeout(() => {
-                    isScrolling = false;
-                }, 100);
-            }
-        });
-    </script>
-</body>
-</html>
+            <!-- Post 9 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes9">9,456</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">223 yorumun tümünü gör</div>
+                <div class="post-time">2 dakika önce</div>
+            </div>
+
+            <!-- Post 10 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes10">10,567</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">245 yorumun tümünü gör</div>
+                <div class="post-time">1 dakika önce</div>
+            </div>
+
+            <!-- Post 11 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes11">11,234</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">267 yorumun tümünü gör</div>
+                <div class="post-time">Şimdi</div>
+            </div>
+
+            <!-- Post 12 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes12">12,456</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">289 yorumun tümünü gör</div>
+                <div class="post-time">Şimdi</div>
+            </div>
+
+            <!-- Post 13 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
+                </div>
+                <div class="post-content">
+                    <div class="post-image"></div>
+                </div>
+                <div class="post-actions">
+                    <div class="action-group">
+                        <button class="action-btn" onclick="likePost(this)">🤍</button>
+                        <button class="action-btn">💬</button>
+                        <button class="action-btn">📤</button>
+                    </div>
+                    <button class="action-btn">🔖</button>
+                </div>
+                <div class="post-likes"><span id="likes13">13,789</span> beğenme</div>
+                <div class="post-caption">
+                    <span class="username-caption">egitim_platformu</span>
+                    İçerik açıklaması buraya gelecek
+                </div>
+                <div class="post-comments">312 yorumun tümünü gör</div>
+                <div class="post-time">Şimdi</div>
+            </div>
+
+            <!-- Post 14 -->
+            <div class="post">
+                <div class="post-header">
+                    <div class="post-avatar"></div>
+                    <div class="post-info">
+                        <div class="post-username">
+                            egitim_platformu
+                            <span class="verified">✓</span>
+                        </div>
+                        <div class="post-subtitle">Eğitim İçeriği</div>
+                    </div>
+                    <div class="post-menu">⋮</div>
