@@ -213,6 +213,9 @@
             from { opacity: 0; }
             to { opacity: 1; }
         }
+        .action-btn.liked {
+    color: #ed4956; /* kırmızı */
+}
     </style>
 </head>
 <body>
@@ -768,9 +771,20 @@ updateTime();
 // Her 1 saniyede bir saati güncelle
 setInterval(updateTime, 1000);
 </script>
+<script>
+function likePost(button) {
+    button.classList.toggle("liked");
+    if (button.classList.contains("liked")) {
+        button.textContent = "❤️"; // kırmızı kalp
+    } else {
+        button.textContent = "🤍"; // boş kalp
+    }
+}
+</script>
 
 </body>
 </html>
+
 
 
 
