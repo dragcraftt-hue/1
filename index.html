@@ -370,7 +370,24 @@
 
 /* post-content pozisyonunun relative olması gerekiyor */
 .post-content { position: relative; overflow: hidden; }
+.carousel {
+  display: flex;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+}
 
+.carousel::-webkit-scrollbar {
+  display: none; /* scroll bar gizle */
+}
+
+.carousel img {
+  flex: 0 0 100%; /* her fotoğraf tam genişlik */
+  height: 400px;  /* istediğin yükseklik */
+  object-fit: cover;
+  scroll-snap-align: start;
+}
+        
     </style>
 </head>
 <body>
@@ -1138,6 +1155,7 @@ document.addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
