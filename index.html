@@ -295,14 +295,21 @@
   padding: 10px;
   cursor: pointer;
 }
+.producer {
+  font-size: 13px;
+  color: #a8a8a8;
+  margin-left: 10px;
+}
 
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <div class="time" id="time">20:56</div>
-        </div>
+<div class="header">
+    <div class="time" id="time">20:56</div>
+    <div class="producer">Yapımcı: Sude Naz Türkeli</div>
+</div>
+
 <!-- /post1 -->
         <div class="posts-container" id="postsContainer">
             <div class="post">
@@ -1041,22 +1048,21 @@ document.addEventListener("click", () => {
 }, { once: true });
 </script>
 <script>
-  const audio = document.getElementById("postAudio");
-  const muteBtn = document.getElementById("muteBtn");
-
-  // autoplay için önce mute başlar, sonra kullanıcı açabilir
   muteBtn.addEventListener("click", () => {
-    if (audio.muted) {
-      audio.muted = false;
-      audio.play();
-      muteBtn.textContent = "🔊";
-    } else {
-      audio.muted = true;
-      muteBtn.textContent = "🔇";
-    }
-  });
+  if (audio.muted) {
+    audio.muted = false;
+    audio.play();
+    muteBtn.textContent = "🔊";
+  } else {
+    audio.muted = true;
+    audio.pause();
+    muteBtn.textContent = "🔇";
+  }
+});
+
 </script>
 
 </body>
 </html>
+
 
