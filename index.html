@@ -872,9 +872,31 @@ function likePost(button) {
     }
 }
 </script>
+<script>
+document.querySelectorAll(".action-btn").forEach(btn => {
+  if (btn.textContent.includes("📤")) {
+    btn.addEventListener("click", async () => {
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: "Deneme Sitesi",
+            text: "Buna bir göz at! 👀",
+            url: window.location.href
+          });
+        } catch (err) {
+          console.log("Paylaşım iptal edildi:", err);
+        }
+      } else {
+        alert("Cihazınız paylaşımı desteklemiyor.");
+      }
+    });
+  }
+});
+</script>
 
 </body>
 </html>
+
 
 
 
