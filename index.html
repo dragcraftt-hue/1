@@ -1102,9 +1102,33 @@ function closeSearch() {
   }
 })();
 </script>
+<script>
+const audio = document.getElementById("post1-audio");
+const post1 = document.querySelector(".post");
+
+// İlk etkileşimde sesi aktif et
+document.addEventListener("click", () => {
+  audio.play().catch(() => {});
+}, { once: true });
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      audio.play().catch(() => {});
+    } else {
+      audio.pause();
+    }
+  });
+}, { threshold: 0.6 });
+
+if (post1) {
+  observer.observe(post1);
+}
+</script>
 
 </body>
 </html>
+
 
 
 
