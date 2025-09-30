@@ -397,6 +397,9 @@
                 </div>
 <div class="post-content">
     <img src="post1.png" alt="Sağlıklı bir diyet" class="post-image">
+        <audio id="post1-audio">
+        <source src="muzik.mp3" type="audio/mpeg">
+    </audio>
 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -1104,30 +1107,27 @@ function closeSearch() {
 </script>
 <script>
 const audio = document.getElementById("post1-audio");
-const post1 = document.querySelector(".post");
-
-// İlk etkileşimde sesi aktif et
-document.addEventListener("click", () => {
-  audio.play().catch(() => {});
-}, { once: true });
+const post1 = document.querySelector(".post"); // 1. post
 
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
-      audio.play().catch(() => {});
+      audio.play().catch(() => {}); // Post 1 görünürse müzik başlasın
     } else {
-      audio.pause();
+      audio.pause(); // Post 1 görünmezse müzik dursun
     }
   });
-}, { threshold: 0.6 });
+}, { threshold: 0.6 }); // %60 görünürse çalışır
 
 if (post1) {
   observer.observe(post1);
 }
 </script>
 
+
 </body>
 </html>
+
 
 
 
