@@ -40,13 +40,11 @@
         }
 
         /* Posts Container */
-        .posts-container {
-            flex: 1;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
-
+.posts-container {
+    flex: 1;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch; /* akıcı kaydırma */
+}
         .posts-container::-webkit-scrollbar {
             display: none;
         }
@@ -54,7 +52,6 @@
         /* Post */
         .post {
             min-height: 100%;
-            scroll-snap-align: start;
             display: flex;
             flex-direction: column;
             background: #000;
@@ -1138,6 +1135,7 @@ document.addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
