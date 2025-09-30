@@ -170,33 +170,20 @@
         }
 
         /* Bottom Navigation */
-        .bottom-nav {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 10px;                /* bar yüksekliği */
-  display: flex;
-  align-items: center;         /* ikonları dikeyde ortala */
-  justify-content: space-around;
-  background: #000;
-  border-top: 1px solid #262626;
-  z-index: 100;
-  padding: 0;                  /* ekstra boşluğu kaldır */
-}
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 45px;                /* bar yüksekliği */
+  height: 10px;
   display: flex;
-  align-items: center;         /* ikonları dikeyde ortala */
+  align-items: center;
   justify-content: space-around;
   background: #000;
-  border-top: 1px solid #262626;
   z-index: 100;
-  padding: 0;                  /* ekstra boşluğu kaldır */
+  padding: 0;
+  margin: 0;
+  border-top: none;  /* siyah çizgi/şerit istemiyorsan kaldır */
 }
 
         .nav-btn {
@@ -1151,6 +1138,7 @@ document.addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
 
