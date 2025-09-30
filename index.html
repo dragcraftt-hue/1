@@ -1049,12 +1049,11 @@ document.addEventListener("click", () => {
 </script>
 <script>
   muteBtn.addEventListener("click", () => {
-  if (audio.muted) {
+  if (audio.paused) {
     audio.muted = false;
-    audio.play();
+    audio.play(); // her zaman başlat
     muteBtn.textContent = "🔊";
   } else {
-    audio.muted = true;
     audio.pause();
     muteBtn.textContent = "🔇";
   }
@@ -1064,5 +1063,6 @@ document.addEventListener("click", () => {
 
 </body>
 </html>
+
 
 
