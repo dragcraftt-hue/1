@@ -40,18 +40,25 @@
         }
 
         /* Posts Container */
-.posts-container {
-  flex: 1;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
-  /* scroll-snap-type: y mandatory;  🚫 bunu kaldır */
-}
+        .posts-container {
+            flex: 1;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            -webkit-overflow-scrolling: touch;
+        }
 
-.post {
-  min-height: 100%;  /* aynı kalsın → postlar yine tam ekran yüksekliğinde */
-  /* scroll-snap-align: start; 🚫 bunu kaldır */
-}
+        .posts-container::-webkit-scrollbar {
+            display: none;
+        }
 
+        /* Post */
+        .post {
+            min-height: 100%;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            background: #000;
+        }
 
         .post-header {
             display: flex;
@@ -889,9 +896,6 @@ document.querySelectorAll(".action-btn").forEach(btn => {
 
 </body>
 </html>
-
-
-
 
 
 
