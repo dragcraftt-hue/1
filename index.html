@@ -44,14 +44,14 @@
   flex: 1;
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
-  /* scroll-snap-type: y mandatory;  --> bunu sil */
+  /* scroll-snap-type: y mandatory;  🚫 bunu kaldır */
 }
 
 .post {
-  min-height: auto; /* tam ekran yerine içerik kadar */
-  margin-bottom: 20px; /* postlar arasında boşluk */
-  /* scroll-snap-align: start; --> bunu sil */
+  min-height: 100%;  /* aynı kalsın → postlar yine tam ekran yüksekliğinde */
+  /* scroll-snap-align: start; 🚫 bunu kaldır */
 }
+
 
         .post-header {
             display: flex;
@@ -889,6 +889,7 @@ document.querySelectorAll(".action-btn").forEach(btn => {
 
 </body>
 </html>
+
 
 
 
