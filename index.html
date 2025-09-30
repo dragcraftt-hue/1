@@ -336,6 +336,41 @@
     font-weight: 600;
     cursor: pointer;
 }
+        /* Büyük kalp animasyonu (double-tap) */
+.double-heart {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%) scale(0.2);
+  font-size: 120px;
+  pointer-events: none;
+  opacity: 0;
+  transition: transform 450ms cubic-bezier(.2,.8,.2,1), opacity 450ms;
+  text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+  z-index: 800;
+}
+
+.double-heart.show {
+  transform: translate(-50%, -50%) scale(1);
+  opacity: 1;
+}
+
+@keyframes heartPop {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0; }
+  30% { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+  60% { transform: translate(-50%, -50%) scale(0.95); }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+}
+
+/* Eğer istersen kalbin rengini değiştir */
+.double-heart.show {
+  animation: heartPop 700ms forwards;
+  color: #ff2d55;
+}
+
+/* post-content pozisyonunun relative olması gerekiyor */
+.post-content { position: relative; overflow: hidden; }
+
     </style>
 </head>
 <body>
@@ -983,9 +1018,94 @@ function closeSearch() {
     searchPopup.style.display = "none";
 }
 </script>
-        
+        <script>
+(function(){
+  // Eğer likePost fonksiyonun varsa onu kullanacağız; yoksa kendi toggle uygular.
+  function triggerLikeForPost(post) {
+    const likeBtn = post.querySelector('.action-group .action-btn') || post.querySelector('.action-btn');
+    // likePost mevcutsa çağır
+    if (typeof likePost === 'function' && likeBtn) {
+      // sadece beğenmiyse beğendir (çift tık animasyonunda çift beğeni olmasın)
+      if (!likeBtn.classList.contains('liked')) likePost(likeBtn);
+    } else if (likeBtn) {
+      likeBtn.classList.toggle('liked');
+      likeBtn.textContent = likeBtn.classList.contains('liked') ? '❤️' : '🤍';
+    }
+  }
+
+  // Double-tap detection for touch (simple)
+  function attachDoubleTap(el) {
+    let lastTap = 0;
+    el.addEventListener('dblclick', (e) => {
+      showHeart(el);
+      const post = el.closest('.post');
+      if (post) triggerLikeForPost(post);
+    });
+
+    // for touch devices: custom double-tap detection
+    el.addEventListener('touchend', function(e) {
+      const currentTime = Date.now();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
+        e.preventDefault();
+        showHeart(el);
+        const post = el.closest('.post');
+        if (post) triggerLikeForPost(post);
+      }
+      lastTap = currentTime;
+    });
+  }
+
+  // show heart animation inside a post-content element
+  function showHeart(postContentEl) {
+    // create heart element
+    let heart = document.createElement('div');
+    heart.className = 'double-heart';
+    heart.innerHTML = '❤️';
+    // append and animate
+    postContentEl.appendChild(heart);
+    // force reflow then add show class to trigger CSS animation
+    void heart.offsetWidth;
+    heart.classList.add('show');
+
+    // remove after animation (700ms + small buffer)
+    setTimeout(() => {
+      heart.classList.remove('show');
+      // allow the fade out animation to end then remove
+      setTimeout(() => {
+        if (heart && heart.parentElement) heart.parentElement.removeChild(heart);
+      }, 500);
+    }, 800);
+  }
+
+  // Attach to all post-content elements
+  document.querySelectorAll('.post-content').forEach(el => {
+    // ensure element is positioned relative (CSS also sets it, but double safety)
+    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+    attachDoubleTap(el);
+  });
+
+  // Eğer yeni postlar dinamik olarak eklenecekse, MutationObserver ile bağlayabilirsin:
+  const container = document.getElementById('postsContainer');
+  if (container) {
+    const mo = new MutationObserver(muts => {
+      muts.forEach(m => {
+        m.addedNodes.forEach(node => {
+          if (node.nodeType === 1 && node.matches('.post')) {
+            const pc = node.querySelector('.post-content');
+            if (pc) attachDoubleTap(pc);
+          }
+        });
+      });
+    });
+    mo.observe(container, { childList: true, subtree: false });
+  }
+})();
+</script>
+
 </body>
 </html>
+
 
 
 
