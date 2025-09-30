@@ -40,25 +40,18 @@
         }
 
         /* Posts Container */
-        .posts-container {
-            flex: 1;
-            overflow-y: scroll;
-            scroll-snap-type: y mandatory;
-            -webkit-overflow-scrolling: touch;
-        }
+.posts-container {
+  flex: 1;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  /* scroll-snap-type: y mandatory;  --> bunu sil */
+}
 
-        .posts-container::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Post */
-        .post {
-            min-height: 100%;
-            scroll-snap-align: start;
-            display: flex;
-            flex-direction: column;
-            background: #000;
-        }
+.post {
+  min-height: auto; /* tam ekran yerine içerik kadar */
+  margin-bottom: 20px; /* postlar arasında boşluk */
+  /* scroll-snap-align: start; --> bunu sil */
+}
 
         .post-header {
             display: flex;
@@ -896,6 +889,7 @@ document.querySelectorAll(".action-btn").forEach(btn => {
 
 </body>
 </html>
+
 
 
 
