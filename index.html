@@ -300,60 +300,6 @@
   color: #a8a8a8;
   margin-left: 10px;
 }
-.action-btn.liked {
-  color: #ed4956;
-  animation: pop 0.3s ease;
-}
-
-@keyframes pop {
-  0%   { transform: scale(1); }
-  50%  { transform: scale(1.4); }
-  100% { transform: scale(1); }
-}
-.nav-btn:active {
-  transform: scale(1.2);
-  transition: transform 0.2s;
-}
-.reels-popup {
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.95);
-  display: none;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  z-index: 500;
-}
-
-.reels-popup img, .reels-popup video {
-  max-width: 90%;
-  max-height: 70%;
-  border-radius: 12px;
-}
-
-.reels-caption {
-  margin-top: 15px;
-  font-size: 16px;
-  color: #fff;
-  text-align: center;
-  padding: 0 20px;
-}
-
-.reels-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  font-size: 24px;
-  background: none;
-  border: none;
-  color: #fff;
-  cursor: pointer;
-}
-.post-expand {
-  font-size: 20px;
-  cursor: pointer;
-  margin-left: 10px;
-}
 
     </style>
 </head>
@@ -376,8 +322,7 @@
                         </div>
                         <div class="post-subtitle">Eğitim İçeriği</div>
                     </div>
-<div class="post-menu">⋮</div>
-<div class="post-expand">⛶</div>
+                    <div class="post-menu">⋮</div>
                 </div>
   <div class="post-content">
     <img src="post1.png" alt="Post 1" class="post-image">
@@ -893,13 +838,7 @@
                 <button onclick="closeSearch()">Kapat</button>
             </div>
         </div>
-        <div class="reels-popup" id="reelsPopup">
-  <button class="reels-close" onclick="closeReels()">✖</button>
-  <img id="reelsMedia" src="" alt="Reels">
-  <div class="reels-caption" id="reelsCaption"></div>
-</div>
-    </div> 
-    <script>
+    </div> <script>
         const postsContainer = document.getElementById("postsContainer");
 
         let startY = 0;
@@ -1112,71 +1051,9 @@ if (post1) {
 });
 
 </script>
-<script>
-    const reelsPopup = document.getElementById("reelsPopup");
-const reelsMedia = document.getElementById("reelsMedia");
-const reelsCaption = document.getElementById("reelsCaption");
 
-document.querySelectorAll(".post-content").forEach(post => {
-  post.addEventListener("click", () => {
-    const img = post.querySelector("img");
-    const caption = post.closest(".post").querySelector(".post-caption");
-
-    if (img) {
-      reelsMedia.src = img.src;
-      reelsMedia.style.display = "block";
-    }
-    if (caption) {
-      reelsCaption.textContent = caption.innerText;
-    }
-
-    reelsPopup.style.display = "flex";
-  });
-});
-
-function closeReels() {
-  reelsPopup.style.display = "none";
-  reelsMedia.src = "";
-}
-
-</script>
-    <script>
-        const reelsPopup = document.getElementById("reelsPopup");
-const reelsMedia = document.getElementById("reelsMedia");
-const reelsCaption = document.getElementById("reelsCaption");
-
-document.querySelectorAll(".post-expand").forEach(btn => {
-  btn.addEventListener("click", () => {
-    const post = btn.closest(".post");
-    const img = post.querySelector(".post-image");
-    const caption = post.querySelector(".post-caption");
-
-    if (img) {
-      reelsMedia.src = img.src;
-      reelsMedia.style.display = "block";
-    }
-    if (caption) {
-      reelsCaption.textContent = caption.innerText;
-    }
-
-    reelsPopup.classList.add("show");
-  });
-});
-
-function closeReels() {
-  reelsPopup.classList.remove("show");
-  setTimeout(() => {
-    reelsMedia.src = "";
-  }, 400);
-}
-
-    </script>
 </body>
 </html>
-
-
-
-
 
 
 
