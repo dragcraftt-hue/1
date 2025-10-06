@@ -288,18 +288,25 @@
   color: #a8a8a8;
   margin-left: 10px;
 }
-        .sound-btn {
+.sound-btn {
   position: absolute;
-  right: 15px;
-  top: 12px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
+  top: 8px;
+  right: 12px;
+  background: none;
   border: none;
-  border-radius: 50%;
-  font-size: 18px;
-  padding: 8px;
+  color: #fff;
+  font-size: 20px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 999;
+}
+.header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 16px;
+  background: #000;
+  border-bottom: 1px solid #262626;
 }
 
 
@@ -309,10 +316,11 @@
 <body>
     <div class="container">
 <div class="header">
-    <div class="time" id="time">20:56</div>
-    <div class="producer">Yapımcı: Sude Naz Türkeli</div>
-    <button id="soundToggle" class="sound-btn">🔇</button>
+  <div class="time" id="time">16:39</div>
+  <div class="producer">Yapımcı: Sude Naz Türkeli</div>
+  <button id="soundToggle" class="sound-btn">🔇</button>
 </div>
+
 
 <!-- /post1 -->
         <div class="posts-container" id="postsContainer">
@@ -336,7 +344,7 @@
     </audio>
     <button id="muteBtn" class="mute-btn">🔇</button>
   </div>
-                    <audio id="post1-audio" src="post1music.mp3"></audio>
+                    <audio src="post1music.mp3" loop></audio>
                 <div class="post-actions">
                     <div class="action-group">
                         <button class="action-btn" onclick="likePost(this)">🤍</button>
@@ -375,7 +383,7 @@
   <div class="post-content">
     <img src="post2.jpg" alt="Post 2" class="post-image">
     <audio id="postAudio" autoplay loop muted>
-      <source src="post2music.mp3" type="audio/mp3">
+      <audio src="post2music.mp3" loop></audio>
       Tarayıcınız ses etiketini desteklemiyor.
     </audio>
     <button id="muteBtn" class="mute-btn">🔇</button>
@@ -1039,49 +1047,29 @@ function closeSearch() {
 })();
 </script>
 <script>
-const audio = document.getElementById("post1-audio");
-const post1 = document.querySelector(".post"); // 1. post
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      audio.play().catch(() => {}); // Post 1 görünürse müzik başlasın
-    } else {
-      audio.pause(); // Post 1 görünmezse müzik dursun
-    }
-  });
-}, { threshold: 0.6 }); // %60 görünürse çalışır
-
-if (post1) {
-  observer.observe(post1);
-}
-</script>
-<script>
 const soundToggle = document.getElementById("soundToggle");
 let soundEnabled = false;
 
-// Her posttaki audio etiketini bul
 const posts = document.querySelectorAll(".post");
 
-// Her post görünürlük durumuna göre müziği başlat/durdur
-const observer = new IntersectionObserver((entries) => {
+// Her postu gözlemle
+const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     const audio = entry.target.querySelector("audio");
     if (!audio) return;
 
     if (entry.isIntersecting && soundEnabled) {
-      // Ekranda görünen post
       audio.play().catch(() => {});
     } else {
       audio.pause();
     }
   });
-}, { threshold: 0.6 }); // %60 görünür olunca aktifleşir
+}, { threshold: 0.6 });
 
-// Tüm postları gözlemle
+// Tüm postları izle
 posts.forEach(post => observer.observe(post));
 
-// Ses tuşuna basılınca kontrol et
+// Ses butonu
 soundToggle.addEventListener("click", () => {
   soundEnabled = !soundEnabled;
   soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
@@ -1090,13 +1078,12 @@ soundToggle.addEventListener("click", () => {
     const audio = post.querySelector("audio");
     if (!audio) return;
 
-    if (soundEnabled) {
-      // sadece görünür postu çal
-      const rect = post.getBoundingClientRect();
-      const visible = rect.top >= 0 && rect.bottom <= window.innerHeight;
-      if (visible) audio.play().catch(() => {});
+    const rect = post.getBoundingClientRect();
+    const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+
+    if (soundEnabled && isVisible) {
+      audio.play().catch(() => {});
     } else {
-      // tüm sesleri durdur
       audio.pause();
     }
   });
@@ -1104,8 +1091,10 @@ soundToggle.addEventListener("click", () => {
 </script>
 
 
+
 </body>
 </html>
+
 
 
 
