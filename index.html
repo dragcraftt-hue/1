@@ -283,23 +283,25 @@
 
 /* post-content pozisyonunun relative olması gerekiyor */
 .post-content { position: relative; overflow: hidden; }
-.mute-btn {
-  position: absolute;
-  bottom: 15px;
-  right: 15px;
-  background: rgba(0,0,0,0.6);
-  color: #fff;
-  border: none;
-  border-radius: 50%;
-  font-size: 20px;
-  padding: 10px;
-  cursor: pointer;
-}
 .producer {
   font-size: 13px;
   color: #a8a8a8;
   margin-left: 10px;
 }
+        #globalMuteBtn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 18px;
+  padding: 8px;
+  cursor: pointer;
+  z-index: 500;
+}
+
 
     </style>
 </head>
@@ -308,6 +310,7 @@
 <div class="header">
     <div class="time" id="time">20:56</div>
     <div class="producer">Yapımcı: Sude Naz Türkeli</div>
+    <button id="globalMuteBtn" class="mute-btn">🔇</button>
 </div>
 
 <!-- /post1 -->
@@ -1053,21 +1056,49 @@ if (post1) {
 }
 </script>
 <script>
-  muteBtn.addEventListener("click", () => {
-  if (audio.paused) {
-    audio.muted = false;
-    audio.play(); // her zaman başlat
-    muteBtn.textContent = "🔊";
-  } else {
-    audio.pause();
-    muteBtn.textContent = "🔇";
-  }
-});
+const globalMuteBtn = document.getElementById("globalMuteBtn");
+let soundEnabled = false;
 
+// Tüm postların müziklerini topla
+const audios = document.querySelectorAll("audio[id^='post']");
+
+// Görünen postu tespit eden gözlemci
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const audio = entry.target.querySelector("audio[id^='post']");
+    if (!audio) return;
+
+    if (entry.isIntersecting && soundEnabled) {
+      audio.play().catch(()=>{});
+    } else {
+      audio.pause();
+    }
+  });
+}, { threshold: 0.6 }); // %60 görünür olunca algılar
+
+document.querySelectorAll(".post").forEach(post => observer.observe(post));
+
+// Tuşa tıklanınca tüm sesleri aç/kapat
+globalMuteBtn.addEventListener("click", () => {
+  soundEnabled = !soundEnabled;
+  globalMuteBtn.textContent = soundEnabled ? "🔊" : "🔇";
+
+  audios.forEach(a => {
+    if (!soundEnabled) {
+      a.pause();
+    } else {
+      // sadece ekranda görünüyorsa çal
+      const rect = a.closest(".post").getBoundingClientRect();
+      const visible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+      if (visible) a.play().catch(()=>{});
+    }
+  });
+});
 </script>
 
 </body>
 </html>
+
 
 
 
