@@ -39,7 +39,7 @@
 .time {
     font-size: 15px;
     font-weight: 600;
-    margin-right: 15px; /* Yapımcıdan biraz ayırma */
+    margin-right: 15px; /* dan biraz ayırma */
 }
 
         /* Posts Container */
@@ -339,10 +339,79 @@
   z-index: 999;
   padding: 8px; /* Tıklama alanını büyüttüm */
 }
+        /* Ses Açıklama Katmanı CSS */
+.sound-tutorial-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75); /* Yarı saydam siyah */
+    display: none; /* Başlangıçta gizli */
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Her şeyin üstünde */
+}
+
+.tutorial-content {
+    background: #1c1c1c;
+    padding: 25px 35px;
+    border-radius: 12px;
+    text-align: center;
+    color: #fff;
+    max-width: 80%;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+    border: 1px solid #333;
+}
+
+.tutorial-content p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.tutorial-content button {
+    background: #0095f6;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.tutorial-content button:hover {
+    background: #007bb5;
+}
+
+/* Ses Tuşunu İşaret Etmek İçin (Opsiyonel) */
+/* Ses butonu yanıp sönüyormuş gibi görünmesi için */
+@keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+    70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+}
+
+#soundToggle {
+    animation: none; /* Başlangıçta animasyon yok */
+    border-radius: 50%; /* Görsel olarak işaret etmek için daire */
+}
+.sound-tutorial-overlay.visible #soundToggle {
+    animation: pulse 1s infinite;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="sound-tutorial-overlay" id="soundTutorialOverlay">
+    <div class="tutorial-content">
+        <p>🔊 Buradan sesi açıp kapatabilirsiniz!</p>
+        <button onclick="closeSoundTutorial()">Anladım</button>
+    </div>
+</div>
+
 <div class="header">
   <div class="time" id="time">16:39</div>
   <div class="producer">Yapımcı: Sude Naz Türkeli</div>
@@ -923,13 +992,9 @@
 
         <div class="search-popup" id="searchPopup">
             <div class="search-content">
-                <h2>YAPIMCILAR</h2>
+                <h2>YAPIMCI</h2>
                 <ul>
-                    <li>sude_naz</li>
-                    <li>zeynep</li>
-                    <li>irem_sude</li>
-                    <li>nisanur</li>
-                    <li>sude</li>
+                    <li>Sude Naz Türkeli</li>
                 </ul>
                 <button onclick="closeSearch()">Kapat</button>
             </div>
@@ -1191,8 +1256,52 @@
             }
         });
     </script>
+<script>
+    const tutorialOverlay = document.getElementById("soundTutorialOverlay");
+    const soundToggleBtn = document.getElementById("soundToggle");
+    const container = document.querySelector(".container");
+
+    // Tutorial'ı gösterme ve sesi kapatma mantığını çalıştırır
+    function showSoundTutorial() {
+        // Tarayıcı otomatik oynatma kısıtlamaları nedeniyle ses ilk başta kapalı olmalı
+        soundToggleBtn.textContent = "🔇"; 
+        
+        // Ses butonunun yanıp sönmesini başlat
+        soundToggleBtn.style.animation = "pulse 1.5s infinite";
+
+        // Tutorial'ı göster
+        tutorialOverlay.style.display = "flex";
+        
+        // Sayfa kaydırmasını engelle (Kullanıcı etkileşimde bulunana kadar)
+        document.body.style.overflow = 'hidden'; 
+    }
+
+    // Tutorial'ı gizler
+    function closeSoundTutorial() {
+        tutorialOverlay.style.display = "none";
+        
+        // Ses butonunun yanıp sönmesini durdur
+        soundToggleBtn.style.animation = "none";
+        
+        // Sayfa kaydırmasını geri aç
+        document.body.style.overflow = ''; 
+
+        // Kullanıcı bir kez tıkladıktan sonra tekrar göstermemek için yerel depolamaya kaydet
+        localStorage.setItem('soundTutorialShown', 'true');
+    }
+
+    // Sayfa yüklendiğinde kontrol et
+    window.addEventListener('load', () => {
+        // Eğer daha önce gösterilmediyse, tutorial'ı göster
+        if (localStorage.getItem('soundTutorialShown') !== 'true') {
+            // Küçük bir gecikme, diğer bileşenlerin yüklenmesine izin verir
+            setTimeout(showSoundTutorial, 500); 
+        }
+    });
+</script>
 
 </body>
 </html>
+
 
 
