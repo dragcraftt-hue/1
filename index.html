@@ -32,6 +32,7 @@
             padding: 10px 16px;
             background: #000;
             border-bottom: 1px solid #262626;
+            position: relative; /* sound-btn için */
         }
 
         .time {
@@ -70,7 +71,20 @@
             border-radius: 50%;
             background: #333;
             border: 2px solid #555;
+            /* Placeholder görseller yerine gerçek görseller için */
+            background-size: cover;
+            background-position: center;
         }
+
+        /* Avatar Görselleri */
+        .post:nth-child(1) .post-avatar { background-image: url('sude_naz.jpg'); }
+        .post:nth-child(2) .post-avatar { background-image: url('zeynep.jpg'); }
+        .post:nth-child(3) .post-avatar { background-image: url('irem_sude.jpg'); }
+        .post:nth-child(4) .post-avatar { background-image: url('nisanur.jpg'); }
+        .post:nth-child(5) .post-avatar { background-image: url('sude.jpg'); }
+        /* Diğer postlar için rastgele placeholderlar */
+        .post:nth-child(n+6) .post-avatar { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        
 
         .post-info {
             flex: 1;
@@ -101,6 +115,7 @@
 .post-content {
   position: relative;
   width: 100%;
+  height: 450px; /* Post içeriğinin yüksekliğini belirle (Önemli!) */
   background: #000; /* siyah çerçeve kalsın */
   display: flex;
   align-items: center;
@@ -112,6 +127,14 @@
   max-height: 100%;
   object-fit: contain; /* resmi kırpmadan oturtur */
 }
+
+        /* Post Görselleri (Placeholder yerine) */
+        .post:nth-child(1) .post-content .post-image { content: url('post1.png'); }
+        .post:nth-child(2) .post-content .post-image { content: url('post2.jpg'); }
+        .post:nth-child(3) .post-content .post-image { content: url('post3.jpg'); }
+        .post:nth-child(4) .post-content .post-image { content: url('post4.jpg'); }
+        .post:nth-child(5) .post-content .post-image { content: url('post5.jpg'); }
+
 
         .post-actions {
             display: flex;
@@ -181,7 +204,7 @@
   z-index: 100;
   padding: 0;
   margin: 0;
-  border-top: none;  /* siyah çizgi/şerit istemiyorsan kaldır */
+  border-top: 1px solid #262626;  /* siyah çizgi ekledim */
 }
 
         .nav-btn {
@@ -290,27 +313,17 @@
 }
 .sound-btn {
   position: absolute;
-  top: 8px;
+  top: 50%;
   right: 12px;
+  transform: translateY(-50%);
   background: none;
   border: none;
   color: #fff;
   font-size: 20px;
   cursor: pointer;
   z-index: 999;
+  padding: 8px; /* Tıklama alanını büyüttüm */
 }
-.header {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 16px;
-  background: #000;
-  border-bottom: 1px solid #262626;
-}
-
-
-
     </style>
 </head>
 <body>
@@ -318,15 +331,14 @@
 <div class="header">
   <div class="time" id="time">16:39</div>
   <div class="producer">Yapımcı: Sude Naz Türkeli</div>
-  <button id="soundToggle" class="sound-btn">🔈</button>
+  <button id="soundToggle" class="sound-btn">🔇</button>
 </div>
 
 
-<!-- /post1 -->
-        <div class="posts-container" id="postsContainer">
+<div class="posts-container" id="postsContainer">
             <div class="post">
                 <div class="post-header">
-                    <img src="sude_naz.jpg" alt="Sude Naz" class="post-avatar">
+                    <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                     <div class="post-info">
                         <div class="post-username">
                             sude_naz
@@ -336,14 +348,13 @@
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
-  <div class="post-content">
-    <img src="post1.png" alt="Post 1" class="post-image">
-    <audio id="postAudio" autoplay loop muted>
-      <source src="post1music.mp3" type="audio/mp3">
-      Tarayıcınız ses etiketini desteklemiyor.
-    </audio>
-  </div>
-                    <audio src="post1music.mp3" loop></audio>
+                <div class="post-content">
+                    <img src="post1.png" alt="Post 1" class="post-image">
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
+                </div>
                 <div class="post-actions">
                     <div class="action-group">
                         <button class="action-btn" onclick="likePost(this)">🤍</button>
@@ -352,24 +363,21 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes1">1,234</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="1">1,234</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">sude_naz</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">45 yorumun tümünü gör</div>
                 <div class="post-comments">
-    <span class="username-caption">burcin_hoca</span> mükemmel olmuş 👏
-</div>
+                    <span class="username-caption">burcin_hoca</span> mükemmel olmuş 👏
+                </div>
                 <div class="post-time">2 saat önce</div>
             </div>
 
-    
-            
-        <div class="posts-container" id="postsContainer">
             <div class="post">
                 <div class="post-header">
-                    <img src="asd.jpg" alt="zeynep" class="post-avatar">
+                    <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                     <div class="post-info">
                         <div class="post-username">
                             zeynep
@@ -379,15 +387,13 @@
                     </div>
                     <div class="post-menu">⋮</div>
                 </div>
-  <div class="post-content">
-    <img src="post2.jpg" alt="Post 2" class="post-image">
-    <audio id="postAudio" autoplay loop muted>
-      <audio src="post2music.mp3" loop></audio>
-      Tarayıcınız ses etiketini desteklemiyor.
-    </audio>
-    
-  </div>
-                    <audio id="post1-audio" src="post1music.mp3"></audio>
+                <div class="post-content">
+                    <img src="post2.jpg" alt="Post 2" class="post-image">
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
+                </div>
                 <div class="post-actions">
                     <div class="action-group">
                         <button class="action-btn" onclick="likePost(this)">🤍</button>
@@ -396,7 +402,7 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes1">1,134</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="2">1,134</span> beğenme</div>
                 <div class="post-caption">
                     <span class="username-caption">zeynep</span>
                     İçerik açıklaması buraya gelecek
@@ -406,13 +412,9 @@
             </div>
 
 
-
-
-            
-
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar"></div>
+                    <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                     <div class="post-info">
                         <div class="post-username">
                             irem_sude
@@ -423,7 +425,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="post3.jpg" alt="Post 3" class="post-image">
+                     <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3"> 
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -433,9 +439,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes3">3,789</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="3">3,789</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">irem_sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">89 yorumun tümünü gör</div>
@@ -444,7 +450,7 @@
 
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar"></div>
+                    <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                     <div class="post-info">
                         <div class="post-username">
                             nisanur
@@ -455,7 +461,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="post4.jpg" alt="Post 4" class="post-image">
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -465,9 +475,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes4">4,123</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="4">4,123</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">nisanur</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">92 yorumun tümünü gör</div>
@@ -476,7 +486,7 @@
 
             <div class="post">
                 <div class="post-header">
-                    <div class="post-avatar"></div>
+                    <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                     <div class="post-info">
                         <div class="post-username">
                             sude
@@ -487,7 +497,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="post5.jpg" alt="Post 5" class="post-image">
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -497,15 +511,15 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes5">5,567</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="5">5,567</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">134 yorumun tümünü gör</div>
                 <div class="post-time">15 dakika önce</div>
             </div>
-
+            
             <div class="post">
                 <div class="post-header">
                     <div class="post-avatar"></div>
@@ -519,7 +533,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder6.jpg" alt="Post 6" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -529,9 +547,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes6">6,234</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="6">6,234</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">sude_naz</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">156 yorumun tümünü gör</div>
@@ -555,7 +573,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder7.jpg" alt="Post 7" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -565,9 +587,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes7">7,891</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="7">7,891</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">zeynep</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">178 yorumun tümünü gör</div>
@@ -587,7 +609,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder8.jpg" alt="Post 8" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -597,9 +623,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes8">8,345</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="8">8,345</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">irem_sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">201 yorumun tümünü gör</div>
@@ -623,7 +649,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder9.jpg" alt="Post 9" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -633,9 +663,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes9">9,456</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="9">9,456</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">nisanur</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">223 yorumun tümünü gör</div>
@@ -659,7 +689,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder10.jpg" alt="Post 10" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -669,9 +703,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes10">10,567</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="10">10,567</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">245 yorumun tümünü gör</div>
@@ -691,7 +725,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder11.jpg" alt="Post 11" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -701,9 +739,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes11">11,234</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="11">11,234</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">sude_naz</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">267 yorumun tümünü gör</div>
@@ -723,7 +761,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder12.jpg" alt="Post 12" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -733,9 +775,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes12">12,456</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="12">12,456</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">zeynep</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">289 yorumun tümünü gör</div>
@@ -755,7 +797,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder13.jpg" alt="Post 13" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -765,9 +811,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes13">13,789</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="13">13,789</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">irem_sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">312 yorumun tümünü gör</div>
@@ -787,7 +833,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder14.jpg" alt="Post 14" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post2music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -797,9 +847,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes13">13,789</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="14">13,789</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">nisanur</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">312 yorumun tümünü gör</div>
@@ -820,7 +870,11 @@
                     <div class="post-menu">⋮</div>
                 </div>
                 <div class="post-content">
-                    <div class="post-image"></div>
+                    <img src="placeholder15.jpg" alt="Post 15" class="post-image"> 
+                    <audio class="post-audio" loop muted>
+                        <source src="post1music.mp3" type="audio/mp3">
+                        Tarayıcınız ses etiketini desteklemiyor.
+                    </audio>
                 </div>
                 <div class="post-actions">
                     <div class="action-group">
@@ -830,9 +884,9 @@
                     </div>
                     <button class="action-btn">🔖</button>
                 </div>
-                <div class="post-likes"><span id="likes13">11,733</span> beğenme</div>
+                <div class="post-likes"><span class="likes-count" data-post-id="15">11,733</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">stomagram</span>
+                    <span class="username-caption">sude</span>
                     İçerik açıklaması buraya gelecek
                 </div>
                 <div class="post-comments">3120 yorumun tümünü gör</div>
@@ -842,7 +896,9 @@
 
                 <div class="post-time">Şimdi</div>
             </div>
-        </div> <div class="bottom-nav">
+        </div> 
+        
+        <div class="bottom-nav">
             <button class="nav-btn active" data-action="home">🏠</button>
             <button class="nav-btn" data-action="search">🔍</button>
             <button class="nav-btn" data-action="add">➕</button>
@@ -863,9 +919,11 @@
                 <button onclick="closeSearch()">Kapat</button>
             </div>
         </div>
-    </div> <script>
-        const postsContainer = document.getElementById("postsContainer");
+    </div> 
 
+    <script>
+        // Sayfa Yenileme (Pull to Refresh)
+        const postsContainer = document.getElementById("postsContainer");
         let startY = 0;
         let isPulling = false;
 
@@ -891,214 +949,233 @@
             isPulling = false;
         });
     </script>
-<script>
-function updateTime() {
-    const timeElement = document.getElementById("time");
-    const now = new Date();
-    let hours = now.getHours();
-    let minutes = now.getMinutes();
 
-    // Tek basamaklı sayılara 0 ekle (09:05 gibi)
-    if (hours < 10) hours = "0" + hours;
-    if (minutes < 10) minutes = "0" + minutes;
+    <script>
+        // Saat Güncelleme
+        function updateTime() {
+            const timeElement = document.getElementById("time");
+            const now = new Date();
+            let hours = now.getHours();
+            let minutes = now.getMinutes();
 
-    timeElement.textContent = hours + ":" + minutes;
-}
+            // Tek basamaklı sayılara 0 ekle (09:05 gibi)
+            if (hours < 10) hours = "0" + hours;
+            if (minutes < 10) minutes = "0" + minutes;
 
-// İlk çalıştırma
-updateTime();
-// Her 1 saniyede bir saati güncelle
-setInterval(updateTime, 1000);
-</script>
-<script>
-function likePost(button) {
-    button.classList.toggle("liked");
-    if (button.classList.contains("liked")) {
-        button.textContent = "❤️"; // kırmızı kalp
-    } else {
-        button.textContent = "🤍"; // boş kalp
-    }
-}
-</script>
-<script>
-document.querySelectorAll(".action-btn").forEach(btn => {
-  if (btn.textContent.includes("📤")) {
-    btn.addEventListener("click", async () => {
-      if (navigator.share) {
-        try {
-          await navigator.share({
-            title: "Deneme Sitesi",
-            text: "Buna bir göz at! 👀",
-            url: window.location.href
-          });
-        } catch (err) {
-          console.log("Paylaşım iptal edildi:", err);
+            timeElement.textContent = hours + ":" + minutes;
         }
-      } else {
-        alert("Cihazınız paylaşımı desteklemiyor.");
-      }
-    });
-  }
-});
-</script>
-<script>
-    const navButtons = document.querySelectorAll(".nav-btn");
-const searchPopup = document.getElementById("searchPopup");
 
-navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-        const action = btn.getAttribute("data-action");
+        updateTime();
+        setInterval(updateTime, 1000);
+    </script>
 
-        if (action === "search") {
-            searchPopup.style.display = "flex";
-        } else if (action !== "home") {
-            alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
+    <script>
+        // Beğenme İşlevi (Tek Tıklama)
+        function likePost(button) {
+            button.classList.toggle("liked");
+            const likesSpan = button.closest('.post').querySelector('.likes-count');
+            
+            // Basit beğeni sayacı simülasyonu
+            let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
+            
+            if (button.classList.contains("liked")) {
+                button.textContent = "❤️"; // kırmızı kalp
+                count += 1;
+            } else {
+                button.textContent = "🤍"; // boş kalp
+                count -= 1;
+            }
+            likesSpan.textContent = count.toLocaleString();
         }
-    });
-});
-
-function closeSearch() {
-    searchPopup.style.display = "none";
-}
-</script>
-        <script>
-(function(){
-  // Eğer likePost fonksiyonun varsa onu kullanacağız; yoksa kendi toggle uygular.
-  function triggerLikeForPost(post) {
-    const likeBtn = post.querySelector('.action-group .action-btn') || post.querySelector('.action-btn');
-    // likePost mevcutsa çağır
-    if (typeof likePost === 'function' && likeBtn) {
-      // sadece beğenmiyse beğendir (çift tık animasyonunda çift beğeni olmasın)
-      if (!likeBtn.classList.contains('liked')) likePost(likeBtn);
-    } else if (likeBtn) {
-      likeBtn.classList.toggle('liked');
-      likeBtn.textContent = likeBtn.classList.contains('liked') ? '❤️' : '🤍';
-    }
-  }
-
-  // Double-tap detection for touch (simple)
-  function attachDoubleTap(el) {
-    let lastTap = 0;
-    el.addEventListener('dblclick', (e) => {
-      showHeart(el);
-      const post = el.closest('.post');
-      if (post) triggerLikeForPost(post);
-    });
-
-    // for touch devices: custom double-tap detection
-    el.addEventListener('touchend', function(e) {
-      const currentTime = Date.now();
-      const tapLength = currentTime - lastTap;
-      if (tapLength < 300 && tapLength > 0) {
-        e.preventDefault();
-        showHeart(el);
-        const post = el.closest('.post');
-        if (post) triggerLikeForPost(post);
-      }
-      lastTap = currentTime;
-    });
-  }
-
-  // show heart animation inside a post-content element
-  function showHeart(postContentEl) {
-    // create heart element
-    let heart = document.createElement('div');
-    heart.className = 'double-heart';
-    heart.innerHTML = '❤️';
-    // append and animate
-    postContentEl.appendChild(heart);
-    // force reflow then add show class to trigger CSS animation
-    void heart.offsetWidth;
-    heart.classList.add('show');
-
-    // remove after animation (700ms + small buffer)
-    setTimeout(() => {
-      heart.classList.remove('show');
-      // allow the fade out animation to end then remove
-      setTimeout(() => {
-        if (heart && heart.parentElement) heart.parentElement.removeChild(heart);
-      }, 500);
-    }, 800);
-  }
-
-  // Attach to all post-content elements
-  document.querySelectorAll('.post-content').forEach(el => {
-    // ensure element is positioned relative (CSS also sets it, but double safety)
-    if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
-    attachDoubleTap(el);
-  });
-
-  // Eğer yeni postlar dinamik olarak eklenecekse, MutationObserver ile bağlayabilirsin:
-  const container = document.getElementById('postsContainer');
-  if (container) {
-    const mo = new MutationObserver(muts => {
-      muts.forEach(m => {
-        m.addedNodes.forEach(node => {
-          if (node.nodeType === 1 && node.matches('.post')) {
-            const pc = node.querySelector('.post-content');
-            if (pc) attachDoubleTap(pc);
-          }
+    </script>
+    
+    <script>
+        // Paylaşım İşlevi
+        document.querySelectorAll(".action-btn").forEach(btn => {
+            if (btn.textContent.includes("📤")) {
+                btn.addEventListener("click", async () => {
+                    if (navigator.share) {
+                        try {
+                            await navigator.share({
+                                title: "Stomagram Postu",
+                                text: "Buna bir göz at! 👀",
+                                url: window.location.href
+                            });
+                        } catch (err) {
+                            console.log("Paylaşım iptal edildi:", err);
+                        }
+                    } else {
+                        alert("Cihazınız paylaşımı desteklemiyor.");
+                    }
+                });
+            }
         });
-      });
-    });
-    mo.observe(container, { childList: true, subtree: false });
-  }
-})();
-</script>
-<script>
-const soundToggle = document.getElementById("soundToggle");
-let soundEnabled = false;
+    </script>
 
-const posts = document.querySelectorAll(".post");
+    <script>
+        // Alt Navigasyon ve Arama Pop-up
+        const navButtons = document.querySelectorAll(".nav-btn");
+        const searchPopup = document.getElementById("searchPopup");
 
-// Her postu gözlemle
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    const audio = entry.target.querySelector("audio");
-    if (!audio) return;
+        navButtons.forEach(btn => {
+            btn.addEventListener("click", () => {
+                const action = btn.getAttribute("data-action");
 
-    if (entry.isIntersecting && soundEnabled) {
-      audio.play().catch(() => {});
-    } else {
-      audio.pause();
-    }
-  });
-}, { threshold: 0.6 });
+                // Aktif butonu değiştir
+                navButtons.forEach(b => b.classList.remove('active'));
+                if (action !== 'search') {
+                    btn.classList.add('active');
+                } else {
+                     // Sadece arama butonuna basıldığında aktif kalabilir, diğerleri uyarır
+                }
+                
 
-// Tüm postları izle
-posts.forEach(post => observer.observe(post));
+                if (action === "search") {
+                    searchPopup.style.display = "flex";
+                } else if (action !== "home") {
+                    // Ana sayfa butonu için uyarı yok
+                    alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
+                }
+            });
+        });
 
-// Ses butonu
-soundToggle.addEventListener("click", () => {
-  soundEnabled = !soundEnabled;
-  soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
+        function closeSearch() {
+            searchPopup.style.display = "none";
+        }
+    </script>
+    
+    <script>
+        // Çift Tıklama Beğenme İşlevi
+        (function(){
+            function triggerLikeForPost(post) {
+                const likeBtn = post.querySelector('.action-group .action-btn') || post.querySelector('.action-btn');
+                // Eğer zaten beğenilmişse tekrar beğenme (likePost kendi içinde toggle yapar)
+                if (typeof likePost === 'function' && likeBtn) {
+                    if (!likeBtn.classList.contains('liked')) {
+                        likePost(likeBtn);
+                    }
+                } 
+            }
 
-  posts.forEach(post => {
-    const audio = post.querySelector("audio");
-    if (!audio) return;
+            function attachDoubleTap(el) {
+                let lastTap = 0;
+                // Double-click for desktop
+                el.addEventListener('dblclick', (e) => {
+                    showHeart(el);
+                    const post = el.closest('.post');
+                    if (post) triggerLikeForPost(post);
+                });
 
-    const rect = post.getBoundingClientRect();
-    const isVisible = rect.top >= 0 && rect.bottom <= window.innerHeight;
+                // Double-tap for touch devices
+                el.addEventListener('touchend', function(e) {
+                    const currentTime = Date.now();
+                    const tapLength = currentTime - lastTap;
+                    if (tapLength < 300 && tapLength > 0) {
+                        e.preventDefault();
+                        showHeart(el);
+                        const post = el.closest('.post');
+                        if (post) triggerLikeForPost(post);
+                    }
+                    lastTap = currentTime;
+                });
+            }
 
-    if (soundEnabled && isVisible) {
-      audio.play().catch(() => {});
-    } else {
-      audio.pause();
-    }
-  });
-});
-</script>
+            function showHeart(postContentEl) {
+                let heart = document.createElement('div');
+                heart.className = 'double-heart';
+                heart.innerHTML = '❤️';
+                postContentEl.appendChild(heart);
+                void heart.offsetWidth; // Reflow
+                heart.classList.add('show');
 
+                setTimeout(() => {
+                    heart.classList.remove('show');
+                    setTimeout(() => {
+                        if (heart && heart.parentElement) heart.parentElement.removeChild(heart);
+                    }, 500);
+                }, 800);
+            }
 
+            document.querySelectorAll('.post-content').forEach(el => {
+                if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+                attachDoubleTap(el);
+            });
+        })();
+    </script>
+    
+    <script>
+        // ** SES YÖNETİMİ İŞLEVİ (DÜZELTİLMİŞ) **
+        const soundToggle = document.getElementById("soundToggle");
+        const posts = document.querySelectorAll(".post");
+        // Başlangıçta ses kapalı, kullanıcı etkileşimi bekliyor
+        let soundEnabled = false; 
+
+        // 1. Post seslerini yöneten fonksiyon
+        function managePostAudio(post, shouldPlay) {
+            const audio = post.querySelector(".post-audio");
+            if (!audio) return;
+
+            if (shouldPlay) {
+                // Sadece çalması isteniyorsa sessizliğini soundEnabled durumuna göre ayarla
+                audio.muted = !soundEnabled; 
+                audio.volume = 0.6; // Ses seviyesini hafifçe düşürdüm (isteğe bağlı)
+                audio.play().catch(error => {
+                    // Tarayıcının otomatik oynatma engelini yakala
+                    console.log("Oynatma engellendi, kullanıcı etkileşimi gerekiyor (Ses tuşu): " + error.message);
+                });
+            } else {
+                audio.pause();
+                audio.currentTime = 0; // Başa sar
+            }
+        }
+
+        // 2. Observer ile hangi postun ekranda olduğunu tespit etme
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                const post = entry.target;
+                
+                if (entry.isIntersecting) {
+                    // Ekrana giren postu oynat
+                    managePostAudio(post, true); 
+                } else {
+                    // Ekranda olmayan postu durdur
+                    managePostAudio(post, false);
+                }
+            });
+        }, { 
+            threshold: 0.6 // Postun %60'ı göründüğünde tetikle
+        });
+
+        // Tüm postları izlemeye başla
+        posts.forEach(post => observer.observe(post));
+
+        // 3. Ses Açma/Kapama (Toggle) Butonu
+        soundToggle.addEventListener("click", () => {
+            soundEnabled = !soundEnabled;
+            soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
+
+            // Tüm aktif postların ses durumunu güncelle
+            posts.forEach(post => {
+                const rect = post.getBoundingClientRect();
+                // Postun viewport'un ortasında veya büyük ölçüde görünür olup olmadığını kontrol et
+                const isVisible = rect.bottom > 0 && rect.top < window.innerHeight; 
+
+                if (isVisible) {
+                    // Görünür olan postun sesini yeni duruma göre ayarla (çalmasını tekrar dene)
+                    managePostAudio(post, true); 
+                }
+            });
+        });
+        
+        // Başlangıç: Tüm sesleri yükle
+        posts.forEach(post => {
+            const audio = post.querySelector(".post-audio");
+            if (audio) {
+                audio.load();
+                audio.muted = true; // Her zaman sessiz kalsın
+            }
+        });
+    </script>
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
