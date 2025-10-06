@@ -400,6 +400,22 @@
 .sound-tutorial-overlay.visible #soundToggle {
     animation: pulse 1s infinite;
 }
+/* Devamını Oku butonu stili */
+.read-more-btn {
+    color: #a8a8a8; /* Gri renk */
+    font-weight: 500;
+    margin-left: 5px;
+    cursor: pointer;
+    user-select: none; /* Metin seçilmesini engelle */
+    display: inline;
+}
+
+/* Kaptanın kendisini etkilemeden butonu hizalamak için */
+.post-caption {
+    padding: 0 16px 8px;
+    font-size: 14px;
+    /* Gerekirse overflow: hidden; eklenebilir ama JS ile kontrol ettiğimiz için gerek yok */
+}
 
     </style>
 </head>
@@ -449,9 +465,9 @@
                 </div>
                 <div class="post-likes"><span class="likes-count" data-post-id="1">1,234</span> beğenme</div>
                 <div class="post-caption">
-                    <span class="username-caption">sude_naz</span>
-                    İçerik açıklaması buraya gelecek
-                </div>
+    <span class="username-caption">sude_naz</span>
+    <span class="caption-text">İçerik açıklaması buraya gelecek ve bu kısım 55 karakterden çok daha uzun olmak zorunda. İşte test ediyoruz. Bakalım bu metin ne zaman bitecek?</span> 
+</div>
                 <div class="post-comments">45 yorumun tümünü gör</div>
                 <div class="post-comments">
                     <span class="username-caption">burcin_hoca</span> mükemmel olmuş 👏
@@ -1299,9 +1315,75 @@
         }
     });
 </script>
+<script>
+    // ** 1. Açıklama Kısaltma İşlevi (Devamını Oku) **
+    const MAX_LENGTH = 55; // Kısaltılacak karakter sayısı
+
+    function initializeCaptionTruncation() {
+        // Tüm post açıklamalarını seç
+        const captions = document.querySelectorAll('.post-caption');
+        
+        captions.forEach(captionDiv => {
+            const fullText = captionDiv.getAttribute('data-full-text');
+            
+            // Eğer daha önce işlenmemişse, tam metni kaydedelim
+            if (!fullText) {
+                const textNode = captionDiv.querySelector('.caption-text');
+                if (!textNode) return; // Eğer metin etiketi yoksa atla
+                
+                const rawText = textNode.textContent.trim();
+                captionDiv.setAttribute('data-full-text', rawText); // Tam metni sakla
+                
+                // Metin 55 karakterden kısa ise hiçbir şey yapma
+                if (rawText.length <= MAX_LENGTH) {
+                    return; 
+                }
+
+                // Metni kısalt
+                const truncatedText = rawText.substring(0, MAX_LENGTH) + '...';
+                
+                // Kısaltılmış metni ayarla
+                textNode.textContent = truncatedText;
+                
+                // Devamını Oku butonunu oluştur
+                const readMoreBtn = document.createElement('span');
+                readMoreBtn.className = 'read-more-btn';
+                readMoreBtn.textContent = 'devamını oku';
+                readMoreBtn.onclick = function(e) {
+                    toggleCaption(captionDiv, textNode, readMoreBtn);
+                    e.stopPropagation(); // Diğer olayları engelle
+                };
+                
+                captionDiv.appendChild(readMoreBtn);
+            }
+        });
+    }
+
+    // 2. Açıklamayı Tamamen Açma/Kısaltma İşlevi
+    function toggleCaption(captionDiv, textNode, button) {
+        const isExpanded = captionDiv.classList.toggle('expanded');
+        const fullText = captionDiv.getAttribute('data-full-text');
+        
+        if (isExpanded) {
+            // Tam metni göster
+            textNode.textContent = fullText;
+            button.textContent = 'gizle'; // Buton metnini değiştir
+        } else {
+            // Kısaltılmış metni göster
+            textNode.textContent = fullText.substring(0, MAX_LENGTH) + '...';
+            button.textContent = 'devamını oku'; // Buton metnini değiştir
+        }
+    }
+
+    // Sayfa yüklendiğinde bu işlevi çalıştır
+    window.addEventListener('load', initializeCaptionTruncation);
+
+    // Diğer JS kodlarınız burada devam eder...
+</script>
 
 </body>
 </html>
+
 
 
 
