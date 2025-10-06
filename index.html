@@ -51,6 +51,29 @@
             letter-spacing: 2px;
         }
 
+        /* YENİ: Bilgi Alanı Stili */
+        #loading-tip {
+            /* Titremeyi önlemek için yaklaşık sabit bir yükseklik verdim */
+            min-height: 40px; 
+            margin: 15px auto;
+            padding: 5px 0;
+            max-width: 80%;
+            color: #a8a8a8; /* Açık gri metin */
+            font-size: 13px;
+            font-style: italic;
+            transition: opacity 0.5s ease-in-out; /* Geçiş animasyonu */
+            opacity: 1;
+        }
+
+        #loading-tip strong {
+            color: #fff; /* Başlık kısmını beyaz yap */
+            font-weight: 600;
+            display: block; /* Yeni satıra indirir */
+            margin-bottom: 3px;
+        }
+        /* YENİ BİLGİ ALANI SONU */
+
+
         /* Tatlı Animasyon: Zıplayan Noktalar */
         .loader-dots {
             display: flex;
@@ -499,6 +522,8 @@
     <div id="preloader">
         <div class="loader-content">
             <p>YÜKLENİYOR</p>
+            <div id="loading-tip">
+                </div>
             <div class="loader-dots">
                 <div></div>
                 <div></div>
@@ -1106,17 +1131,24 @@
         </div> 
     </div> <script>
         // YÜKLEYİCİ GİZLEME JS
+        let tipInterval; // Global olarak tanımlandı
+
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
             
-            // 1. Ana içeriği görünür yap
+            // 1. Rastgele bilgi döngüsünü durdur
+            if (tipInterval) {
+                clearInterval(tipInterval);
+            }
+            
+            // 2. Ana içeriği görünür yap
             mainContent.style.display = 'flex'; // Veya block, ama flex daha iyidir
             
-            // 2. Yükleyiciyi yavaşça gizle (CSS geçişi devreye girer)
+            // 3. Yükleyiciyi yavaşça gizle (CSS geçişi devreye girer)
             preloader.classList.add('hidden');
 
-            // 3. Yükleyici tamamen gizlendikten sonra DOM'dan kaldır (Opsiyonel, temizlik için)
+            // 4. Yükleyici tamamen gizlendikten sonra DOM'dan kaldır (Opsiyonel, temizlik için)
             setTimeout(() => {
                  preloader.style.display = 'none';
             }, 500); // CSS'teki transition süresi (0.5s) kadar bekler
@@ -1485,6 +1517,67 @@
 
         // Diğer JS kodlarınız burada devam eder...
     </script>
+    
+    <script>
+        // ** YENİ: YÜKLEME BİLGİ DÖNGÜSÜ **
+        
+        // 1. Bilgi Listesi (20 Adet)
+        const loadingTips = [
+            "Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.",
+            "bilgi2",
+            "bilgi3",
+            "bilgi4",
+            "bilgi5",
+            "bilgi6",
+            "bilgi7",
+            "bilgi8",
+            "bilgi9",
+            "bilgi10veson"
+        ];
 
+        let tipIndex = 0;
+        const tipElement = document.getElementById('loading-tip');
+        
+        // Diziyi rastgele karıştırır (Fisher-Yates Shuffle)
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+        
+        // Bilgiyi gösterir ve bir sonraki bilgiye geçer
+        function displayNextTip() {
+            if (!tipElement) return;
+
+            // Metin geçişi için opacity'i düşür
+            tipElement.style.opacity = 0; 
+            
+            // 500ms sonra metni değiştir ve opacity'i artır (CSS transition ile eşleşmeli)
+            setTimeout(() => {
+                const tip = loadingTips[tipIndex];
+                
+                // Format: "Bunu Biliyor Muydunuz: \n Bilgi"
+                tipElement.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tip}`;
+                
+                tipElement.style.opacity = 1;
+                
+                // İndeksi bir sonraki bilgiye taşı
+                tipIndex = (tipIndex + 1) % loadingTips.length;
+            }, 500); 
+        }
+
+        // Başlangıçta diziyi karıştır
+        shuffleArray(loadingTips);
+        
+        // İlk bilgiyi hemen göster
+        displayNextTip();
+
+        // Ardından her 1.5 saniyede (1500ms) bir yeni bir bilgi göster
+        // tipInterval değişkeni yukarıdaki load event'inde durdurulacaktır.
+        tipInterval = setInterval(displayNextTip, 1500); 
+        
+        // ** YÜKLEME BİLGİ DÖNGÜSÜ SONU **
+    </script>
 </body>
 </html>
