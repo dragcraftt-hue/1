@@ -17,26 +17,24 @@
             color: #fff;
         }
 
-        /* YÜKLEYİCİ CSS */
-        /* Ana içerik başlangıçta gizli olsun (Yükleyici gösterilirken) */
+        /* --- YÜKLEYİCİ CSS --- */
         #main-content {
             display: none; 
         }
 
-        /* Yükleyici Ekranı */
         #preloader {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000; /* Tamamen siyah arka plan */
+            background: #000;
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 9999; /* Her şeyin üstünde kalmalı */
+            z-index: 9999;
             opacity: 1;
-            transition: opacity 0.5s ease-out; /* Kaybolma animasyonu */
+            transition: opacity 0.5s ease-out;
         }
 
         .loader-content {
@@ -51,30 +49,25 @@
             letter-spacing: 2px;
         }
 
-        /* YENİ: Bilgi Alanı Stili */
         #loading-tip {
-            /* Titremeyi önlemek için yaklaşık sabit bir yükseklik verdim */
             min-height: 40px; 
             margin: 15px auto;
             padding: 5px 0;
             max-width: 80%;
-            color: #a8a8a8; /* Açık gri metin */
+            color: #a8a8a8;
             font-size: 13px;
             font-style: italic;
-            transition: opacity 0.5s ease-in-out; /* Geçiş animasyonu */
+            transition: opacity 0.5s ease-in-out;
             opacity: 1;
         }
 
         #loading-tip strong {
-            color: #fff; /* Başlık kısmını beyaz yap */
+            color: #fff;
             font-weight: 600;
-            display: block; /* Yeni satıra indirir */
+            display: block;
             margin-bottom: 3px;
         }
-        /* YENİ BİLGİ ALANI SONU */
 
-
-        /* Tatlı Animasyon: Zıplayan Noktalar */
         .loader-dots {
             display: flex;
             justify-content: center;
@@ -84,36 +77,25 @@
         .loader-dots div {
             width: 10px;
             height: 10px;
-            background-color: #0095f6; /* Instagram mavisi */
+            background-color: #0095f6;
             border-radius: 50%;
             margin: 0 5px;
             animation: bounce 1.2s infinite ease-in-out both;
         }
 
-        /* Animasyon Gecikmeleri */
-        .loader-dots div:nth-child(2) {
-            animation-delay: -0.4s;
-        }
-
-        .loader-dots div:nth-child(3) {
-            animation-delay: -0.8s;
-        }
+        .loader-dots div:nth-child(2) { animation-delay: -0.4s; }
+        .loader-dots div:nth-child(3) { animation-delay: -0.8s; }
 
         @keyframes bounce {
-            0%, 80%, 100% {
-                transform: scale(0);
-            }
-            40% {
-                transform: scale(1);
-            }
+            0%, 80%, 100% { transform: scale(0); }
+            40% { transform: scale(1); }
         }
 
-        /* Yükleyici Kaybolduğunda */
         #preloader.hidden {
             opacity: 0;
             visibility: hidden;
         }
-        /* YÜKLEYİCİ CSS SONU */
+        /* --- YÜKLEYİCİ CSS SONU --- */
 
 
         .container {
@@ -122,12 +104,10 @@
             flex-direction: column;
         }
 
-
         /* Header */
         .header {
             display: flex;
             align-items: center;
-            /* justify-content: center; yerine başlangıca hizalama */
             justify-content: flex-start; 
             padding: 10px 16px;
             background: #000;
@@ -138,60 +118,46 @@
         .time {
             font-size: 15px;
             font-weight: 600;
-            margin-right: 15px; /* dan biraz ayırma */
+            margin-right: 15px;
         }
 
         /* Posts Container */
         .posts-container {
             flex: 1;
             overflow-y: scroll;
-            -webkit-overflow-scrolling: touch; /* akıcı kaydırma */
+            -webkit-overflow-scrolling: touch;
         }
         .posts-container::-webkit-scrollbar {
             display: none;
         }
 
-        /* Post */
+        /* Post Yapısı */
         .post {
-            /* min-height: 100%; özelliğini kaldırıyoruz */
-            min-height: auto; /* Ya da hiç yazmayın, post içeriği kadar uzun olacaktır */
+            min-height: auto;
             display: flex;
             flex-direction: column;
             background: #000;
         }
 
-
         .post-header {
             display: flex;
             align-items: center;
-            padding: 8px 16px; /* Yüksekliği 10px'ten 8px'e düşürdüm */
+            padding: 8px 16px;
             gap: 12px;
         }
+        
         .post-avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
             background: #333;
             border: 2px solid #555;
-            /* Placeholder görseller yerine gerçek görseller için */
             background-size: cover;
             background-position: center;
+            /* Önceki CSS karmaşası kaldırıldı, görsel HTML'den gelecek */
         }
 
-        /* Avatar Görselleri - CSS ile ilk 5 tanesi tanımlı, gerisi inline style ile çözüldü */
-        .post:nth-child(1) .post-avatar { background-image: url('sude_naz.jpg'); }
-        .post:nth-child(2) .post-avatar { background-image: url('zeynep.jpg'); }
-        .post:nth-child(3) .post-avatar { background-image: url('irem_sude.jpg'); }
-        .post:nth-child(4) .post-avatar { background-image: url('nisanur.jpg'); }
-        .post:nth-child(5) .post-avatar { background-image: url('sude.jpg'); }
-        
-        /* CSS'te tanımlı olmayanlar için varsayılan arka plan (eğer inline style yoksa) */
-        .post:nth-child(n+6) .post-avatar { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-
-
-        .post-info {
-            flex: 1;
-        }
+        .post-info { flex: 1; }
 
         .post-username {
             font-weight: 600;
@@ -201,9 +167,7 @@
             gap: 5px;
         }
 
-        .verified {
-            color: #0095f6;
-        }
+        .verified { color: #0095f6; }
 
         .post-subtitle {
             font-size: 12px;
@@ -215,15 +179,11 @@
             cursor: pointer;
         }
 
-        /* Görselin yüksekliğini dinamikleştirme */
-        /* Görselin yüksekliğini dinamikleştirme */
         .post-content {
             position: relative;
             width: 100%;
-            /* Kaldırıldı: height: 450px; */ 
-            /* Eklenen: Yüksekliği otomatik ayarla */
-            min-height: 200px; /* En az bu kadar olsun */
-            max-height: 80vh; /* Ekranın %80'inden fazla olmasın */
+            min-height: 200px;
+            max-height: 80vh;
             background: #000;
             display: flex;
             align-items: center;
@@ -233,21 +193,14 @@
 
         .post-image {
             width: 100%;
-            height: auto; /* Yüksekliği görselin orijinal oranına göre ayarla */
+            height: auto;
             object-fit: contain;
         }
 
-
-        /* Post Görselleri (Placeholder yerine) */
-        .post:nth-child(1) .post-content .post-image { content: url('post1.png'); }
-        .post:nth-child(2) .post-content .post-image { content: url('post2.jpg'); }
-        /* Diğerleri HTML içinde src ile tanımlı */
-
-        /* Bu kısım görsel ile beğenme butonu arasındaki boşluğu kısaltır */
         .post-actions {
             display: flex;
             align-items: center;
-            padding: 2px 16px; /* 6px'ten 2px'e düşürdüm */
+            padding: 2px 16px;
             gap: 16px;
         }
 
@@ -266,16 +219,14 @@
             padding: 8px;
         }
 
-        .action-btn.liked {
-            color: #ed4956;
-        }
+        .action-btn.liked { color: #ed4956; }
 
-        /* Beğeni sayısının altındaki boşluğu daraltır */
         .post-likes {
-            padding: 0 16px 4px; /* 8px'ten 4px'e düşürdüm */
+            padding: 0 16px 4px;
             font-size: 14px;
             font-weight: 600;
         }
+
         .post-caption {
             padding: 0 16px 8px;
             font-size: 14px;
@@ -293,12 +244,11 @@
         }
 
         .post-time {
-            padding: 0 16px 8px; /* Alt boşluğu 8px'e indirdim */
+            padding: 0 16px 8px;
             font-size: 12px;
             color: #a8a8a8;
             border-bottom: 1px solid #262626;
         }
-
 
         /* Bottom Navigation */
         .bottom-nav {
@@ -314,7 +264,7 @@
             z-index: 100;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #262626;  /* siyah çizgi ekledim */
+            border-top: 1px solid #262626;
         }
 
         .nav-btn {
@@ -326,13 +276,7 @@
             padding: 8px 16px;
         }
 
-        .nav-btn.active {
-            color: #0095f6;
-        }
-
-        .action-btn.liked {
-            color: #ed4956; /* kırmızı */
-        }
+        .nav-btn.active { color: #0095f6; }
 
         /* Search popup */
         .search-popup {
@@ -358,21 +302,16 @@
             max-width: 300px;
         }
 
-        .search-content h2 {
-            margin-bottom: 15px;
-        }
-
+        .search-content h2 { margin-bottom: 15px; }
         .search-content ul {
             list-style: none;
             padding: 0;
             margin: 0 0 15px 0;
         }
-
         .search-content li {
             margin: 6px 0;
             font-weight: 600;
         }
-
         .search-content button {
             background: #0095f6;
             border: none;
@@ -382,7 +321,8 @@
             font-weight: 600;
             cursor: pointer;
         }
-        /* Büyük kalp animasyonu (double-tap) */
+
+        /* Kalp Animasyonu */
         .double-heart {
             position: absolute;
             left: 50%;
@@ -399,6 +339,8 @@
         .double-heart.show {
             transform: translate(-50%, -50%) scale(1);
             opacity: 1;
+            animation: heartPop 700ms forwards;
+            color: #ff2d55;
         }
 
         @keyframes heartPop {
@@ -408,19 +350,11 @@
             100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
         }
 
-        /* Eğer istersen kalbin rengini değiştir */
-        .double-heart.show {
-            animation: heartPop 700ms forwards;
-            color: #ff2d55;
-        }
-
-        /* post-content pozisyonunun relative olması gerekiyor */
-        .post-content { position: relative; overflow: hidden; }
         .producer {
             font-size: 13px;
             color: #a8a8a8;
-            margin-left: 0; /* Kaldırıldı: margin-left: 10px; */
-            flex-grow: 1; /* Ortadaki boşluğu kaplaması için */
+            margin-left: 0;
+            flex-grow: 1;
         }
 
         .sound-btn {
@@ -434,20 +368,21 @@
             font-size: 20px;
             cursor: pointer;
             z-index: 999;
-            padding: 8px; /* Tıklama alanını büyüttüm */
+            padding: 8px;
         }
-        /* Ses Açıklama Katmanı CSS */
+
+        /* Ses Açıklama Overlay */
         .sound-tutorial-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.75); /* Yarı saydam siyah */
-            display: none; /* Başlangıçta gizli */
+            background: rgba(0, 0, 0, 0.75);
+            display: none;
             align-items: center;
             justify-content: center;
-            z-index: 1000; /* Her şeyin üstünde */
+            z-index: 1000;
         }
 
         .tutorial-content {
@@ -478,12 +413,8 @@
             transition: background 0.2s;
         }
 
-        .tutorial-content button:hover {
-            background: #007bb5;
-        }
+        .tutorial-content button:hover { background: #007bb5; }
 
-        /* Ses Tuşunu İşaret Etmek İçin (Opsiyonel) */
-        /* Ses butonu yanıp sönüyormuş gibi görünmesi için */
         @keyframes pulse {
             0% { box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
             70% { box-shadow: 0 0 0 8px rgba(255, 255, 255, 0); }
@@ -491,37 +422,29 @@
         }
 
         #soundToggle {
-            animation: none; /* Başlangıçta animasyon yok */
-            border-radius: 50%; /* Görsel olarak işaret etmek için daire */
+            animation: none;
+            border-radius: 50%;
         }
         .sound-tutorial-overlay.visible #soundToggle {
             animation: pulse 1s infinite;
         }
-        /* Devamını Oku butonu stili */
+
+        /* Devamını Oku Butonu */
         .read-more-btn {
-            color: #a8a8a8; /* Gri renk */
+            color: #a8a8a8;
             font-weight: 500;
             margin-left: 5px;
             cursor: pointer;
-            user-select: none; /* Metin seçilmesini engelle */
+            user-select: none;
             display: inline;
         }
-
-        /* Kaptanın kendisini etkilemeden butonu hizalamak için */
-        .post-caption {
-            padding: 0 16px 8px;
-            font-size: 14px;
-            /* Gerekirse overflow: hidden; eklenebilir ama JS ile kontrol ettiğimiz için gerek yok */
-        }
-
     </style>
 </head>
 <body>
     <div id="preloader">
         <div class="loader-content">
             <p>YÜKLENİYOR</p>
-            <div id="loading-tip">
-                </div>
+            <div id="loading-tip"></div>
             <div class="loader-dots">
                 <div></div>
                 <div></div>
@@ -545,16 +468,13 @@
                 <button id="soundToggle" class="sound-btn">🔇</button>
             </div>
 
-
             <div class="posts-container" id="postsContainer">
+                
                 <div class="post">
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                sude_naz
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -563,7 +483,6 @@
                         <img src="post1.png" alt="Post 1" class="post-image">
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -574,10 +493,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="1">1,234</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">1,234</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude_naz</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek ve bu kısım 55 karakterden çok daha uzun olmak zorunda. İşte test ediyoruz. Bakalım bu metin ne zaman bitecek?</span> 
+                        <span class="caption-text">Stoma bakımında dikkat edilmesi gereken en önemli nokta cilt temizliğidir. Adaptör değişimi sırasında cildi tahriş etmemek için nazik hareketler kullanılmalıdır. Detaylı anlatım videoda!</span> 
                     </div>
                     <div class="post-comments">45 yorumun tümünü gör</div>
                     <div class="post-comments">
@@ -590,10 +509,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                zeynep
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">zeynep <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -602,7 +518,6 @@
                         <img src="post2.jpg" alt="Post 2" class="post-image">
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -613,24 +528,20 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="2">1,134</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">1,134</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">zeynep</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Beslenme düzeninizde gaz yapıcı yiyeceklerden uzak durmak sosyal hayatınızı kolaylaştırabilir. Özellikle baklagiller ve asitli içecekler konusunda dikkatli olmalısınız.</span>
                     </div>
                     <div class="post-comments">77 yorumun tümünü gör</div>
                     <div class="post-time">4 saat önce</div>
                 </div>
 
-
                 <div class="post">
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                irem_sude
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">irem_sude <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -639,7 +550,6 @@
                         <img src="post3.jpg" alt="Post 3" class="post-image">
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3"> 
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -650,10 +560,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="3">3,789</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">3,789</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">irem_sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Sıvı tüketimi stomalı bireyler için hayati önem taşır. Günde en az 2-2.5 litre su içmek böbrek sağlığınızı korur ve dehidratasyonu önler.</span>
                     </div>
                     <div class="post-comments">89 yorumun tümünü gör</div>
                     <div class="post-time">45 dakika önce</div>
@@ -663,10 +573,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                nisanur
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">nisanur <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -675,7 +582,6 @@
                         <img src="post4.jpg" alt="Post 4" class="post-image">
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -686,10 +592,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="4">4,123</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">4,123</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">nisanur</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Egzersiz yaparken stoma torbanızı sabitlemek için özel kemerler kullanabilirsiniz. Bu sayede hareket özgürlüğünüz kısıtlanmaz ve güvenle spor yapabilirsiniz.</span>
                     </div>
                     <div class="post-comments">92 yorumun tümünü gör</div>
                     <div class="post-time">30 dakika önce</div>
@@ -699,10 +605,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                sude
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">sude <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -711,7 +614,6 @@
                         <img src="post5.jpg" alt="Post 5" class="post-image">
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -722,10 +624,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="5">5,567</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">5,567</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Seyahate çıkarken yanınıza yedek malzeme almayı unutmayın. Hazırlıklı olmak, olası sızıntı durumlarında panik yapmanızı engeller ve tatilin keyfini çıkarmanızı sağlar.</span>
                     </div>
                     <div class="post-comments">134 yorumun tümünü gör</div>
                     <div class="post-time">15 dakika önce</div>
@@ -735,10 +637,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                sude_naz
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -747,7 +646,6 @@
                         <img src="post6.jpg" alt="Post 6" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -758,16 +656,15 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="6">6,234</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">6,234</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude_naz</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Psikolojik destek almak stoma sürecine uyum sağlamanızı hızlandırır. Yalnız olmadığınızı unutmayın, profesyonel destek ile bu süreci çok daha kolay yönetebilirsiniz.</span>
                     </div>
                     <div class="post-comments">156 yorumun tümünü gör</div>
                     <div class="post-comments">
                         <span class="username-caption">burcin_hoca</span> Aferin Zeynep 👏
                     </div>
-
                     <div class="post-time">10 dakika önce</div>
                 </div>
 
@@ -775,10 +672,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                zeynep
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">zeynep <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -787,7 +681,6 @@
                         <img src="post7.jpg" alt="Post 7" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -798,10 +691,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="7">7,891</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">7,891</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">zeynep</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Giysi seçimi yaparken bel bölgesini sıkmayan kıyafetler tercih edin. Yüksek belli pantolonlar veya özel tasarım iç çamaşırları konforunuzu artırabilir.</span>
                     </div>
                     <div class="post-comments">178 yorumun tümünü gör</div>
                     <div class="post-time">5 dakika önce</div>
@@ -811,10 +704,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                irem_sude
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">irem_sude <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -823,7 +713,6 @@
                         <img src="placeholder8.jpg" alt="Post 8" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -834,16 +723,15 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="8">8,345</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">8,345</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">irem_sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Cilt bariyer filmleri, adaptörün cildinize daha iyi tutunmasını sağlar ve sızıntı riskini minimize eder. Uygulama öncesi cildin kuru olduğundan emin olun.</span>
                     </div>
                     <div class="post-comments">201 yorumun tümünü gör</div>
                     <div class="post-comments">
                         <span class="username-caption">burcin_hoca</span> çok iyi yapmışsın 👏
                     </div>
-
                     <div class="post-time">3 dakika önce</div>
                 </div>
 
@@ -851,10 +739,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                nisanur
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">nisanur <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -863,7 +748,6 @@
                         <img src="placeholder9.jpg" alt="Post 9" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -874,16 +758,15 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="9">9,456</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">9,456</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">nisanur</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Stoma çevresindeki tüyleri temizlemek adaptörün yapışma ömrünü uzatır. Ancak bunu yaparken cildi tahriş etmemeye özen göstermelisiniz.</span>
                     </div>
                     <div class="post-comments">223 yorumun tümünü gör</div>
                     <div class="post-comments">
                         <span class="username-caption">burcin_hoca</span> mükemmel olmuş 👏
                     </div>
-
                     <div class="post-time">2 dakika önce</div>
                 </div>
 
@@ -891,10 +774,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                sude
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">sude <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -903,7 +783,6 @@
                         <img src="placeholder10.jpg" alt="Post 10" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -914,10 +793,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="10">10,567</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">10,567</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Gece yatmadan önce torbanızı boşaltmak, gece boyunca daha rahat bir uyku çekmenizi sağlar ve olası kazaların önüne geçer.</span>
                     </div>
                     <div class="post-comments">245 yorumun tümünü gör</div>
                     <div class="post-time">1 dakika önce</div>
@@ -927,10 +806,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                sude_naz
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -939,7 +815,6 @@
                         <img src="placeholder11.jpg" alt="Post 11" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -950,10 +825,10 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="11">11,234</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">11,234</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude_naz</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Düzenli kontrollerinizi aksatmayın. Stoma hemşirenizle iletişimde kalmak, olası komplikasyonların erken teşhis edilmesini sağlar.</span>
                     </div>
                     <div class="post-comments">267 yorumun tümünü gör</div>
                     <div class="post-time">Şimdi</div>
@@ -963,10 +838,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">
-                                zeynep
-                                <span class="verified">✓</span>
-                            </div>
+                            <div class="post-username">zeynep <span class="verified">✓</span></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -975,7 +847,6 @@
                         <img src="placeholder12.jpg" alt="Post 12" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -986,125 +857,12 @@
                         </div>
                         <button class="action-btn">🔖</button>
                     </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="12">12,456</span> beğenme</div>
+                    <div class="post-likes"><span class="likes-count">12,456</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">zeynep</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
+                        <span class="caption-text">Sosyal hayattan kopmanıza gerek yok! Doğru bakım ve önlemlerle sinemaya gidebilir, arkadaşlarınızla buluşabilir ve hayatın tadını çıkarabilirsiniz.</span>
                     </div>
                     <div class="post-comments">289 yorumun tümünü gör</div>
-                    <div class="post-time">Şimdi</div>
-                </div>
-
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
-                        <div class="post-info">
-                            <div class="post-username">
-                                irem_sude
-                                <span class="verified">✓</span>
-                            </div>
-                            <div class="post-subtitle">Eğitim İçeriği</div>
-                        </div>
-                        <div class="post-menu">⋮</div>
-                    </div>
-                    <div class="post-content">
-                        <img src="placeholder13.jpg" alt="Post 13" class="post-image"> 
-                        <audio class="post-audio" loop muted>
-                            <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
-                        </audio>
-                    </div>
-                    <div class="post-actions">
-                        <div class="action-group">
-                            <button class="action-btn" onclick="likePost(this)">🤍</button>
-                            <button class="action-btn">💬</button>
-                            <button class="action-btn">📤</button>
-                        </div>
-                        <button class="action-btn">🔖</button>
-                    </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="13">13,789</span> beğenme</div>
-                    <div class="post-caption">
-                        <span class="username-caption">irem_sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
-                    </div>
-                    <div class="post-comments">312 yorumun tümünü gör</div>
-                    <div class="post-time">Şimdi</div>
-                </div>
-
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
-                        <div class="post-info">
-                            <div class="post-username">
-                                nisanur
-                                <span class="verified">✓</span>
-                            </div>
-                            <div class="post-subtitle">Eğitim İçeriği</div>
-                        </div>
-                        <div class="post-menu">⋮</div>
-                    </div>
-                    <div class="post-content">
-                        <img src="placeholder14.jpg" alt="Post 14" class="post-image"> 
-                        <audio class="post-audio" loop muted>
-                            <source src="post2music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
-                        </audio>
-                    </div>
-                    <div class="post-actions">
-                        <div class="action-group">
-                            <button class="action-btn" onclick="likePost(this)">🤍</button>
-                            <button class="action-btn">💬</button>
-                            <button class="action-btn">📤</button>
-                        </div>
-                        <button class="action-btn">🔖</button>
-                    </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="14">13,789</span> beğenme</div>
-                    <div class="post-caption">
-                        <span class="username-caption">nisanur</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
-                    </div>
-                    <div class="post-comments">312 yorumun tümünü gör</div>
-                    <div class="post-time">Şimdi</div>
-                </div>
-
-
-                <div class="post">
-                    <div class="post-header">
-                        <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
-                        <div class="post-info">
-                            <div class="post-username">
-                                sude
-                                <span class="verified">✓</span>
-                            </div>
-                            <div class="post-subtitle">Eğitim İçeriği</div>
-                        </div>
-                        <div class="post-menu">⋮</div>
-                    </div>
-                    <div class="post-content">
-                        <img src="placeholder15.jpg" alt="Post 15" class="post-image"> 
-                        <audio class="post-audio" loop muted>
-                            <source src="post1music.mp3" type="audio/mp3">
-                            Tarayıcınız ses etiketini desteklemiyor.
-                        </audio>
-                    </div>
-                    <div class="post-actions">
-                        <div class="action-group">
-                            <button class="action-btn" onclick="likePost(this)">🤍</button>
-                            <button class="action-btn">💬</button>
-                            <button class="action-btn">📤</button>
-                        </div>
-                        <button class="action-btn">🔖</button>
-                    </div>
-                    <div class="post-likes"><span class="likes-count" data-post-id="15">11,733</span> beğenme</div>
-                    <div class="post-caption">
-                        <span class="username-caption">sude</span>
-                        <span class="caption-text">İçerik açıklaması buraya gelecek</span>
-                    </div>
-                    <div class="post-comments">3120 yorumun tümünü gör</div>
-                    <div class="post-comments">
-                        <span class="username-caption">burcin_hoca</span> ellerine sağlık 👏
-                    </div>
-
                     <div class="post-time">Şimdi</div>
                 </div>
             </div> 
@@ -1127,101 +885,69 @@
                 </div>
             </div>
         </div> 
-    </div> <script>
-        // YÜKLEYİCİ GİZLEME JS
-        let tipInterval; // Global olarak tanımlandı
+    </div>
 
+    <script>
+        // YÜKLEYİCİ GİZLEME JS
+        let tipInterval; 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
             
-            // 1. Rastgele bilgi döngüsünü durdur
-            if (tipInterval) {
-                clearInterval(tipInterval);
-            }
+            if (tipInterval) clearInterval(tipInterval);
             
-            // 2. Ana içeriği görünür yap
-            mainContent.style.display = 'flex'; // Veya block, ama flex daha iyidir
-            
-            // 3. Yükleyiciyi yavaşça gizle (CSS geçişi devreye girer)
+            mainContent.style.display = 'flex'; 
             preloader.classList.add('hidden');
-
-            // 4. Yükleyici tamamen gizlendikten sonra DOM'dan kaldır (Opsiyonel, temizlik için)
-            setTimeout(() => {
-                 preloader.style.display = 'none';
-            }, 500); // CSS'teki transition süresi (0.5s) kadar bekler
+            setTimeout(() => { preloader.style.display = 'none'; }, 500); 
         });
-        // YÜKLEYİCİ GİZLEME JS SONU
-        
-        // Sayfa Yenileme (Pull to Refresh)
+
+        // Pull to Refresh
         const postsContainer = document.getElementById("postsContainer");
         let startY = 0;
         let isPulling = false;
-
         postsContainer.addEventListener("touchstart", (e) => {
             if (postsContainer.scrollTop === 0) {
                 startY = e.touches[0].clientY;
                 isPulling = true;
             }
         });
-
         postsContainer.addEventListener("touchmove", (e) => {
             if (!isPulling) return;
             let currentY = e.touches[0].clientY;
-            let diff = currentY - startY;
-
-            if (diff > 80) { // 80px aşağı çekildiğinde
-                location.reload(); // Sayfayı yenile
-                isPulling = false;
-            }
+            if ((currentY - startY) > 80) { location.reload(); isPulling = false; }
         });
+        postsContainer.addEventListener("touchend", () => { isPulling = false; });
 
-        postsContainer.addEventListener("touchend", () => {
-            isPulling = false;
-        });
-    </script>
-
-    <script>
         // Saat Güncelleme
         function updateTime() {
             const timeElement = document.getElementById("time");
             const now = new Date();
             let hours = now.getHours();
             let minutes = now.getMinutes();
-
-            // Tek basamaklı sayılara 0 ekle (09:05 gibi)
             if (hours < 10) hours = "0" + hours;
             if (minutes < 10) minutes = "0" + minutes;
-
             timeElement.textContent = hours + ":" + minutes;
         }
-
         updateTime();
         setInterval(updateTime, 1000);
-    </script>
 
-    <script>
-        // Beğenme İşlevi (Tek Tıklama)
+        // Beğenme İşlevi
         function likePost(button) {
             button.classList.toggle("liked");
             const likesSpan = button.closest('.post').querySelector('.likes-count');
-            
-            // Basit beğeni sayacı simülasyonu
             let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
             
             if (button.classList.contains("liked")) {
-                button.textContent = "❤️"; // kırmızı kalp
+                button.textContent = "❤️"; 
                 count += 1;
             } else {
-                button.textContent = "🤍"; // boş kalp
+                button.textContent = "🤍"; 
                 count -= 1;
             }
             likesSpan.textContent = count.toLocaleString();
         }
-    </script>
-    
-    <script>
-        // Paylaşım İşlevi
+
+        // Paylaşım
         document.querySelectorAll(".action-btn").forEach(btn => {
             if (btn.textContent.includes("📤")) {
                 btn.addEventListener("click", async () => {
@@ -1232,303 +958,166 @@
                                 text: "Buna bir göz at! 👀",
                                 url: window.location.href
                             });
-                        } catch (err) {
-                            console.log("Paylaşım iptal edildi:", err);
-                        }
-                    } else {
-                        alert("Cihazınız paylaşımı desteklemiyor.");
-                    }
+                        } catch (err) { console.log("Paylaşım iptal edildi:", err); }
+                    } else { alert("Cihazınız paylaşımı desteklemiyor."); }
                 });
             }
         });
-    </script>
 
-    <script>
-        // Alt Navigasyon ve Arama Pop-up
+        // Navigasyon
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
-        // Kaydırılabilir kapsayıcıyı seçiyoruz
         const postsContainerEl = document.getElementById("postsContainer");
-
         navButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 const action = btn.getAttribute("data-action");
-
-                // Aktif butonu görsel olarak değiştir
                 navButtons.forEach(b => b.classList.remove('active'));
-                if (action !== 'search') {
-                    btn.classList.add('active');
-                }
+                if (action !== 'search') btn.classList.add('active');
 
-                // EYLEMLER
                 if (action === "home") {
-                    // Ana sayfa butonuna basınca en yukarı kaydır (Smooth Scroll)
-                    postsContainerEl.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                } 
-                else if (action === "search") {
+                    postsContainerEl.scrollTo({ top: 0, behavior: 'smooth' });
+                } else if (action === "search") {
                     searchPopup.style.display = "flex";
-                } 
-                else {
-                    // Diğer butonlar için uyarı
+                } else {
                     alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
                 }
             });
         });
+        function closeSearch() { searchPopup.style.display = "none"; }
 
-        function closeSearch() {
-            searchPopup.style.display = "none";
-        }
-    </script>
-
-    
-    <script>
-        // Çift Tıklama Beğenme İşlevi
+        // Çift Tıklama Beğeni
         (function(){
             function triggerLikeForPost(post) {
-                const likeBtn = post.querySelector('.action-group .action-btn') || post.querySelector('.action-btn');
-                // Eğer zaten beğenilmişse tekrar beğenme (likePost kendi içinde toggle yapar)
-                if (typeof likePost === 'function' && likeBtn) {
-                    if (!likeBtn.classList.contains('liked')) {
-                        likePost(likeBtn);
-                    }
-                } 
+                const likeBtn = post.querySelector('.action-group .action-btn');
+                if (likeBtn && !likeBtn.classList.contains('liked')) likePost(likeBtn);
             }
-
             function attachDoubleTap(el) {
                 let lastTap = 0;
-                // Double-click for desktop
                 el.addEventListener('dblclick', (e) => {
                     showHeart(el);
-                    const post = el.closest('.post');
-                    if (post) triggerLikeForPost(post);
+                    triggerLikeForPost(el.closest('.post'));
                 });
-
-                // Double-tap for touch devices
                 el.addEventListener('touchend', function(e) {
                     const currentTime = Date.now();
                     const tapLength = currentTime - lastTap;
                     if (tapLength < 300 && tapLength > 0) {
                         e.preventDefault();
                         showHeart(el);
-                        const post = el.closest('.post');
-                        if (post) triggerLikeForPost(post);
+                        triggerLikeForPost(el.closest('.post'));
                     }
                     lastTap = currentTime;
                 });
             }
-
             function showHeart(postContentEl) {
                 let heart = document.createElement('div');
                 heart.className = 'double-heart';
                 heart.innerHTML = '❤️';
                 postContentEl.appendChild(heart);
-                void heart.offsetWidth; // Reflow
+                void heart.offsetWidth; 
                 heart.classList.add('show');
-
                 setTimeout(() => {
                     heart.classList.remove('show');
-                    setTimeout(() => {
-                        if (heart && heart.parentElement) heart.parentElement.removeChild(heart);
-                    }, 500);
+                    setTimeout(() => { if (heart.parentElement) heart.parentElement.removeChild(heart); }, 500);
                 }, 800);
             }
-
-            document.querySelectorAll('.post-content').forEach(el => {
-                if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
-                attachDoubleTap(el);
-            });
+            document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
         })();
-    </script>
-    
-    <script>
-        // ** SES YÖNETİMİ İŞLEVİ (DÜZELTİLMİŞ) **
+
+        // Ses Yönetimi
         const soundToggle = document.getElementById("soundToggle");
         const posts = document.querySelectorAll(".post");
-        // Başlangıçta ses kapalı, kullanıcı etkileşimi bekliyor
         let soundEnabled = false; 
 
-        // 1. Post seslerini yöneten fonksiyon
         function managePostAudio(post, shouldPlay) {
             const audio = post.querySelector(".post-audio");
             if (!audio) return;
-
             if (shouldPlay) {
-                // Sadece çalması isteniyorsa sessizliğini soundEnabled durumuna göre ayarla
                 audio.muted = !soundEnabled; 
-                audio.volume = 0.6; // Ses seviyesini hafifçe düşürdüm (isteğe bağlı)
-                audio.play().catch(error => {
-                    // Tarayıcının otomatik oynatma engelini yakala
-                    console.log("Oynatma engellendi, kullanıcı etkileşimi gerekiyor (Ses tuşu): " + error.message);
-                });
+                audio.volume = 0.6; 
+                audio.play().catch(error => console.log("Oynatma engellendi: " + error.message));
             } else {
                 audio.pause();
-                audio.currentTime = 0; // Başa sar
+                audio.currentTime = 0; 
             }
         }
 
-        // 2. Observer ile hangi postun ekranda olduğunu tespit etme
         const observer = new IntersectionObserver(entries => {
             entries.forEach(entry => {
-                const post = entry.target;
-                
-                if (entry.isIntersecting) {
-                    // Ekrana giren postu oynat
-                    managePostAudio(post, true); 
-                } else {
-                    // Ekranda olmayan postu durdur
-                    managePostAudio(post, false);
-                }
+                managePostAudio(entry.target, entry.isIntersecting);
             });
-        }, { 
-            threshold: 0.6 // Postun %60'ı göründüğünde tetikle
-        });
-
-        // Tüm postları izlemeye başla
+        }, { threshold: 0.6 });
         posts.forEach(post => observer.observe(post));
 
-        // 3. Ses Açma/Kapama (Toggle) Butonu
         soundToggle.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
             soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
-
-            // Tüm aktif postların ses durumunu güncelle
             posts.forEach(post => {
                 const rect = post.getBoundingClientRect();
-                // Postun viewport'un ortasında veya büyük ölçüde görünür olup olmadığını kontrol et
-                const isVisible = rect.bottom > 0 && rect.top < window.innerHeight; 
-
-                if (isVisible) {
-                    // Görünür olan postun sesini yeni duruma göre ayarla (çalmasını tekrar dene)
-                    managePostAudio(post, true); 
-                }
+                if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true); 
             });
         });
-        
-        // Başlangıç: Tüm sesleri yükle
-        posts.forEach(post => {
-            const audio = post.querySelector(".post-audio");
-            if (audio) {
-                audio.load();
-                audio.muted = true; // Her zaman sessiz kalsın
-            }
-        });
-    </script>
-    <script>
+
+        // Ses Tutorial
         const tutorialOverlay = document.getElementById("soundTutorialOverlay");
-        const soundToggleBtn = document.getElementById("soundToggle");
-        const container = document.querySelector(".container");
-
-        // Tutorial'ı gösterme ve sesi kapatma mantığını çalıştırır
         function showSoundTutorial() {
-            // Tarayıcı otomatik oynatma kısıtlamaları nedeniyle ses ilk başta kapalı olmalı
-            soundToggleBtn.textContent = "🔇"; 
-            
-            // Ses butonunun yanıp sönmesini başlat
-            soundToggleBtn.style.animation = "pulse 1.5s infinite";
-
-            // Tutorial'ı göster
+            soundToggle.textContent = "🔇"; 
+            soundToggle.style.animation = "pulse 1.5s infinite";
             tutorialOverlay.style.display = "flex";
-            
-            // Sayfa kaydırmasını engelle (Kullanıcı etkileşimde bulunana kadar)
             document.body.style.overflow = 'hidden'; 
         }
-
-        // Tutorial'ı gizler
         function closeSoundTutorial() {
             tutorialOverlay.style.display = "none";
-            
-            // Ses butonunun yanıp sönmesini durdur
-            soundToggleBtn.style.animation = "none";
-            
-            // Sayfa kaydırmasını geri aç
+            soundToggle.style.animation = "none";
             document.body.style.overflow = ''; 
-
-            // Kullanıcı bir kez tıkladıktan sonra tekrar göstermemek için yerel depolamaya kaydet
             localStorage.setItem('soundTutorialShown', 'true');
         }
-
-        // Sayfa yüklendiğinde kontrol et
         window.addEventListener('load', () => {
-            // Eğer daha önce gösterilmediyse, tutorial'ı göster
-            if (localStorage.getItem('soundTutorialShown') !== 'true') {
-                // Küçük bir gecikme, diğer bileşenlerin yüklenmesine izin verir
-                setTimeout(showSoundTutorial, 500); 
-            }
+            if (localStorage.getItem('soundTutorialShown') !== 'true') setTimeout(showSoundTutorial, 500); 
         });
-    </script>
-    <script>
-        // ** 1. Açıklama Kısaltma İşlevi (Devamını Oku) **
-        const MAX_LENGTH = 55; // Kısaltılacak karakter sayısı
 
+        // Açıklama Kısaltma (Devamını Oku) - HERKES İÇİN ÇALIŞACAK
+        const MAX_LENGTH = 55;
         function initializeCaptionTruncation() {
-            // Tüm post açıklamalarını seç
             const captions = document.querySelectorAll('.post-caption');
-            
             captions.forEach(captionDiv => {
                 const fullText = captionDiv.getAttribute('data-full-text');
-                
-                // Eğer daha önce işlenmemişse, tam metni kaydedelim
                 if (!fullText) {
                     const textNode = captionDiv.querySelector('.caption-text');
-                    if (!textNode) return; // Eğer metin etiketi yoksa atla
+                    if (!textNode) return;
                     
                     const rawText = textNode.textContent.trim();
-                    captionDiv.setAttribute('data-full-text', rawText); // Tam metni sakla
+                    captionDiv.setAttribute('data-full-text', rawText); 
                     
-                    // Metin 55 karakterden kısa ise hiçbir şey yapma
-                    if (rawText.length <= MAX_LENGTH) {
-                        return; 
-                    }
+                    if (rawText.length <= MAX_LENGTH) return; 
 
-                    // Metni kısalt
                     const truncatedText = rawText.substring(0, MAX_LENGTH) + '...';
-                    
-                    // Kısaltılmış metni ayarla
                     textNode.textContent = truncatedText;
                     
-                    // Devamını Oku butonunu oluştur
                     const readMoreBtn = document.createElement('span');
                     readMoreBtn.className = 'read-more-btn';
                     readMoreBtn.textContent = 'devamını oku';
                     readMoreBtn.onclick = function(e) {
                         toggleCaption(captionDiv, textNode, readMoreBtn);
-                        e.stopPropagation(); // Diğer olayları engelle
+                        e.stopPropagation();
                     };
-                    
                     captionDiv.appendChild(readMoreBtn);
                 }
             });
         }
-
-        // 2. Açıklamayı Tamamen Açma/Kısaltma İşlevi
         function toggleCaption(captionDiv, textNode, button) {
             const isExpanded = captionDiv.classList.toggle('expanded');
             const fullText = captionDiv.getAttribute('data-full-text');
-            
             if (isExpanded) {
-                // Tam metni göster
                 textNode.textContent = fullText;
-                button.textContent = 'gizle'; // Buton metnini değiştir
+                button.textContent = 'gizle';
             } else {
-                // Kısaltılmış metni göster
                 textNode.textContent = fullText.substring(0, MAX_LENGTH) + '...';
-                button.textContent = 'devamını oku'; // Buton metnini değiştir
+                button.textContent = 'devamını oku';
             }
         }
-
-        // Sayfa yüklendiğinde bu işlevi çalıştır
         window.addEventListener('load', initializeCaptionTruncation);
 
-        // Diğer JS kodlarınız burada devam eder...
-    </script>
-    
-    <script>
-        // ** YENİ: YÜKLEME BİLGİ DÖNGÜSÜ **
-        
-        // 1. Bilgi Listesi (20 Adet)
+        // Yükleme Bilgi Döngüsü
         const loadingTips = [
             "Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.",
             "Burçin hoca bizce bize yüksek not verecek <3",
@@ -1541,50 +1130,27 @@
             "Stomanızla barışık olun. (opsiyonel)",
             "Yükleme ekranında 10 farklı bilgi vardır."
         ];
-
         let tipIndex = 0;
         const tipElement = document.getElementById('loading-tip');
-        
-        // Diziyi rastgele karıştırır (Fisher-Yates Shuffle)
         function shuffleArray(array) {
             for (let i = array.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [array[i], array[j]] = [array[j], array[i]];
             }
         }
-        
-        // Bilgiyi gösterir ve bir sonraki bilgiye geçer
         function displayNextTip() {
             if (!tipElement) return;
-
-            // Metin geçişi için opacity'i düşür
             tipElement.style.opacity = 0; 
-            
-            // 500ms sonra metni değiştir ve opacity'i artır (CSS transition ile eşleşmeli)
             setTimeout(() => {
                 const tip = loadingTips[tipIndex];
-                
-                // Format: "Bunu Biliyor Muydunuz: \n Bilgi"
                 tipElement.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tip}`;
-                
                 tipElement.style.opacity = 1;
-                
-                // İndeksi bir sonraki bilgiye taşı
                 tipIndex = (tipIndex + 1) % loadingTips.length;
             }, 500); 
         }
-
-        // Başlangıçta diziyi karıştır
         shuffleArray(loadingTips);
-        
-        // İlk bilgiyi hemen göster
         displayNextTip();
-
-        // Ardından her 1.5 saniyede (1500ms) bir yeni bir bilgi göster
-        // tipInterval değişkeni yukarıdaki load event'inde durdurulacaktır.
         tipInterval = setInterval(displayNextTip, 2500); 
-        
-        // ** YÜKLEME BİLGİ DÖNGÜSÜ SONU **
     </script>
 </body>
 </html>
