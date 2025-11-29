@@ -97,6 +97,22 @@
         }
         /* --- YÜKLEYİCİ CSS SONU --- */
 
+        /* --- YENİ EKLENEN: OFFLINE BANNER (Madde 14) --- */
+        #offline-banner {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ed4956;
+            color: white;
+            text-align: center;
+            padding: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            z-index: 10000;
+        }
+        /* ----------------------------------------------- */
 
         .container {
             height: 100vh;
@@ -154,7 +170,6 @@
             border: 2px solid #555;
             background-size: cover;
             background-position: center;
-            /* Önceki CSS karmaşası kaldırıldı, görsel HTML'den gelecek */
         }
 
         .post-info { flex: 1; }
@@ -166,6 +181,23 @@
             align-items: center;
             gap: 5px;
         }
+
+        /* --- YENİ EKLENEN: TAKİP ET BUTONU CSS (Madde 13) --- */
+        .follow-btn {
+            background: none;
+            border: none;
+            color: #0095f6;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            margin-left: 8px;
+            padding: 0;
+        }
+        .follow-btn.following {
+            color: #a8a8a8;
+            font-weight: 600;
+        }
+        /* ---------------------------------------------------- */
 
         .verified { color: #0095f6; }
 
@@ -250,7 +282,7 @@
             border-bottom: 1px solid #262626;
         }
 
-        /* Bottom Navigation */
+        /* Bottom Navigation - GÜNCELLENDİ (Madde 4 - Glassmorphism) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -260,11 +292,16 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-            background: #000;
+            
+            /* Glassmorphism Efekti */
+            background: rgba(0, 0, 0, 0.85); /* Hafif saydam */
+            backdrop-filter: blur(12px); /* Arka planı bulanıklaştır */
+            -webkit-backdrop-filter: blur(12px); /* Safari desteği */
+            
             z-index: 100;
             padding: 0;
             margin: 0;
-            border-top: 1px solid #262626;
+            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Çizgiyi de yumuşattık */
         }
 
         .nav-btn {
@@ -452,6 +489,8 @@
             </div>
         </div>
     </div>
+
+    <div id="offline-banner">İnternet Bağlantısı Yok ⚠️</div>
     
     <div id="main-content">
         <div class="container">
@@ -474,7 +513,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
+                            <div class="post-username">sude_naz <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -509,7 +548,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">zeynep <span class="verified">✓</span></div>
+                             <div class="post-username">zeynep <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -541,7 +580,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">irem_sude <span class="verified">✓</span></div>
+                             <div class="post-username">irem_sude <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -573,7 +612,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">nisanur <span class="verified">✓</span></div>
+                             <div class="post-username">nisanur <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -605,7 +644,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">sude <span class="verified">✓</span></div>
+                             <div class="post-username">sude <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -637,7 +676,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
+                             <div class="post-username">sude_naz <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -672,7 +711,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">zeynep <span class="verified">✓</span></div>
+                             <div class="post-username">zeynep <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -704,7 +743,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">irem_sude <span class="verified">✓</span></div>
+                             <div class="post-username">irem_sude <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -739,7 +778,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">nisanur <span class="verified">✓</span></div>
+                             <div class="post-username">nisanur <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -774,7 +813,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">sude <span class="verified">✓</span></div>
+                             <div class="post-username">sude <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -806,7 +845,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">sude_naz <span class="verified">✓</span></div>
+                             <div class="post-username">sude_naz <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -838,7 +877,7 @@
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
-                            <div class="post-username">zeynep <span class="verified">✓</span></div>
+                             <div class="post-username">zeynep <span class="verified">✓</span> <button class="follow-btn" onclick="toggleFollow(this)">Takip Et</button></div>
                             <div class="post-subtitle">Eğitim İçeriği</div>
                         </div>
                         <div class="post-menu">⋮</div>
@@ -888,6 +927,55 @@
     </div>
 
     <script>
+        // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
+        function shufflePosts() {
+            const container = document.getElementById('postsContainer');
+            const posts = Array.from(container.getElementsByClassName('post'));
+            
+            // Fisher-Yates shuffle algoritması
+            for (let i = posts.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [posts[i], posts[j]] = [posts[j], posts[i]];
+            }
+            
+            // Postları yeni sırayla geri ekle
+            posts.forEach(post => container.appendChild(post));
+        }
+        // Sayfa yüklenince hemen karıştır
+        shufflePosts();
+        // ----------------------------------------------------
+
+        // --- YENİ EKLENEN: OFFLINE MOD KONTROLÜ (Madde 14) ---
+        window.addEventListener('online', updateOnlineStatus);
+        window.addEventListener('offline', updateOnlineStatus);
+
+        function updateOnlineStatus() {
+            const banner = document.getElementById('offline-banner');
+            if (!navigator.onLine) {
+                banner.style.display = 'block';
+            } else {
+                banner.style.display = 'none';
+            }
+        }
+        // Başlangıç kontrolü
+        updateOnlineStatus();
+        // ----------------------------------------------------
+
+        // --- YENİ EKLENEN: TAKİP ET BUTONU İŞLEVİ (Madde 13) ---
+        function toggleFollow(btn) {
+            btn.classList.toggle('following');
+            if (btn.classList.contains('following')) {
+                btn.textContent = 'Takip Ediliyor';
+                btn.style.color = '#a8a8a8';
+            } else {
+                btn.textContent = 'Takip Et';
+                btn.style.color = '#0095f6';
+            }
+            // Event bubbling'i durdur (post detayına gitmesini engellemek için)
+            event.stopPropagation();
+        }
+        // ----------------------------------------------------
+
         // YÜKLEYİCİ GİZLEME JS
         let tipInterval; 
         window.addEventListener('load', () => {
