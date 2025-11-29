@@ -178,13 +178,14 @@
             background-position: center;
         }
 
-        /* Avatar Görselleri */
+        /* Avatar Görselleri - CSS ile ilk 5 tanesi tanımlı, gerisi inline style ile çözüldü */
         .post:nth-child(1) .post-avatar { background-image: url('sude_naz.jpg'); }
         .post:nth-child(2) .post-avatar { background-image: url('zeynep.jpg'); }
         .post:nth-child(3) .post-avatar { background-image: url('irem_sude.jpg'); }
         .post:nth-child(4) .post-avatar { background-image: url('nisanur.jpg'); }
         .post:nth-child(5) .post-avatar { background-image: url('sude.jpg'); }
-        /* Diğer postlar için rastgele placeholderlar */
+        
+        /* CSS'te tanımlı olmayanlar için varsayılan arka plan (eğer inline style yoksa) */
         .post:nth-child(n+6) .post-avatar { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
 
 
@@ -732,7 +733,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 sude_naz
@@ -772,7 +773,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 zeynep
@@ -808,7 +809,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 irem_sude
@@ -848,7 +849,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 nisanur
@@ -888,7 +889,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 sude
@@ -924,7 +925,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 sude_naz
@@ -960,7 +961,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('zeynep.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 zeynep
@@ -996,7 +997,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('irem_sude.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 irem_sude
@@ -1032,7 +1033,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('nisanur.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 nisanur
@@ -1069,7 +1070,7 @@
 
                 <div class="post">
                     <div class="post-header">
-                        <div class="post-avatar"></div>
+                        <div class="post-avatar" style="background-image: url('sude.jpg');"></div>
                         <div class="post-info">
                             <div class="post-username">
                                 sude
@@ -1587,5 +1588,3 @@
     </script>
 </body>
 </html>
-
-
