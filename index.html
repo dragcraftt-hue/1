@@ -2,8 +2,17 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Stomagram</title>
+    
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Stomagram">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <link rel="apple-touch-icon" href="https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png">
+    <link rel="manifest" href='data:application/manifest+json,{"name":"Stomagram","short_name":"Stomagram","display":"standalone","background_color":"#000000","theme_color":"#000000","start_url":".","icons":[{"src":"https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png","sizes":"192x192","type":"image/png"}]}'>
+
     <style>
         * {
             margin: 0;
@@ -15,6 +24,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #000;
             color: #fff;
+            overscroll-behavior-y: none; /* iOS'te sayfanın yaylanmasını engeller */
         }
 
         /* --- YÜKLEYİCİ CSS --- */
@@ -97,7 +107,7 @@
         }
         /* --- YÜKLEYİCİ CSS SONU --- */
 
-        /* --- YENİ EKLENEN: OFFLINE BANNER (Madde 14) --- */
+        /* --- YENİ EKLENEN: OFFLINE BANNER --- */
         #offline-banner {
             display: none;
             position: fixed;
@@ -112,7 +122,6 @@
             font-weight: 600;
             z-index: 10000;
         }
-        /* ----------------------------------------------- */
 
         .container {
             height: 100vh;
@@ -182,7 +191,7 @@
             gap: 5px;
         }
 
-        /* --- YENİ EKLENEN: TAKİP ET BUTONU CSS (Madde 13) --- */
+        /* --- TAKİP ET BUTONU CSS --- */
         .follow-btn {
             background: none;
             border: none;
@@ -197,7 +206,6 @@
             color: #a8a8a8;
             font-weight: 600;
         }
-        /* ---------------------------------------------------- */
 
         .verified { color: #0095f6; }
 
@@ -282,7 +290,7 @@
             border-bottom: 1px solid #262626;
         }
 
-        /* Bottom Navigation - GÜNCELLENDİ (Madde 4 - Glassmorphism) */
+        /* Bottom Navigation (Glassmorphism) */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -292,16 +300,13 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-            
-            /* Glassmorphism Efekti */
-            background: rgba(0, 0, 0, 0.85); /* Hafif saydam */
-            backdrop-filter: blur(12px); /* Arka planı bulanıklaştır */
-            -webkit-backdrop-filter: blur(12px); /* Safari desteği */
-            
+            background: rgba(0, 0, 0, 0.85); 
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px); 
             z-index: 100;
             padding: 0;
             margin: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Çizgiyi de yumuşattık */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-btn {
@@ -408,6 +413,25 @@
             padding: 8px;
         }
 
+        /* YENİ: İndir / Ana Ekrana Ekle Butonu */
+        .download-btn {
+            position: absolute;
+            top: 50%;
+            right: 60px; /* Ses butonunun solunda */
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 20px;
+            cursor: pointer;
+            z-index: 999;
+            padding: 8px;
+            transition: transform 0.2s;
+        }
+        .download-btn:active {
+            transform: translateY(-50%) scale(0.9);
+        }
+
         /* Ses Açıklama Overlay */
         .sound-tutorial-overlay {
             position: fixed;
@@ -475,55 +499,50 @@
             user-select: none;
             display: inline;
         }
-        /* --- ÖZELLİK 3: RESİM ZOOM MODAL (LIGHTBOX) --- */
-#zoom-modal {
-    display: none;
-    position: fixed;
-    z-index: 99999; /* Her şeyin üstünde */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Arka planı karart */
-    justify-content: center;
-    align-items: center;
-    cursor: zoom-out;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
 
-#zoom-modal.active {
-    opacity: 1;
-}
+        /* --- ZOOM MODAL (LIGHTBOX) --- */
+        #zoom-modal {
+            display: none;
+            position: fixed;
+            z-index: 99999;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
 
-#zoom-image {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 4px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
+        #zoom-modal.active { opacity: 1; }
 
-#zoom-modal.active #zoom-image {
-    transform: scale(1);
-}
+        #zoom-image {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            transform: scale(0.8);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+        }
 
-/* --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU --- */
-@keyframes saveBounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.35); } /* Hafifçe büyür */
-    100% { transform: scale(1); }
-}
+        #zoom-modal.active #zoom-image { transform: scale(1); }
 
-.action-btn.saved {
-    animation: saveBounce 0.4s ease-in-out;
-    filter: brightness(0) saturate(100%) invert(100%); /* İkonu parlatır */
-    /* Not: Emoji kullandığımız için rengi CSS ile tam değişmeyebilir ama animasyon çalışır */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Parlama efekti */
-}
+        /* --- KAYDET BUTONU ANİMASYONU --- */
+        @keyframes saveBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.35); }
+            100% { transform: scale(1); }
+        }
 
+        .action-btn.saved {
+            animation: saveBounce 0.4s ease-in-out;
+            filter: brightness(0) saturate(100%) invert(100%);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
     </style>
 </head>
 <body>
@@ -541,6 +560,10 @@
 
     <div id="offline-banner">İnternet Bağlantısı Yok ⚠️</div>
     
+    <div id="zoom-modal" onclick="closeZoom()">
+        <img id="zoom-image" src="" alt="Zoom">
+    </div>
+
     <div id="main-content">
         <div class="container">
             <div class="sound-tutorial-overlay" id="soundTutorialOverlay">
@@ -553,6 +576,7 @@
             <div class="header">
                 <div class="time" id="time">16:39</div>
                 <div class="producer">Yapımcı: Sude Naz Türkeli</div>
+                <button id="downloadApp" class="download-btn" onclick="downloadSite()">📲</button>
                 <button id="soundToggle" class="sound-btn">🔇</button>
             </div>
 
@@ -974,29 +998,21 @@
             </div>
         </div> 
     </div>
-<div id="zoom-modal" onclick="closeZoom()">
-    <img id="zoom-image" src="" alt="Zoom">
-</div>
+
     <script>
-        // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
+        // --- ÖZELLİK 1: KARIŞTIR (SHUFFLE) ---
         function shufflePosts() {
             const container = document.getElementById('postsContainer');
             const posts = Array.from(container.getElementsByClassName('post'));
-            
-            // Fisher-Yates shuffle algoritması
             for (let i = posts.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [posts[i], posts[j]] = [posts[j], posts[i]];
             }
-            
-            // Postları yeni sırayla geri ekle
             posts.forEach(post => container.appendChild(post));
         }
-        // Sayfa yüklenince hemen karıştır
         shufflePosts();
-        // ----------------------------------------------------
 
-        // --- YENİ EKLENEN: OFFLINE MOD KONTROLÜ (Madde 14) ---
+        // --- ÖZELLİK 2: OFFLINE MOD ---
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
 
@@ -1008,11 +1024,9 @@
                 banner.style.display = 'none';
             }
         }
-        // Başlangıç kontrolü
         updateOnlineStatus();
-        // ----------------------------------------------------
 
-        // --- YENİ EKLENEN: TAKİP ET BUTONU İŞLEVİ (Madde 13) ---
+        // --- ÖZELLİK 3: TAKİP ET ---
         function toggleFollow(btn) {
             btn.classList.toggle('following');
             if (btn.classList.contains('following')) {
@@ -1022,25 +1036,66 @@
                 btn.textContent = 'Takip Et';
                 btn.style.color = '#0095f6';
             }
-            // Event bubbling'i durdur (post detayına gitmesini engellemek için)
             event.stopPropagation();
         }
-        // ----------------------------------------------------
 
-        // YÜKLEYİCİ GİZLEME JS
+        // --- ÖZELLİK 4: ZOOM MODAL ---
+        const zoomModal = document.getElementById('zoom-modal');
+        const zoomImg = document.getElementById('zoom-image');
+
+        document.querySelectorAll('.post-image').forEach(img => {
+            img.style.cursor = 'zoom-in';
+            img.addEventListener('click', function() {
+                zoomModal.style.display = 'flex';
+                zoomImg.src = this.src;
+                requestAnimationFrame(() => { zoomModal.classList.add('active'); });
+            });
+        });
+
+        function closeZoom() {
+            zoomModal.classList.remove('active');
+            setTimeout(() => { zoomModal.style.display = 'none'; }, 300);
+        }
+
+        // --- ÖZELLİK 5: KAYDET ANİMASYONU ---
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            if (btn.textContent.includes('🔖')) {
+                btn.onclick = function() { toggleSave(this); };
+            }
+        });
+
+        function toggleSave(btn) {
+            const isSaved = btn.classList.toggle('saved');
+            if (isSaved) {
+                btn.textContent = '🏷️';
+            } else {
+                btn.textContent = '🔖';
+            }
+        }
+
+        // --- ÖZELLİK 6: ANA EKRANA EKLEME REHBERİ ---
+        function downloadSite() {
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+            let message = "";
+            if (isIOS) {
+                message = "📱 iPhone'da Ana Ekrana Eklemek İçin:\n\n1. Alttaki 'Paylaş' butonuna basın (kare içinde yukarı ok).\n2. Açılan menüden 'Ana Ekrana Ekle'yi seçin.\n\nBöylece uygulama tam ekran açılacaktır!";
+            } else {
+                message = "📱 Android'de Ana Ekrana Eklemek İçin:\n\n1. Tarayıcının sağ üst köşesindeki 3 noktaya tıklayın.\n2. 'Ana Ekrana Ekle' veya 'Uygulamayı Yükle' seçeneğine basın.\n\nBöylece uygulama tam ekran açılacaktır!";
+            }
+            alert(message);
+        }
+
+        // --- STANDART ÖZELLİKLER (Yükleyici, Beğeni, Ses vb.) ---
         let tipInterval; 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
-            
             if (tipInterval) clearInterval(tipInterval);
-            
             mainContent.style.display = 'flex'; 
             preloader.classList.add('hidden');
             setTimeout(() => { preloader.style.display = 'none'; }, 500); 
         });
 
-        // Pull to Refresh
         const postsContainer = document.getElementById("postsContainer");
         let startY = 0;
         let isPulling = false;
@@ -1057,7 +1112,6 @@
         });
         postsContainer.addEventListener("touchend", () => { isPulling = false; });
 
-        // Saat Güncelleme
         function updateTime() {
             const timeElement = document.getElementById("time");
             const now = new Date();
@@ -1070,12 +1124,10 @@
         updateTime();
         setInterval(updateTime, 1000);
 
-        // Beğenme İşlevi
         function likePost(button) {
             button.classList.toggle("liked");
             const likesSpan = button.closest('.post').querySelector('.likes-count');
             let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
-            
             if (button.classList.contains("liked")) {
                 button.textContent = "❤️"; 
                 count += 1;
@@ -1086,7 +1138,6 @@
             likesSpan.textContent = count.toLocaleString();
         }
 
-        // Paylaşım
         document.querySelectorAll(".action-btn").forEach(btn => {
             if (btn.textContent.includes("📤")) {
                 btn.addEventListener("click", async () => {
@@ -1103,7 +1154,6 @@
             }
         });
 
-        // Navigasyon
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
         const postsContainerEl = document.getElementById("postsContainer");
@@ -1124,7 +1174,6 @@
         });
         function closeSearch() { searchPopup.style.display = "none"; }
 
-        // Çift Tıklama Beğeni
         (function(){
             function triggerLikeForPost(post) {
                 const likeBtn = post.querySelector('.action-group .action-btn');
@@ -1162,7 +1211,6 @@
             document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
         })();
 
-        // Ses Yönetimi
         const soundToggle = document.getElementById("soundToggle");
         const posts = document.querySelectorAll(".post");
         let soundEnabled = false; 
@@ -1196,7 +1244,6 @@
             });
         });
 
-        // Ses Tutorial
         const tutorialOverlay = document.getElementById("soundTutorialOverlay");
         function showSoundTutorial() {
             soundToggle.textContent = "🔇"; 
@@ -1214,7 +1261,6 @@
             if (localStorage.getItem('soundTutorialShown') !== 'true') setTimeout(showSoundTutorial, 500); 
         });
 
-        // Açıklama Kısaltma (Devamını Oku) - HERKES İÇİN ÇALIŞACAK
         const MAX_LENGTH = 55;
         function initializeCaptionTruncation() {
             const captions = document.querySelectorAll('.post-caption');
@@ -1256,7 +1302,6 @@
         }
         window.addEventListener('load', initializeCaptionTruncation);
 
-        // Yükleme Bilgi Döngüsü
         const loadingTips = [
             "Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.",
             "Burçin hoca bizce bize yüksek not verecek <3",
@@ -1290,58 +1335,6 @@
         shuffleArray(loadingTips);
         displayNextTip();
         tipInterval = setInterval(displayNextTip, 2500); 
-    // --- ÖZELLİK 3: RESİM ZOOM İŞLEVİ ---
-const zoomModal = document.getElementById('zoom-modal');
-const zoomImg = document.getElementById('zoom-image');
-
-// Tüm post resimlerine tıklama özelliği ekle
-document.querySelectorAll('.post-image').forEach(img => {
-    img.style.cursor = 'zoom-in'; // Mouse ile üzerine gelince büyüteç çıksın
-    img.addEventListener('click', function() {
-        zoomModal.style.display = 'flex';
-        zoomImg.src = this.src; // Tıklanan resmin kaynağını al
-        
-        // Animasyon için minik gecikme
-        requestAnimationFrame(() => {
-            zoomModal.classList.add('active');
-        });
-    });
-});
-
-function closeZoom() {
-    zoomModal.classList.remove('active');
-    setTimeout(() => {
-        zoomModal.style.display = 'none';
-    }, 300); // Animasyon bitince gizle
-}
-
-
-// --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU ---
-// Önce HTML'deki kaydet butonlarına işlev ekleyelim
-document.querySelectorAll('.action-btn').forEach(btn => {
-    // Sadece 🔖 ikonuna sahip butonları bul (Bookmark butonu)
-    if (btn.textContent.includes('🔖')) {
-        btn.onclick = function() {
-            toggleSave(this);
-        };
-    }
-});
-
-function toggleSave(btn) {
-    // 'saved' sınıfını ekle/çıkar
-    const isSaved = btn.classList.toggle('saved');
-    
-    // Kullanıcıya geri bildirim ver (Opsiyonel ama şık durur)
-    if (isSaved) {
-        // Eğer daha önce eklediğimiz 'toast' fonksiyonu varsa onu kullanabiliriz
-        // Yoksa basit bir konsol mesajı veya ikon değişimi:
-        btn.textContent = '🏷️'; // İkonu değiştir (Dolu etiket)
-    } else {
-        btn.textContent = '🔖'; // İkonu eski haline getir
-    }
-}
-
     </script>
 </body>
 </html>
-
