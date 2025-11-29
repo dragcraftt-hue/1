@@ -475,40 +475,7 @@
             user-select: none;
             display: inline;
         }
-        /* --- ÖZELLİK 3: RESİM ZOOM MODAL (LIGHTBOX) --- */
-#zoom-modal {
-    display: none;
-    position: fixed;
-    z-index: 99999; /* Her şeyin üstünde */
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.9); /* Arka planı karart */
-    justify-content: center;
-    align-items: center;
-    cursor: zoom-out;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
 
-#zoom-modal.active {
-    opacity: 1;
-}
-
-#zoom-image {
-    max-width: 90%;
-    max-height: 90%;
-    object-fit: contain;
-    transform: scale(0.8);
-    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border-radius: 4px;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-}
-
-#zoom-modal.active #zoom-image {
-    transform: scale(1);
-}
 
 /* --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU --- */
 @keyframes saveBounce {
@@ -974,9 +941,6 @@
             </div>
         </div> 
     </div>
-<div id="zoom-modal" onclick="closeZoom()">
-    <img id="zoom-image" src="" alt="Zoom">
-</div>
     <script>
         // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
         function shufflePosts() {
@@ -1291,29 +1255,6 @@
         displayNextTip();
         tipInterval = setInterval(displayNextTip, 2500); 
     // --- ÖZELLİK 3: RESİM ZOOM İŞLEVİ ---
-const zoomModal = document.getElementById('zoom-modal');
-const zoomImg = document.getElementById('zoom-image');
-
-// Tüm post resimlerine tıklama özelliği ekle
-document.querySelectorAll('.post-image').forEach(img => {
-    img.style.cursor = 'zoom-in'; // Mouse ile üzerine gelince büyüteç çıksın
-    img.addEventListener('click', function() {
-        zoomModal.style.display = 'flex';
-        zoomImg.src = this.src; // Tıklanan resmin kaynağını al
-        
-        // Animasyon için minik gecikme
-        requestAnimationFrame(() => {
-            zoomModal.classList.add('active');
-        });
-    });
-});
-
-function closeZoom() {
-    zoomModal.classList.remove('active');
-    setTimeout(() => {
-        zoomModal.style.display = 'none';
-    }, 300); // Animasyon bitince gizle
-}
 
 
 // --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU ---
@@ -1344,3 +1285,4 @@ function toggleSave(btn) {
     </script>
 </body>
 </html>
+
