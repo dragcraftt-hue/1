@@ -1246,24 +1246,32 @@
         // Alt Navigasyon ve Arama Pop-up
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
+        // Kaydırılabilir kapsayıcıyı seçiyoruz
+        const postsContainerEl = document.getElementById("postsContainer");
 
         navButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 const action = btn.getAttribute("data-action");
 
-                // Aktif butonu değiştir
+                // Aktif butonu görsel olarak değiştir
                 navButtons.forEach(b => b.classList.remove('active'));
                 if (action !== 'search') {
                     btn.classList.add('active');
-                } else {
-                     // Sadece arama butonuna basıldığında aktif kalabilir, diğerleri uyarır
                 }
-                
 
-                if (action === "search") {
+                // EYLEMLER
+                if (action === "home") {
+                    // Ana sayfa butonuna basınca en yukarı kaydır (Smooth Scroll)
+                    postsContainerEl.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                } 
+                else if (action === "search") {
                     searchPopup.style.display = "flex";
-                } else if (action !== "home") {
-                    // Ana sayfa butonu için uyarı yok
+                } 
+                else {
+                    // Diğer butonlar için uyarı
                     alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
                 }
             });
@@ -1273,6 +1281,7 @@
             searchPopup.style.display = "none";
         }
     </script>
+
     
     <script>
         // Çift Tıklama Beğenme İşlevi
@@ -1578,4 +1587,5 @@
     </script>
 </body>
 </html>
+
 
