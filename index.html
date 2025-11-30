@@ -1281,9 +1281,34 @@ function toggleSave(btn) {
         btn.textContent = '🔖'; // İkonu eski haline getir
     }
 }
+        // --- YENİ EKLENEN: EKRAN KAPANDIĞINDA / TAB DEĞİŞTİĞİNDE SESİ DURDUR ---
+        document.addEventListener("visibilitychange", () => {
+            if (document.hidden) {
+                // KULLANICI GİTTİ (Ekran kapandı veya sekme değişti)
+                // Tüm sesleri anında durdur
+                document.querySelectorAll("audio").forEach(audio => {
+                    audio.pause();
+                });
+            } else {
+                // KULLANICI GERİ GELDİ
+                // Eğer genel ses butonu (soundEnabled) açıksa, 
+                // şu an ekranda hangi post varsa onun müziğini tekrar başlat.
+                if (soundEnabled) {
+                    posts.forEach(post => {
+                        const rect = post.getBoundingClientRect();
+                        // Post ekranda görünüyor mu kontrolü
+                        if (rect.bottom > 0 && rect.top < window.innerHeight) {
+                            managePostAudio(post, true);
+                        }
+                    });
+                }
+            }
+        });
+        // ------------------------------------------------------------------------
 
     </script>
 </body>
 </html>
+
 
 
