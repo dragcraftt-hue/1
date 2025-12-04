@@ -19,7 +19,7 @@
 
         /* --- YÜKLEYİCİ CSS --- */
         #main-content {
-            display: none;
+            display: none; 
         }
 
         #preloader {
@@ -50,7 +50,7 @@
         }
 
         #loading-tip {
-            min-height: 40px;
+            min-height: 40px; 
             margin: 15px auto;
             padding: 5px 0;
             max-width: 80%;
@@ -124,7 +124,7 @@
         .header {
             display: flex;
             align-items: center;
-            justify-content: flex-start;
+            justify-content: flex-start; 
             padding: 10px 16px;
             background: #000;
             border-bottom: 1px solid #262626;
@@ -161,7 +161,7 @@
             padding: 8px 16px;
             gap: 12px;
         }
-
+        
         .post-avatar {
             width: 32px;
             height: 32px;
@@ -292,12 +292,12 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-
+            
             /* Glassmorphism Efekti */
             background: rgba(0, 0, 0, 0.85); /* Hafif saydam */
             backdrop-filter: blur(12px); /* Arka planı bulanıklaştır */
             -webkit-backdrop-filter: blur(12px); /* Safari desteği */
-
+            
             z-index: 100;
             padding: 0;
             margin: 0;
@@ -394,37 +394,18 @@
             flex-grow: 1;
         }
 
-        .sound-control {
-            margin-left: auto;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: rgba(255, 255, 255, 0.06);
-            padding: 6px 10px;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
         .sound-btn {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%);
             background: none;
             border: none;
             color: #fff;
-            font-size: 18px;
+            font-size: 20px;
             cursor: pointer;
-            padding: 6px;
-        }
-
-        .sound-slider {
-            width: 110px;
-            accent-color: #0095f6;
-            cursor: pointer;
-        }
-
-        .sound-percentage {
-            font-size: 12px;
-            color: #d1d1d1;
-            min-width: 36px;
-            text-align: right;
+            z-index: 999;
+            padding: 8px;
         }
 
         /* Ses Açıklama Overlay */
@@ -526,7 +507,7 @@
     </div>
 
     <div id="offline-banner">İnternet Bağlantısı Yok ⚠️</div>
-
+    
     <div id="main-content">
         <div class="container">
             <div class="sound-tutorial-overlay" id="soundTutorialOverlay">
@@ -536,8 +517,14 @@
                 </div>
             </div>
 
-            <div class="posts-container" id="postsContainer">
+            <div class="header">
+                <div class="time" id="time">16:39</div>
+                <div class="producer">Yapımcı: Sude Naz Türkeli</div>
+                <button id="soundToggle" class="sound-btn">🔇</button>
+            </div>
 
+            <div class="posts-container" id="postsContainer">
+                
                 <div class="post">
                     <div class="post-header">
                         <div class="post-avatar" style="background-image: url('sude_naz.jpg');"></div>
@@ -564,7 +551,7 @@
                     <div class="post-likes"><span class="likes-count">1,234</span> beğenme</div>
                     <div class="post-caption">
                         <span class="username-caption">sude_naz</span>
-                        <span class="caption-text">Stoma bakımında dikkat edilmesi gereken en önemli nokta cilt temizliğidir. Adaptör değişimi sırasında cildi tahriş etmemek için nazik hareketler kullanılmalıdır. Detaylı anlatım videoda!</span>
+                        <span class="caption-text">Stoma bakımında dikkat edilmesi gereken en önemli nokta cilt temizliğidir. Adaptör değişimi sırasında cildi tahriş etmemek için nazik hareketler kullanılmalıdır. Detaylı anlatım videoda!</span> 
                     </div>
                     <div class="post-comments">45 yorumun tümünü gör</div>
                     <div class="post-comments">
@@ -617,7 +604,7 @@
                     <div class="post-content">
                         <img src="post3.jpg" alt="Post 3" class="post-image">
                         <audio class="post-audio" loop muted>
-                            <source src="post3music.mp3" type="audio/mp3">
+                            <source src="post3music.mp3" type="audio/mp3"> 
                         </audio>
                     </div>
                     <div class="post-actions">
@@ -711,7 +698,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="post6.jpg" alt="Post 6" class="post-image">
+                        <img src="post6.jpg" alt="Post 6" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
                         </audio>
@@ -746,7 +733,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="post7.jpg" alt="Post 7" class="post-image">
+                        <img src="post7.jpg" alt="Post 7" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
                         </audio>
@@ -778,7 +765,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="placeholder8.jpg" alt="Post 8" class="post-image">
+                        <img src="placeholder8.jpg" alt="Post 8" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
                         </audio>
@@ -813,7 +800,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="placeholder9.jpg" alt="Post 9" class="post-image">
+                        <img src="placeholder9.jpg" alt="Post 9" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
                         </audio>
@@ -848,7 +835,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="placeholder10.jpg" alt="Post 10" class="post-image">
+                        <img src="placeholder10.jpg" alt="Post 10" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
                         </audio>
@@ -880,7 +867,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="placeholder11.jpg" alt="Post 11" class="post-image">
+                        <img src="placeholder11.jpg" alt="Post 11" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post1music.mp3" type="audio/mp3">
                         </audio>
@@ -912,7 +899,7 @@
                         <div class="post-menu">⋮</div>
                     </div>
                     <div class="post-content">
-                        <img src="placeholder12.jpg" alt="Post 12" class="post-image">
+                        <img src="placeholder12.jpg" alt="Post 12" class="post-image"> 
                         <audio class="post-audio" loop muted>
                             <source src="post2music.mp3" type="audio/mp3">
                         </audio>
@@ -933,7 +920,7 @@
                     <div class="post-comments">289 yorumun tümünü gör</div>
                     <div class="post-time">Şimdi</div>
                 </div>
-            </div>
+            </div> 
 
             <div class="bottom-nav">
                 <button class="nav-btn active" data-action="home">🏠</button>
@@ -952,19 +939,20 @@
                     <button onclick="closeSearch()">Kapat</button>
                 </div>
             </div>
-        </div>
+        </div> 
     </div>
-            // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
+    <script>
+        // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
         function shufflePosts() {
             const container = document.getElementById('postsContainer');
             const posts = Array.from(container.getElementsByClassName('post'));
-
+            
             // Fisher-Yates shuffle algoritması
             for (let i = posts.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [posts[i], posts[j]] = [posts[j], posts[i]];
             }
-
+            
             // Postları yeni sırayla geri ekle
             posts.forEach(post => container.appendChild(post));
         }
@@ -1004,16 +992,16 @@
         // ----------------------------------------------------
 
         // YÜKLEYİCİ GİZLEME JS
-        let tipInterval;
+        let tipInterval; 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
-
+            
             if (tipInterval) clearInterval(tipInterval);
-
-            mainContent.style.display = 'flex';
+            
+            mainContent.style.display = 'flex'; 
             preloader.classList.add('hidden');
-            setTimeout(() => { preloader.style.display = 'none'; }, 500);
+            setTimeout(() => { preloader.style.display = 'none'; }, 500); 
         });
 
         // Pull to Refresh
@@ -1051,12 +1039,12 @@
             button.classList.toggle("liked");
             const likesSpan = button.closest('.post').querySelector('.likes-count');
             let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
-
+            
             if (button.classList.contains("liked")) {
-                button.textContent = "❤️";
+                button.textContent = "❤️"; 
                 count += 1;
             } else {
-                button.textContent = "🤍";
+                button.textContent = "🤍"; 
                 count -= 1;
             }
             likesSpan.textContent = count.toLocaleString();
@@ -1078,6 +1066,7 @@
                 });
             }
         });
+
         // Navigasyon
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
@@ -1127,7 +1116,7 @@
                 heart.className = 'double-heart';
                 heart.innerHTML = '❤️';
                 postContentEl.appendChild(heart);
-                void heart.offsetWidth;
+                void heart.offsetWidth; 
                 heart.classList.add('show');
                 setTimeout(() => {
                     heart.classList.remove('show');
@@ -1139,29 +1128,19 @@
 
         // Ses Yönetimi
         const soundToggle = document.getElementById("soundToggle");
-        const soundSlider = document.getElementById("soundSlider");
-        const soundPercent = document.getElementById("soundPercent");
         const posts = document.querySelectorAll(".post");
-        let soundEnabled = false;
-        let soundVolume = 0;
-        let lastNonZeroVolume = 0.6;
-
-        function updateSoundUI() {
-            soundToggle.textContent = soundEnabled && soundVolume > 0 ? "🔊" : "🔇";
-            soundPercent.textContent = `${Math.round(soundVolume * 100)}%`;
-            if (soundSlider) soundSlider.value = Math.round(soundVolume * 100);
-        }
+        let soundEnabled = false; 
 
         function managePostAudio(post, shouldPlay) {
             const audio = post.querySelector(".post-audio");
             if (!audio) return;
             if (shouldPlay) {
-                audio.muted = !(soundEnabled && soundVolume > 0);
-                audio.volume = soundVolume;
+                audio.muted = !soundEnabled; 
+                audio.volume = 0.6; 
                 audio.play().catch(error => console.log("Oynatma engellendi: " + error.message));
             } else {
                 audio.pause();
-                audio.currentTime = 0;
+                audio.currentTime = 0; 
             }
         }
 
@@ -1172,55 +1151,31 @@
         }, { threshold: 0.6 });
         posts.forEach(post => observer.observe(post));
 
-        function refreshVisibleAudio() {
-            posts.forEach(post => {
-                const rect = post.getBoundingClientRect();
-                if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true);
-            });
-        }
-
         soundToggle.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
-            if (soundEnabled && soundVolume === 0) {
-                soundVolume = lastNonZeroVolume;
-            } else if (!soundEnabled) {
-                lastNonZeroVolume = soundVolume || lastNonZeroVolume;
-                soundVolume = 0;
-            }
-            updateSoundUI();
-            refreshVisibleAudio();
+            soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
+            posts.forEach(post => {
+                const rect = post.getBoundingClientRect();
+                if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true); 
+            });
         });
 
-        soundSlider.addEventListener("input", (event) => {
-            const sliderValue = Number(event.target.value) / 100;
-            soundVolume = sliderValue;
-            if (sliderValue > 0) {
-                lastNonZeroVolume = sliderValue;
-                soundEnabled = true;
-            } else {
-                soundEnabled = false;
-            }
-            updateSoundUI();
-            refreshVisibleAudio();
-        });
-
-        updateSoundUI();
         // Ses Tutorial
         const tutorialOverlay = document.getElementById("soundTutorialOverlay");
         function showSoundTutorial() {
-            soundToggle.textContent = "🔇";
+            soundToggle.textContent = "🔇"; 
             soundToggle.style.animation = "pulse 1.5s infinite";
             tutorialOverlay.style.display = "flex";
-            document.body.style.overflow = 'hidden';
+            document.body.style.overflow = 'hidden'; 
         }
         function closeSoundTutorial() {
             tutorialOverlay.style.display = "none";
             soundToggle.style.animation = "none";
-            document.body.style.overflow = '';
+            document.body.style.overflow = ''; 
             localStorage.setItem('soundTutorialShown', 'true');
         }
         window.addEventListener('load', () => {
-            if (localStorage.getItem('soundTutorialShown') !== 'true') setTimeout(showSoundTutorial, 500);
+            if (localStorage.getItem('soundTutorialShown') !== 'true') setTimeout(showSoundTutorial, 500); 
         });
 
         // Açıklama Kısaltma (Devamını Oku) - HERKES İÇİN ÇALIŞACAK
@@ -1232,15 +1187,15 @@
                 if (!fullText) {
                     const textNode = captionDiv.querySelector('.caption-text');
                     if (!textNode) return;
-
+                    
                     const rawText = textNode.textContent.trim();
-                    captionDiv.setAttribute('data-full-text', rawText);
-
-                    if (rawText.length <= MAX_LENGTH) return;
+                    captionDiv.setAttribute('data-full-text', rawText); 
+                    
+                    if (rawText.length <= MAX_LENGTH) return; 
 
                     const truncatedText = rawText.substring(0, MAX_LENGTH) + '...';
                     textNode.textContent = truncatedText;
-
+                    
                     const readMoreBtn = document.createElement('span');
                     readMoreBtn.className = 'read-more-btn';
                     readMoreBtn.textContent = 'devamını oku';
@@ -1288,17 +1243,17 @@
         }
         function displayNextTip() {
             if (!tipElement) return;
-            tipElement.style.opacity = 0;
+            tipElement.style.opacity = 0; 
             setTimeout(() => {
                 const tip = loadingTips[tipIndex];
                 tipElement.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tip}`;
                 tipElement.style.opacity = 1;
                 tipIndex = (tipIndex + 1) % loadingTips.length;
-            }, 500);
+            }, 500); 
         }
         shuffleArray(loadingTips);
         displayNextTip();
-        tipInterval = setInterval(displayNextTip, 2500);
+        tipInterval = setInterval(displayNextTip, 2500); 
     // --- ÖZELLİK 3: RESİM ZOOM İŞLEVİ ---
 
 
@@ -1316,7 +1271,7 @@ document.querySelectorAll('.action-btn').forEach(btn => {
 function toggleSave(btn) {
     // 'saved' sınıfını ekle/çıkar
     const isSaved = btn.classList.toggle('saved');
-
+    
     // Kullanıcıya geri bildirim ver (Opsiyonel ama şık durur)
     if (isSaved) {
         // Eğer daha önce eklediğimiz 'toast' fonksiyonu varsa onu kullanabiliriz
@@ -1336,7 +1291,7 @@ function toggleSave(btn) {
                 });
             } else {
                 // KULLANICI GERİ GELDİ
-                // Eğer genel ses butonu (soundEnabled) açıksa,
+                // Eğer genel ses butonu (soundEnabled) açıksa, 
                 // şu an ekranda hangi post varsa onun müziğini tekrar başlat.
                 if (soundEnabled) {
                     posts.forEach(post => {
@@ -1354,3 +1309,6 @@ function toggleSave(btn) {
     </script>
 </body>
 </html>
+
+
+
