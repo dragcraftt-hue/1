@@ -1075,7 +1075,7 @@ sıvı almak önemlidir.</span>
 
             <div id="reels-view">
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels1.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels1.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>15K</span></button>
@@ -1094,7 +1094,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels2.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels2.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>33K</span></button>
@@ -1113,7 +1113,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels3.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels3.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>12K</span></button>
@@ -1132,7 +1132,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels4.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels4.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>5K</span></button>
@@ -1151,7 +1151,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels5.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels5.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>89K</span></button>
@@ -1170,7 +1170,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels6.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels6.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>42K</span></button>
@@ -1189,7 +1189,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels7.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels7.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>11K</span></button>
@@ -1208,7 +1208,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels8.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels8.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>26K</span></button>
@@ -1227,7 +1227,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels9.mp4" loop playsinline preload="metadata"></video>
+                    <video class="reel-video reel-bg" src="reels9.mp4" loop playsinline preload="none"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>67K</span></button>
@@ -1301,15 +1301,75 @@ sıvı almak önemlidir.</span>
             event.stopPropagation();
         }
 
-        // --- YÜKLEYİCİ ---
+        // --- YÜKLEYİCİ (GELİŞMİŞ HİBRİT VERSİYON) ---
         let tipInterval; 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
-            if (tipInterval) clearInterval(tipInterval);
-            mainContent.style.display = 'flex'; 
-            preloader.classList.add('hidden');
-            setTimeout(() => { preloader.style.display = 'none'; }, 500); 
+            
+            // Yüklenecek hedef video sayısı (İlk 2 Reels)
+            const videosToPreloadCount = 2; 
+            const allReels = document.querySelectorAll('.reel-video');
+            let loadedCount = 0;
+            let appStarted = false;
+
+            // Uygulamayı Başlatma Fonksiyonu
+            function startApp() {
+                if (appStarted) return; // Zaten başladıysa tekrar çalışma
+                appStarted = true;
+
+                if (tipInterval) clearInterval(tipInterval); // İpuçlarını durdur
+                
+                mainContent.style.display = 'flex'; 
+                preloader.classList.add('hidden');
+                
+                setTimeout(() => { preloader.style.display = 'none'; }, 500);
+
+                console.log("Uygulama başlatıldı, ilk videolar hazır!");
+            }
+
+            // Videoların durumunu kontrol et
+            function checkVideoLoaded() {
+                loadedCount++;
+                // Hedef sayıya ulaştıysak uygulamayı aç
+                if (loadedCount >= videosToPreloadCount) {
+                    startApp();
+                }
+            }
+
+            // İLK 2 VİDEOYU SEÇ VE YÜKLEMEYİ BAŞLAT
+            // Eğer hiç video yoksa direkt aç
+            if (allReels.length === 0) {
+                startApp();
+            } else {
+                // Sadece ilk 2 (veya daha az varsa hepsi) videoyu döngüye al
+                const limit = Math.min(allReels.length, videosToPreloadCount);
+                
+                for (let i = 0; i < limit; i++) {
+                    const video = allReels[i];
+                    
+                    // Videoyu yüklemeye zorla
+                    video.preload = "auto"; 
+                    
+                    // Video oynatılabilir veriye sahip olduğunda tetikle
+                    video.onloadeddata = checkVideoLoaded;
+                    
+                    // Tarayıcı bazen event'i kaçırabilir, readyState kontrolü yap
+                    if (video.readyState >= 3) {
+                        checkVideoLoaded();
+                    }
+                }
+            }
+
+            // GÜVENLİK SİGORTASI (TIMEOUT)
+            // Eğer internet çok yavaşsa veya video bozuksa, kullanıcı sonsuza kadar
+            // yükleme ekranında kalmasın. 5 saniye sonra zorla aç.
+            setTimeout(() => {
+                if (!appStarted) {
+                    console.log("Yükleme zaman aşımına uğradı, uygulama zorla açılıyor.");
+                    startApp();
+                }
+            }, 5000); // 5000 ms = 5 saniye
         });
 
         // Pull to Refresh
@@ -1399,7 +1459,7 @@ sıvı almak önemlidir.</span>
                     mainHeader.style.display = "flex";
                     postsContainerEl.scrollTo({ top: 0, behavior: 'smooth' });
                 } else if (action === "reels") {
-                    postsContainerEl.style.display = "none";
+                    postsContainerEl.style.display = "block";
                     reelsViewEl.style.display = "block";
                     mainHeader.style.display = "none";
                     // Reels açılınca ilk videoyu kontrol et
@@ -1493,7 +1553,7 @@ sıvı almak önemlidir.</span>
             });
         });
 
-        // --- YENİ EKLENEN: REELS AKILLI YÖNETİM (GÖZLEMCİ & PRELOAD) ---
+        // --- REELS AKILLI YÖNETİM (GÖZLEMCİ & PRELOAD) ---
         // IntersectionObserver kullanarak tek tek kaydırma ve yüklemeyi yönetiyoruz.
         const reelsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -1502,6 +1562,8 @@ sıvı almak önemlidir.</span>
 
                 if (entry.isIntersecting) {
                     // Video Görünürse: Oynat
+                    // preload='none' ise burada 'auto' yaparak yüklemeyi tetikliyoruz
+                    video.preload = "auto"; 
                     video.currentTime = 0;
                     video.muted = false; // Reels sesi varsayılan açık
                     video.play().catch(e => console.log("Reel autoplay engellendi"));
@@ -1518,6 +1580,8 @@ sıvı almak önemlidir.</span>
                     // Video Görünmezse: Durdur
                     video.pause();
                     video.currentTime = 0;
+                    // Kaynak tasarrufu için:
+                    video.preload = "none";
                 }
             });
         }, { 
@@ -1695,7 +1759,7 @@ sıvı almak önemlidir.</span>
             });
         }
 
-        // --- YENİ EKLENEN: REELS INFINITE SCROLL ---
+        // --- REELS INFINITE SCROLL ---
         let currentReelList = [];
         setTimeout(() => { currentReelList = Array.from(document.querySelectorAll('.reel-container')); }, 300);
 
@@ -1716,7 +1780,7 @@ sıvı almak önemlidir.</span>
                     video.pause();
                     video.currentTime = 0;
                     video.muted = true; // Başlangıçta sessiz, observer açacak
-                    video.preload = "metadata"; // Ağ tasarrufu için
+                    video.preload = "none"; // Ağ tasarrufu için
                 }
 
                 // Gözlemciye ekle (Play/Pause/Preload için şart)
@@ -1735,5 +1799,3 @@ sıvı almak önemlidir.</span>
     </script>
 </body>
 </html>
-
-
