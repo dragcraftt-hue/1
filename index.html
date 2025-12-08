@@ -477,19 +477,18 @@
         }
 
 
-/* --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU --- */
-@keyframes saveBounce {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.35); } /* Hafifçe büyür */
-    100% { transform: scale(1); }
-}
+        /* --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU --- */
+        @keyframes saveBounce {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.35); } /* Hafifçe büyür */
+            100% { transform: scale(1); }
+        }
 
-.action-btn.saved {
-    animation: saveBounce 0.4s ease-in-out;
-    filter: brightness(0) saturate(100%) invert(100%); /* İkonu parlatır */
-    /* Not: Emoji kullandığımız için rengi CSS ile tam değişmeyebilir ama animasyon çalışır */
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Parlama efekti */
-}
+        .action-btn.saved {
+            animation: saveBounce 0.4s ease-in-out;
+            filter: brightness(0) saturate(100%) invert(100%); /* İkonu parlatır */
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Parlama efekti */
+        }
 
     </style>
 </head>
@@ -1096,43 +1095,46 @@ sıvı almak önemlidir.</span>
         });
         function closeSearch() { searchPopup.style.display = "none"; }
 
-        // Çift Tıklama Beğeni
-        (function(){
-            function triggerLikeForPost(post) {
-                const likeBtn = post.querySelector('.action-group .action-btn');
-                if (likeBtn && !likeBtn.classList.contains('liked')) likePost(likeBtn);
-            }
-            function attachDoubleTap(el) {
-                let lastTap = 0;
-                el.addEventListener('dblclick', (e) => {
+        // --- Çift Tıklama Beğeni (Fonksiyonlar Globalleştirildi) ---
+        function triggerLikeForPost(post) {
+            const likeBtn = post.querySelector('.action-group .action-btn');
+            if (likeBtn && !likeBtn.classList.contains('liked')) likePost(likeBtn);
+        }
+
+        function showHeart(postContentEl) {
+            let heart = document.createElement('div');
+            heart.className = 'double-heart';
+            heart.innerHTML = '❤️';
+            postContentEl.appendChild(heart);
+            void heart.offsetWidth; 
+            heart.classList.add('show');
+            setTimeout(() => {
+                heart.classList.remove('show');
+                setTimeout(() => { if (heart.parentElement) heart.parentElement.removeChild(heart); }, 500);
+            }, 800);
+        }
+
+        function attachDoubleTap(el) {
+            let lastTap = 0;
+            el.addEventListener('dblclick', (e) => {
+                showHeart(el);
+                triggerLikeForPost(el.closest('.post'));
+            });
+            el.addEventListener('touchend', function(e) {
+                const currentTime = Date.now();
+                const tapLength = currentTime - lastTap;
+                if (tapLength < 300 && tapLength > 0) {
+                    e.preventDefault();
                     showHeart(el);
                     triggerLikeForPost(el.closest('.post'));
-                });
-                el.addEventListener('touchend', function(e) {
-                    const currentTime = Date.now();
-                    const tapLength = currentTime - lastTap;
-                    if (tapLength < 300 && tapLength > 0) {
-                        e.preventDefault();
-                        showHeart(el);
-                        triggerLikeForPost(el.closest('.post'));
-                    }
-                    lastTap = currentTime;
-                });
-            }
-            function showHeart(postContentEl) {
-                let heart = document.createElement('div');
-                heart.className = 'double-heart';
-                heart.innerHTML = '❤️';
-                postContentEl.appendChild(heart);
-                void heart.offsetWidth; 
-                heart.classList.add('show');
-                setTimeout(() => {
-                    heart.classList.remove('show');
-                    setTimeout(() => { if (heart.parentElement) heart.parentElement.removeChild(heart); }, 500);
-                }, 800);
-            }
-            document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
-        })();
+                }
+                lastTap = currentTime;
+            });
+        }
+
+        // Mevcut postlara çift tıklama ekle
+        document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
+        // -----------------------------------------------------------
 
         // Ses Yönetimi
         const soundToggle = document.getElementById("soundToggle");
@@ -1162,7 +1164,9 @@ sıvı almak önemlidir.</span>
         soundToggle.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
             soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
-            posts.forEach(post => {
+            // Dinamik olarak o anki görünür postları bulmak için document.querySelectorAll kullanıyoruz
+            // çünkü sonsuz döngü ile yeni postlar eklenecek.
+            document.querySelectorAll(".post").forEach(post => {
                 const rect = post.getBoundingClientRect();
                 if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true); 
             });
@@ -1188,9 +1192,11 @@ sıvı almak önemlidir.</span>
 
         // Açıklama Kısaltma (Devamını Oku) - HERKES İÇİN ÇALIŞACAK
         const MAX_LENGTH = 55;
-        function initializeCaptionTruncation() {
-            const captions = document.querySelectorAll('.post-caption');
-            captions.forEach(captionDiv => {
+        function initializeCaptionTruncation(scope) {
+            // Scope verilirse sadece o eleman içinde ara, yoksa tüm dokümanda
+            const elements = scope ? [scope] : document.querySelectorAll('.post-caption');
+            
+            elements.forEach(captionDiv => {
                 const fullText = captionDiv.getAttribute('data-full-text');
                 if (!fullText) {
                     const textNode = captionDiv.querySelector('.caption-text');
@@ -1226,7 +1232,7 @@ sıvı almak önemlidir.</span>
                 button.textContent = 'devamını oku';
             }
         }
-        window.addEventListener('load', initializeCaptionTruncation);
+        window.addEventListener('load', () => initializeCaptionTruncation());
 
         // Yükleme Bilgi Döngüsü
         const loadingTips = [
@@ -1262,49 +1268,37 @@ sıvı almak önemlidir.</span>
         shuffleArray(loadingTips);
         displayNextTip();
         tipInterval = setInterval(displayNextTip, 2500); 
-    // --- ÖZELLİK 3: RESİM ZOOM İŞLEVİ ---
 
+        // --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU ---
+        // Önce HTML'deki kaydet butonlarına işlev ekleyelim
+        document.querySelectorAll('.action-btn').forEach(btn => {
+            if (btn.textContent.includes('🔖')) {
+                btn.onclick = function() {
+                    toggleSave(this);
+                };
+            }
+        });
 
-// --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU ---
-// Önce HTML'deki kaydet butonlarına işlev ekleyelim
-document.querySelectorAll('.action-btn').forEach(btn => {
-    // Sadece 🔖 ikonuna sahip butonları bul (Bookmark butonu)
-    if (btn.textContent.includes('🔖')) {
-        btn.onclick = function() {
-            toggleSave(this);
-        };
-    }
-});
-
-function toggleSave(btn) {
-    // 'saved' sınıfını ekle/çıkar
-    const isSaved = btn.classList.toggle('saved');
-    
-    // Kullanıcıya geri bildirim ver (Opsiyonel ama şık durur)
-    if (isSaved) {
-        // Eğer daha önce eklediğimiz 'toast' fonksiyonu varsa onu kullanabiliriz
-        // Yoksa basit bir konsol mesajı veya ikon değişimi:
-        btn.textContent = '🏷️'; // İkonu değiştir (Dolu etiket)
-    } else {
-        btn.textContent = '🔖'; // İkonu eski haline getir
-    }
-}
+        function toggleSave(btn) {
+            // 'saved' sınıfını ekle/çıkar
+            const isSaved = btn.classList.toggle('saved');
+            
+            if (isSaved) {
+                btn.textContent = '🏷️'; // İkonu değiştir (Dolu etiket)
+            } else {
+                btn.textContent = '🔖'; // İkonu eski haline getir
+            }
+        }
         // --- YENİ EKLENEN: EKRAN KAPANDIĞINDA / TAB DEĞİŞTİĞİNDE SESİ DURDUR ---
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
-                // KULLANICI GİTTİ (Ekran kapandı veya sekme değişti)
-                // Tüm sesleri anında durdur
                 document.querySelectorAll("audio").forEach(audio => {
                     audio.pause();
                 });
             } else {
-                // KULLANICI GERİ GELDİ
-                // Eğer genel ses butonu (soundEnabled) açıksa, 
-                // şu an ekranda hangi post varsa onun müziğini tekrar başlat.
                 if (soundEnabled) {
-                    posts.forEach(post => {
+                    document.querySelectorAll('.post').forEach(post => {
                         const rect = post.getBoundingClientRect();
-                        // Post ekranda görünüyor mu kontrolü
                         if (rect.bottom > 0 && rect.top < window.innerHeight) {
                             managePostAudio(post, true);
                         }
@@ -1314,8 +1308,60 @@ function toggleSave(btn) {
         });
         // ------------------------------------------------------------------------
 
+        // --- SONSUZ DÖNGÜ (INFINITE SCROLL) ---
+        let currentPostList = []; // Karıştırılmış mevcut liste
+
+        // Karıştırma işlemi bittikten kısa süre sonra mevcut sıralamayı kaydet
+        setTimeout(() => {
+            currentPostList = Array.from(document.querySelectorAll('.post'));
+        }, 300);
+
+        postsContainer.addEventListener('scroll', () => {
+            // Sayfanın en altına 800px kala yeni postları yükle
+            if (postsContainer.scrollTop + postsContainer.clientHeight >= postsContainer.scrollHeight - 800) {
+                loadMorePosts();
+            }
+        });
+
+        function loadMorePosts() {
+            currentPostList.forEach(originalPost => {
+                // Postu kopyala
+                const clone = originalPost.cloneNode(true);
+
+                // 1. Sesi tekrar bağla (Observer)
+                observer.observe(clone);
+
+                // 2. Çift tıklama beğeniyi tekrar bağla
+                attachDoubleTap(clone.querySelector('.post-content'));
+
+                // 3. Kaydet butonunu tekrar bağla
+                const saveBtn = clone.querySelector('.action-btn:last-child');
+                if (saveBtn && saveBtn.textContent.includes('🔖')) {
+                    // Butonun durumunu ve ikonunu sıfırla
+                    saveBtn.classList.remove('saved');
+                    saveBtn.textContent = '🔖';
+                    saveBtn.onclick = function() { toggleSave(this); };
+                }
+
+                // 4. "Devamını Oku" özelliğini tekrar bağla
+                // Klonlama, HTML'deki "Devamını Oku" yazısını getirir ama tıklama olayını getirmez.
+                // Bu yüzden klondaki butonu bulup yeniden tıklama olayı veriyoruz.
+                const readMoreBtn = clone.querySelector('.read-more-btn');
+                if (readMoreBtn) {
+                    const captionDiv = clone.querySelector('.post-caption');
+                    const textNode = captionDiv.querySelector('.caption-text');
+                    readMoreBtn.onclick = function(e) {
+                         toggleCaption(captionDiv, textNode, readMoreBtn);
+                         e.stopPropagation();
+                    };
+                }
+
+                // Kopyayı listeye ekle
+                postsContainer.appendChild(clone);
+            });
+        }
+        // --------------------------------------
+
     </script>
 </body>
 </html>
-
-
