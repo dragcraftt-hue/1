@@ -15,6 +15,7 @@
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background: #000;
             color: #fff;
+            overflow: hidden; /* Sayfa taşmasını engelle */
         }
 
         /* --- YÜKLEYİCİ CSS --- */
@@ -97,7 +98,6 @@
         }
         /* --- YÜKLEYİCİ CSS SONU --- */
 
-        /* --- YENİ EKLENEN: OFFLINE BANNER (Madde 14) --- */
         #offline-banner {
             display: none;
             position: fixed;
@@ -112,7 +112,6 @@
             font-weight: 600;
             z-index: 10000;
         }
-        /* ----------------------------------------------- */
 
         .container {
             height: 100vh;
@@ -129,6 +128,7 @@
             background: #000;
             border-bottom: 1px solid #262626;
             position: relative;
+            z-index: 50;
         }
 
         .time {
@@ -142,6 +142,7 @@
             flex: 1;
             overflow-y: scroll;
             -webkit-overflow-scrolling: touch;
+            padding-bottom: 60px; /* Nav bar için boşluk */
         }
         .posts-container::-webkit-scrollbar {
             display: none;
@@ -182,7 +183,6 @@
             gap: 5px;
         }
 
-        /* --- YENİ EKLENEN: TAKİP ET BUTONU CSS (Madde 13) --- */
         .follow-btn {
             background: none;
             border: none;
@@ -197,7 +197,6 @@
             color: #a8a8a8;
             font-weight: 600;
         }
-        /* ---------------------------------------------------- */
 
         .verified { color: #0095f6; }
 
@@ -282,7 +281,7 @@
             border-bottom: 1px solid #262626;
         }
 
-        /* Bottom Navigation - GÜNCELLENDİ (Madde 4 - Glassmorphism) */
+        /* Bottom Navigation */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -292,16 +291,13 @@
             display: flex;
             align-items: center;
             justify-content: space-around;
-            
-            /* Glassmorphism Efekti */
-            background: rgba(0, 0, 0, 0.85); /* Hafif saydam */
-            backdrop-filter: blur(12px); /* Arka planı bulanıklaştır */
-            -webkit-backdrop-filter: blur(12px); /* Safari desteği */
-            
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             z-index: 100;
             padding: 0;
             margin: 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.1); /* Çizgiyi de yumuşattık */
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .nav-btn {
@@ -466,7 +462,6 @@
             animation: pulse 1s infinite;
         }
 
-        /* Devamını Oku Butonu */
         .read-more-btn {
             color: #a8a8a8;
             font-weight: 500;
@@ -476,19 +471,163 @@
             display: inline;
         }
 
-
-        /* --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU --- */
         @keyframes saveBounce {
             0% { transform: scale(1); }
-            50% { transform: scale(1.35); } /* Hafifçe büyür */
+            50% { transform: scale(1.35); } 
             100% { transform: scale(1); }
         }
 
         .action-btn.saved {
             animation: saveBounce 0.4s ease-in-out;
-            filter: brightness(0) saturate(100%) invert(100%); /* İkonu parlatır */
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); /* Parlama efekti */
+            filter: brightness(0) saturate(100%) invert(100%);
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
         }
+
+        /* ------------------------------- */
+        /* --- REELS BÖLÜMÜ CSS BAŞLANGICI --- */
+        /* ------------------------------- */
+        
+        #reels-view {
+            display: none; /* Varsayılan olarak gizli */
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory; /* Otomatik hizalama */
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 60; /* Header'ın üstüne çıkmalı, nav'ın altında kalmalı */
+        }
+
+        /* Scrollbar'ı gizle */
+        #reels-view::-webkit-scrollbar { display: none; }
+
+        .reel-container {
+            width: 100%;
+            height: 100vh; /* Navigasyon arkada kalabilir, tam ekran hissi */
+            position: relative;
+            scroll-snap-align: start;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #111;
+            overflow: hidden;
+        }
+
+        .reel-bg {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.9;
+        }
+
+        /* Reels Overlay (Kullanıcı Bilgisi ve Butonlar) */
+        .reel-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 30%);
+            pointer-events: none; /* Tıklamaların arkaya geçmesini sağla */
+        }
+
+        /* Sağ Taraftaki Butonlar */
+        .reel-actions {
+            position: absolute;
+            bottom: 80px;
+            right: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            pointer-events: auto;
+        }
+
+        .reel-btn {
+            background: none;
+            border: none;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            font-size: 28px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .reel-btn span {
+            font-size: 12px;
+            margin-top: 4px;
+            font-weight: 500;
+        }
+
+        /* Sol Alt Bilgiler */
+        .reel-info {
+            position: absolute;
+            bottom: 70px;
+            left: 15px;
+            width: 75%;
+            pointer-events: auto;
+            text-align: left;
+        }
+
+        .reel-user {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .reel-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background-size: cover;
+            border: 2px solid #fff;
+        }
+
+        .reel-username {
+            font-weight: 600;
+            font-size: 15px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .reel-follow {
+            border: 1px solid rgba(255,255,255,0.6);
+            background: none;
+            color: #fff;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .reel-description {
+            font-size: 14px;
+            line-height: 1.3;
+            margin-bottom: 10px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            max-height: 60px;
+            overflow: hidden;
+        }
+
+        .music-ticker {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            background: rgba(0,0,0,0.4);
+            padding: 4px 12px;
+            border-radius: 20px;
+            width: fit-content;
+        }
+
+        /* ----------------------------- */
+        /* --- REELS BÖLÜMÜ CSS SONU --- */
+        /* ----------------------------- */
 
     </style>
 </head>
@@ -516,7 +655,7 @@
                 </div>
             </div>
 
-            <div class="header">
+            <div class="header" id="mainHeader">
                 <div class="time" id="time">16:39</div>
                 <div class="producer">Yapımcı: Sude Naz Türkeli</div>
                 <button id="soundToggle" class="sound-btn">🔇</button>
@@ -929,6 +1068,189 @@ sıvı almak önemlidir.</span>
                 </div>
             </div> 
 
+            <div id="reels-view">
+                <div class="reel-container">
+                    <img src="post1.png" class="reel-bg" alt="Reel 1">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post1music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>15K</span></button>
+                        <button class="reel-btn">💬 <span>234</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('sude_naz.jpg');"></div>
+                            <span class="reel-username">sude_naz</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Sağlıklı beslenme herkes için önemlidir. #stoma #beslenme</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - sude_naz</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post2.jpg" class="reel-bg" alt="Reel 2">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post2music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>33K</span></button>
+                        <button class="reel-btn">💬 <span>1K</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('zeynep.jpg');"></div>
+                            <span class="reel-username">zeynep</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Her kişinin toleransı farklıdır. #diyet #farkındalık</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - zeynep</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post3.jpg" class="reel-bg" alt="Reel 3">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post3music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>12K</span></button>
+                        <button class="reel-btn">💬 <span>550</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('irem_sude.jpg');"></div>
+                            <span class="reel-username">irem_sude</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Lifli gıdalara dikkat! #sağlık #beslenme</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - irem_sude</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post4.jpg" class="reel-bg" alt="Reel 4">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post4music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>5K</span></button>
+                        <button class="reel-btn">💬 <span>120</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('nisanur.jpg');"></div>
+                            <span class="reel-username">nisanur</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">İyi çiğnemek sindirimi kolaylaştırır. #tavsiye</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - nisanur</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post5.jpg" class="reel-bg" alt="Reel 5">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post5music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>89K</span></button>
+                        <button class="reel-btn">💬 <span>2K</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('sude.jpg');"></div>
+                            <span class="reel-username">sude</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Rahatsız eden besinleri not edin. #günlük</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - sude</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post6.jpg" class="reel-bg" alt="Reel 6">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post6music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>42K</span></button>
+                        <button class="reel-btn">💬 <span>900</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('sude_naz.jpg');"></div>
+                            <span class="reel-username">sude_naz</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Yemek yerken konuşmamaya özen gösterin.</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - sude_naz</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post7.jpg" class="reel-bg" alt="Reel 7">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post7music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>11K</span></button>
+                        <button class="reel-btn">💬 <span>340</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('zeynep.jpg');"></div>
+                            <span class="reel-username">zeynep</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Egzersiz yapmak tıkaç oluşumunu engeller. #spor</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - zeynep</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post8.jpg" class="reel-bg" alt="Reel 8">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post8music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>26K</span></button>
+                        <button class="reel-btn">💬 <span>800</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('irem_sude.jpg');"></div>
+                            <span class="reel-username">irem_sude</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Kendi deneyimleriniz en doğru yoldur.</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - irem_sude</div>
+                    </div>
+                </div>
+                <div class="reel-container">
+                    <img src="post9.jpg" class="reel-bg" alt="Reel 9">
+                    <div class="reel-overlay"></div>
+                    <audio class="reel-audio" loop muted><source src="post9music.mp3" type="audio/mp3"></audio>
+                    <div class="reel-actions">
+                        <button class="reel-btn" onclick="likeReel(this)">🤍 <span>67K</span></button>
+                        <button class="reel-btn">💬 <span>1.5K</span></button>
+                        <button class="reel-btn">📤 <span>Paylaş</span></button>
+                        <button class="reel-btn">⋯</button>
+                    </div>
+                    <div class="reel-info">
+                        <div class="reel-user">
+                            <div class="reel-avatar" style="background-image: url('nisanur.jpg');"></div>
+                            <span class="reel-username">nisanur</span>
+                            <button class="reel-follow">Takip Et</button>
+                        </div>
+                        <div class="reel-description">Bol sıvı tüketimi çok önemlidir. #su #hayat</div>
+                        <div class="music-ticker">🎵 Orijinal Ses - nisanur</div>
+                    </div>
+                </div>
+            </div>
+
             <div class="bottom-nav">
                 <button class="nav-btn active" data-action="home">🏠</button>
                 <button class="nav-btn" data-action="search">🔍</button>
@@ -1074,26 +1396,59 @@ sıvı almak önemlidir.</span>
             }
         });
 
-        // Navigasyon
+        // --- GÜNCELLENEN NAVİGASYON (FEED ve REELS ARASI GEÇİŞ) ---
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
         const postsContainerEl = document.getElementById("postsContainer");
+        const reelsViewEl = document.getElementById("reels-view");
+        const mainHeader = document.getElementById("mainHeader");
+
         navButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 const action = btn.getAttribute("data-action");
+                
+                if (action === "search") {
+                    searchPopup.style.display = "flex";
+                    return;
+                }
+
+                // Nav aktiflik durumu
                 navButtons.forEach(b => b.classList.remove('active'));
-                if (action !== 'search') btn.classList.add('active');
+                btn.classList.add('active');
+
+                // Görünümleri sıfırla (tüm sesleri durdur)
+                stopAllAudio(); 
 
                 if (action === "home") {
+                    postsContainerEl.style.display = "block";
+                    reelsViewEl.style.display = "none";
+                    mainHeader.style.display = "flex";
                     postsContainerEl.scrollTo({ top: 0, behavior: 'smooth' });
-                } else if (action === "search") {
-                    searchPopup.style.display = "flex";
+                    // Feed görünür olunca observer otomatik devreye girer
+                } else if (action === "reels") {
+                    postsContainerEl.style.display = "none";
+                    reelsViewEl.style.display = "block";
+                    mainHeader.style.display = "none";
+                    // Reels görünür olunca ilk videoyu tetikle
+                    checkReelsVisibility();
                 } else {
-                    alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
+                    // Diğer butonlar için (profil vs) şimdilik home'a dön
+                     alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
+                     // Basitlik için home'a geri dönelim
+                     navButtons.forEach(b => b.classList.remove('active'));
+                     document.querySelector('[data-action="home"]').classList.add('active');
                 }
             });
         });
         function closeSearch() { searchPopup.style.display = "none"; }
+
+        function stopAllAudio() {
+            document.querySelectorAll("audio").forEach(a => {
+                a.pause();
+                a.currentTime = 0;
+            });
+        }
+        // ----------------------------------------------------
 
         // --- Çift Tıklama Beğeni (Fonksiyonlar Globalleştirildi) ---
         function triggerLikeForPost(post) {
@@ -1118,7 +1473,8 @@ sıvı almak önemlidir.</span>
             let lastTap = 0;
             el.addEventListener('dblclick', (e) => {
                 showHeart(el);
-                triggerLikeForPost(el.closest('.post'));
+                if(el.closest('.post')) triggerLikeForPost(el.closest('.post'));
+                if(el.closest('.reel-container')) triggerLikeForReel(el.closest('.reel-container'));
             });
             el.addEventListener('touchend', function(e) {
                 const currentTime = Date.now();
@@ -1126,7 +1482,8 @@ sıvı almak önemlidir.</span>
                 if (tapLength < 300 && tapLength > 0) {
                     e.preventDefault();
                     showHeart(el);
-                    triggerLikeForPost(el.closest('.post'));
+                    if(el.closest('.post')) triggerLikeForPost(el.closest('.post'));
+                    if(el.closest('.reel-container')) triggerLikeForReel(el.closest('.reel-container'));
                 }
                 lastTap = currentTime;
             });
@@ -1134,14 +1491,20 @@ sıvı almak önemlidir.</span>
 
         // Mevcut postlara çift tıklama ekle
         document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
+        // Mevcut reellere çift tıklama ekle
+        document.querySelectorAll('.reel-container').forEach(el => attachDoubleTap(el));
+        
         // -----------------------------------------------------------
 
-        // Ses Yönetimi
+        // Ses Yönetimi (FEED)
         const soundToggle = document.getElementById("soundToggle");
         const posts = document.querySelectorAll(".post");
         let soundEnabled = false; 
 
         function managePostAudio(post, shouldPlay) {
+            // Eğer reels modu açıksa feed sesi çalmasın
+            if (reelsViewEl.style.display === 'block') return;
+
             const audio = post.querySelector(".post-audio");
             if (!audio) return;
             if (shouldPlay) {
@@ -1164,13 +1527,64 @@ sıvı almak önemlidir.</span>
         soundToggle.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
             soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
-            // Dinamik olarak o anki görünür postları bulmak için document.querySelectorAll kullanıyoruz
-            // çünkü sonsuz döngü ile yeni postlar eklenecek.
+            // Dinamik olarak o anki görünür postları bul
             document.querySelectorAll(".post").forEach(post => {
                 const rect = post.getBoundingClientRect();
                 if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true); 
             });
         });
+
+        // --- REELS İÇİN ÖZEL JS ---
+        function checkReelsVisibility() {
+            if (reelsViewEl.style.display === 'none') return;
+            
+            const reels = document.querySelectorAll('.reel-container');
+            reels.forEach(reel => {
+                const rect = reel.getBoundingClientRect();
+                const audio = reel.querySelector('.reel-audio');
+                if (rect.top >= -50 && rect.bottom <= (window.innerHeight + 50)) {
+                    // Görünür alan
+                    if (audio) {
+                        audio.muted = false; // Reels genelde sesli başlar veya tıklanınca açılır, burada direkt açıyoruz.
+                        audio.play().catch(e => console.log("Reel autoplay engellendi"));
+                    }
+                } else {
+                    if (audio) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+                }
+            });
+        }
+        
+        // Reels scroll edildiğinde sesi yönet
+        reelsViewEl.addEventListener('scroll', () => {
+             // Debounce benzeri basit bir kontrol
+             clearTimeout(window.reelsScrollTimeout);
+             window.reelsScrollTimeout = setTimeout(checkReelsVisibility, 100);
+        });
+
+        // Reels beğenme
+        function likeReel(btn) {
+            btn.classList.toggle("liked");
+            let textSpan = btn.querySelector('span');
+            let text = textSpan.textContent;
+            
+            if (btn.classList.contains("liked")) {
+                btn.innerHTML = `❤️ <span>${text}</span>`;
+                btn.style.color = '#ed4956';
+            } else {
+                btn.innerHTML = `🤍 <span>${text}</span>`;
+                btn.style.color = '#fff';
+            }
+        }
+
+        function triggerLikeForReel(reel) {
+            const likeBtn = reel.querySelector('.reel-actions .reel-btn:first-child');
+            if (likeBtn && !likeBtn.classList.contains('liked')) likeReel(likeBtn);
+        }
+        // ---------------------------
+
 
         // Ses Tutorial
         const tutorialOverlay = document.getElementById("soundTutorialOverlay");
@@ -1296,7 +1710,10 @@ sıvı almak önemlidir.</span>
                     audio.pause();
                 });
             } else {
-                if (soundEnabled) {
+                // Ekrana geri dönünce hangi modda olduğumuza bak
+                if (reelsViewEl.style.display === 'block') {
+                    checkReelsVisibility();
+                } else if (soundEnabled) {
                     document.querySelectorAll('.post').forEach(post => {
                         const rect = post.getBoundingClientRect();
                         if (rect.bottom > 0 && rect.top < window.innerHeight) {
