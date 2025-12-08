@@ -493,11 +493,13 @@
             height: 100vh;
             background: #000;
             overflow-y: scroll;
-            scroll-snap-type: y mandatory; /* Otomatik hizalama */
+            /* DEĞİŞİKLİK: Scroll-snap zorunlu (mandatory) ve y ekseni */
+            scroll-snap-type: y mandatory; 
+            scroll-behavior: smooth;
             position: absolute;
             top: 0;
             left: 0;
-            z-index: 60; /* Header'ın üstüne çıkmalı, nav'ın altında kalmalı */
+            z-index: 60; 
         }
 
         /* Scrollbar'ı gizle */
@@ -505,13 +507,14 @@
 
         .reel-container {
             width: 100%;
-            height: 100vh; /* Navigasyon arkada kalabilir, tam ekran hissi */
+            height: 100vh; 
             position: relative;
+            /* DEĞİŞİKLİK: Snap başlangıç noktasına hizalama */
             scroll-snap-align: start;
+            scroll-snap-stop: always; /* Her seferinde bir tanede durmasını zorla */
             display: flex;
             align-items: center;
             justify-content: center;
-            /* DEĞİŞİKLİK: Arka planı tamamen siyah yaptık */
             background: #000; 
             overflow: hidden;
         }
@@ -519,9 +522,6 @@
         .reel-bg {
             width: 100%;
             height: 100%;
-            /* DEĞİŞİKLİK: object-fit: contain yaptık */
-            /* cover: Videoyu ekrana sığdırmak için keser (zoom yapar). */
-            /* contain: Videonun tamamını ekrana sığdırır, boşlukları siyah bırakır. */
             object-fit: contain; 
             opacity: 1; 
             background: #000;
@@ -1075,7 +1075,7 @@ sıvı almak önemlidir.</span>
 
             <div id="reels-view">
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels1.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels1.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>15K</span></button>
@@ -1094,7 +1094,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels2.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels2.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>33K</span></button>
@@ -1113,7 +1113,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels3.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels3.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>12K</span></button>
@@ -1132,7 +1132,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels4.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels4.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>5K</span></button>
@@ -1151,7 +1151,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels5.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels5.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>89K</span></button>
@@ -1170,7 +1170,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels6.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels6.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>42K</span></button>
@@ -1189,7 +1189,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels7.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels7.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>11K</span></button>
@@ -1208,7 +1208,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels8.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels8.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>26K</span></button>
@@ -1227,7 +1227,7 @@ sıvı almak önemlidir.</span>
                     </div>
                 </div>
                 <div class="reel-container">
-                    <video class="reel-video reel-bg" src="reels9.mp4" loop playsinline></video>
+                    <video class="reel-video reel-bg" src="reels9.mp4" loop playsinline preload="metadata"></video>
                     <div class="reel-overlay"></div>
                     <div class="reel-actions">
                         <button class="reel-btn" onclick="likeReel(this)">🤍 <span>67K</span></button>
@@ -1267,41 +1267,28 @@ sıvı almak önemlidir.</span>
         </div> 
     </div>
     <script>
-        // --- YENİ EKLENEN: POSTLARI KARIŞTIR (Madde 16) ---
+        // --- FEED POSTLARI KARIŞTIR ---
         function shufflePosts() {
             const container = document.getElementById('postsContainer');
             const posts = Array.from(container.getElementsByClassName('post'));
-            
-            // Fisher-Yates shuffle algoritması
             for (let i = posts.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
                 [posts[i], posts[j]] = [posts[j], posts[i]];
             }
-            
-            // Postları yeni sırayla geri ekle
             posts.forEach(post => container.appendChild(post));
         }
-        // Sayfa yüklenince hemen karıştır
         shufflePosts();
-        // ----------------------------------------------------
 
-        // --- YENİ EKLENEN: OFFLINE MOD KONTROLÜ (Madde 14) ---
+        // --- OFFLINE MOD KONTROLÜ ---
         window.addEventListener('online', updateOnlineStatus);
         window.addEventListener('offline', updateOnlineStatus);
-
         function updateOnlineStatus() {
             const banner = document.getElementById('offline-banner');
-            if (!navigator.onLine) {
-                banner.style.display = 'block';
-            } else {
-                banner.style.display = 'none';
-            }
+            banner.style.display = !navigator.onLine ? 'block' : 'none';
         }
-        // Başlangıç kontrolü
         updateOnlineStatus();
-        // ----------------------------------------------------
 
-        // --- YENİ EKLENEN: TAKİP ET BUTONU İŞLEVİ (Madde 13) ---
+        // --- TAKİP ET BUTONU ---
         function toggleFollow(btn) {
             btn.classList.toggle('following');
             if (btn.classList.contains('following')) {
@@ -1311,19 +1298,15 @@ sıvı almak önemlidir.</span>
                 btn.textContent = 'Takip Et';
                 btn.style.color = '#0095f6';
             }
-            // Event bubbling'i durdur (post detayına gitmesini engellemek için)
             event.stopPropagation();
         }
-        // ----------------------------------------------------
 
-        // YÜKLEYİCİ GİZLEME JS
+        // --- YÜKLEYİCİ ---
         let tipInterval; 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const mainContent = document.getElementById('main-content');
-            
             if (tipInterval) clearInterval(tipInterval);
-            
             mainContent.style.display = 'flex'; 
             preloader.classList.add('hidden');
             setTimeout(() => { preloader.style.display = 'none'; }, 500); 
@@ -1359,12 +1342,11 @@ sıvı almak önemlidir.</span>
         updateTime();
         setInterval(updateTime, 1000);
 
-        // Beğenme İşlevi
+        // Feed Beğenme
         function likePost(button) {
             button.classList.toggle("liked");
             const likesSpan = button.closest('.post').querySelector('.likes-count');
             let count = parseInt(likesSpan.textContent.replace(/,/g, ''));
-            
             if (button.classList.contains("liked")) {
                 button.textContent = "❤️"; 
                 count += 1;
@@ -1392,7 +1374,7 @@ sıvı almak önemlidir.</span>
             }
         });
 
-        // --- GÜNCELLENEN NAVİGASYON (FEED ve REELS ARASI GEÇİŞ) ---
+        // --- NAVİGASYON ---
         const navButtons = document.querySelectorAll(".nav-btn");
         const searchPopup = document.getElementById("searchPopup");
         const postsContainerEl = document.getElementById("postsContainer");
@@ -1402,17 +1384,13 @@ sıvı almak önemlidir.</span>
         navButtons.forEach(btn => {
             btn.addEventListener("click", () => {
                 const action = btn.getAttribute("data-action");
-                
                 if (action === "search") {
                     searchPopup.style.display = "flex";
                     return;
                 }
-
-                // Nav aktiflik durumu
                 navButtons.forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
 
-                // Görünümleri sıfırla (tüm sesleri durdur)
                 stopAllAudio(); 
 
                 if (action === "home") {
@@ -1420,17 +1398,13 @@ sıvı almak önemlidir.</span>
                     reelsViewEl.style.display = "none";
                     mainHeader.style.display = "flex";
                     postsContainerEl.scrollTo({ top: 0, behavior: 'smooth' });
-                    // Feed görünür olunca observer otomatik devreye girer
                 } else if (action === "reels") {
                     postsContainerEl.style.display = "none";
                     reelsViewEl.style.display = "block";
                     mainHeader.style.display = "none";
-                    // Reels görünür olunca ilk videoyu tetikle
-                    checkReelsVisibility();
+                    // Reels açılınca ilk videoyu kontrol et
+                    handleReelIntersection(); 
                 } else {
-                    // Diğer butonlar için (profil vs) şimdilik home'a dön
-                     alert("Lütfen odağınızı ana sayfaya yönlendirin :)");
-                     // Basitlik için home'a geri dönelim
                      navButtons.forEach(b => b.classList.remove('active'));
                      document.querySelector('[data-action="home"]').classList.add('active');
                 }
@@ -1439,20 +1413,11 @@ sıvı almak önemlidir.</span>
         function closeSearch() { searchPopup.style.display = "none"; }
 
         function stopAllAudio() {
-            // Feed audio'larını durdur
-            document.querySelectorAll(".post-audio").forEach(a => {
-                a.pause();
-                a.currentTime = 0;
-            });
-            // Reels videolarını durdur
-            document.querySelectorAll(".reel-video").forEach(v => {
-                v.pause();
-                v.currentTime = 0;
-            });
+            document.querySelectorAll(".post-audio").forEach(a => { a.pause(); a.currentTime = 0; });
+            document.querySelectorAll(".reel-video").forEach(v => { v.pause(); v.currentTime = 0; });
         }
-        // ----------------------------------------------------
 
-        // --- Çift Tıklama Beğeni (Fonksiyonlar Globalleştirildi) ---
+        // --- ÇİFT TIKLAMA BEĞENİ ---
         function triggerLikeForPost(post) {
             const likeBtn = post.querySelector('.action-group .action-btn');
             if (likeBtn && !likeBtn.classList.contains('liked')) likePost(likeBtn);
@@ -1490,90 +1455,89 @@ sıvı almak önemlidir.</span>
                 lastTap = currentTime;
             });
         }
-
-        // Mevcut postlara çift tıklama ekle
         document.querySelectorAll('.post-content').forEach(el => attachDoubleTap(el));
-        // Mevcut reellere çift tıklama ekle
         document.querySelectorAll('.reel-container').forEach(el => attachDoubleTap(el));
         
-        // -----------------------------------------------------------
-
-        // Ses Yönetimi (FEED)
+        // --- FEED SES YÖNETİMİ ---
         const soundToggle = document.getElementById("soundToggle");
         const posts = document.querySelectorAll(".post");
         let soundEnabled = false; 
 
         function managePostAudio(post, shouldPlay) {
-            // Eğer reels modu açıksa feed sesi çalmasın
             if (reelsViewEl.style.display === 'block') return;
-
             const audio = post.querySelector(".post-audio");
             if (!audio) return;
             if (shouldPlay) {
                 audio.muted = !soundEnabled; 
                 audio.volume = 0.6; 
-                audio.play().catch(error => console.log("Oynatma engellendi: " + error.message));
+                audio.play().catch(error => console.log("Oynatma engellendi"));
             } else {
                 audio.pause();
                 audio.currentTime = 0; 
             }
         }
 
-        const observer = new IntersectionObserver(entries => {
+        const feedObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => {
                 managePostAudio(entry.target, entry.isIntersecting);
             });
         }, { threshold: 0.6 });
-        posts.forEach(post => observer.observe(post));
+        posts.forEach(post => feedObserver.observe(post));
 
         soundToggle.addEventListener("click", () => {
             soundEnabled = !soundEnabled;
             soundToggle.textContent = soundEnabled ? "🔊" : "🔇";
-            // Dinamik olarak o anki görünür postları bul
             document.querySelectorAll(".post").forEach(post => {
                 const rect = post.getBoundingClientRect();
                 if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true); 
             });
         });
 
-        // --- REELS İÇİN ÖZEL JS (VİDEO DESTEKLİ) ---
-        function checkReelsVisibility() {
-            if (reelsViewEl.style.display === 'none') return;
-            
-            const reels = document.querySelectorAll('.reel-container');
-            reels.forEach(reel => {
-                const rect = reel.getBoundingClientRect();
-                // .reel-video sınıfını arıyoruz
-                const video = reel.querySelector('.reel-video');
-                
-                if (rect.top >= -50 && rect.bottom <= (window.innerHeight + 50)) {
-                    // Görünür alan
-                    if (video) {
-                        video.muted = false; // Sesi aç
-                        video.play().catch(e => console.log("Reel autoplay engellendi: " + e.message));
+        // --- YENİ EKLENEN: REELS AKILLI YÖNETİM (GÖZLEMCİ & PRELOAD) ---
+        // IntersectionObserver kullanarak tek tek kaydırma ve yüklemeyi yönetiyoruz.
+        const reelsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                const video = entry.target.querySelector('.reel-video');
+                if (!video) return;
+
+                if (entry.isIntersecting) {
+                    // Video Görünürse: Oynat
+                    video.currentTime = 0;
+                    video.muted = false; // Reels sesi varsayılan açık
+                    video.play().catch(e => console.log("Reel autoplay engellendi"));
+                    
+                    // BİR SONRAKİ VİDEOYU PRELOAD YAP (Ön Yükle)
+                    const nextReel = entry.target.nextElementSibling;
+                    if (nextReel) {
+                        const nextVideo = nextReel.querySelector('.reel-video');
+                        if (nextVideo) {
+                            nextVideo.preload = "auto"; // Tarayıcıya bunu yüklemesini söyle
+                        }
                     }
                 } else {
-                    if (video) {
-                        video.pause();
-                        video.currentTime = 0;
-                    }
+                    // Video Görünmezse: Durdur
+                    video.pause();
+                    video.currentTime = 0;
                 }
             });
-        }
-        
-        // Reels scroll edildiğinde sesi yönet
-        reelsViewEl.addEventListener('scroll', () => {
-             // Debounce benzeri basit bir kontrol
-             clearTimeout(window.reelsScrollTimeout);
-             window.reelsScrollTimeout = setTimeout(checkReelsVisibility, 100);
+        }, { 
+            threshold: 0.6 // Ekranda %60'ı görünce tetikle (Snap ile uyumlu)
         });
+
+        // Başlangıçta tüm reel'leri gözlemciye ekle
+        document.querySelectorAll('.reel-container').forEach(reel => reelsObserver.observe(reel));
+        
+        // Manual tetikleme (İlk açılış için)
+        function handleReelIntersection() {
+            // Observer zaten çalışıyor, ekstra bir şey yapmaya gerek yok
+            // Ancak garanti olsun diye ilk videoyu manuel kontrol edebiliriz
+        }
 
         // Reels beğenme
         function likeReel(btn) {
             btn.classList.toggle("liked");
             let textSpan = btn.querySelector('span');
             let text = textSpan.textContent;
-            
             if (btn.classList.contains("liked")) {
                 btn.innerHTML = `❤️ <span>${text}</span>`;
                 btn.style.color = '#ed4956';
@@ -1582,13 +1546,10 @@ sıvı almak önemlidir.</span>
                 btn.style.color = '#fff';
             }
         }
-
         function triggerLikeForReel(reel) {
             const likeBtn = reel.querySelector('.reel-actions .reel-btn:first-child');
             if (likeBtn && !likeBtn.classList.contains('liked')) likeReel(likeBtn);
         }
-        // ---------------------------
-
 
         // Ses Tutorial
         const tutorialOverlay = document.getElementById("soundTutorialOverlay");
@@ -1608,26 +1569,20 @@ sıvı almak önemlidir.</span>
             if (localStorage.getItem('soundTutorialShown') !== 'true') setTimeout(showSoundTutorial, 500); 
         });
 
-        // Açıklama Kısaltma (Devamını Oku) - HERKES İÇİN ÇALIŞACAK
+        // Açıklama Kısaltma
         const MAX_LENGTH = 55;
         function initializeCaptionTruncation(scope) {
-            // Scope verilirse sadece o eleman içinde ara, yoksa tüm dokümanda
             const elements = scope ? [scope] : document.querySelectorAll('.post-caption');
-            
             elements.forEach(captionDiv => {
                 const fullText = captionDiv.getAttribute('data-full-text');
                 if (!fullText) {
                     const textNode = captionDiv.querySelector('.caption-text');
                     if (!textNode) return;
-                    
                     const rawText = textNode.textContent.trim();
                     captionDiv.setAttribute('data-full-text', rawText); 
-                    
                     if (rawText.length <= MAX_LENGTH) return; 
-
                     const truncatedText = rawText.substring(0, MAX_LENGTH) + '...';
                     textNode.textContent = truncatedText;
-                    
                     const readMoreBtn = document.createElement('span');
                     readMoreBtn.className = 'read-more-btn';
                     readMoreBtn.textContent = 'devamını oku';
@@ -1667,76 +1622,50 @@ sıvı almak önemlidir.</span>
         ];
         let tipIndex = 0;
         const tipElement = document.getElementById('loading-tip');
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
-            }
-        }
         function displayNextTip() {
             if (!tipElement) return;
             tipElement.style.opacity = 0; 
             setTimeout(() => {
-                const tip = loadingTips[tipIndex];
-                tipElement.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tip}`;
+                tipElement.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${loadingTips[tipIndex]}`;
                 tipElement.style.opacity = 1;
                 tipIndex = (tipIndex + 1) % loadingTips.length;
             }, 500); 
         }
-        shuffleArray(loadingTips);
         displayNextTip();
         tipInterval = setInterval(displayNextTip, 2500); 
 
-        // --- ÖZELLİK 7: KAYDET BUTONU ANİMASYONU ---
-        // Önce HTML'deki kaydet butonlarına işlev ekleyelim
+        // Kaydet Butonu
         document.querySelectorAll('.action-btn').forEach(btn => {
             if (btn.textContent.includes('🔖')) {
-                btn.onclick = function() {
-                    toggleSave(this);
-                };
+                btn.onclick = function() { toggleSave(this); };
             }
         });
-
         function toggleSave(btn) {
-            // 'saved' sınıfını ekle/çıkar
             const isSaved = btn.classList.toggle('saved');
-            
-            if (isSaved) {
-                btn.textContent = '🏷️'; // İkonu değiştir (Dolu etiket)
-            } else {
-                btn.textContent = '🔖'; // İkonu eski haline getir
-            }
+            btn.textContent = isSaved ? '🏷️' : '🔖';
         }
-        // --- YENİ EKLENEN: EKRAN KAPANDIĞINDA / TAB DEĞİŞTİĞİNDE SESİ DURDUR ---
+
+        // Tab Değişimi Kontrolü
         document.addEventListener("visibilitychange", () => {
             if (document.hidden) {
-                stopAllAudio(); // Hepsini durdur
+                stopAllAudio(); 
             } else {
-                // Ekrana geri dönünce hangi modda olduğumuza bak
                 if (reelsViewEl.style.display === 'block') {
-                    checkReelsVisibility();
+                   // Geri dönünce observer zaten halledecek
                 } else if (soundEnabled) {
                     document.querySelectorAll('.post').forEach(post => {
                         const rect = post.getBoundingClientRect();
-                        if (rect.bottom > 0 && rect.top < window.innerHeight) {
-                            managePostAudio(post, true);
-                        }
+                        if (rect.bottom > 0 && rect.top < window.innerHeight) managePostAudio(post, true);
                     });
                 }
             }
         });
-        // ------------------------------------------------------------------------
 
-        // --- SONSUZ DÖNGÜ (INFINITE SCROLL) ---
-        let currentPostList = []; // Karıştırılmış mevcut liste
-
-        // Karıştırma işlemi bittikten kısa süre sonra mevcut sıralamayı kaydet
-        setTimeout(() => {
-            currentPostList = Array.from(document.querySelectorAll('.post'));
-        }, 300);
+        // --- FEED INFINITE SCROLL ---
+        let currentPostList = [];
+        setTimeout(() => { currentPostList = Array.from(document.querySelectorAll('.post')); }, 300);
 
         postsContainer.addEventListener('scroll', () => {
-            // Sayfanın en altına 800px kala yeni postları yükle
             if (postsContainer.scrollTop + postsContainer.clientHeight >= postsContainer.scrollHeight - 800) {
                 loadMorePosts();
             }
@@ -1744,27 +1673,15 @@ sıvı almak önemlidir.</span>
 
         function loadMorePosts() {
             currentPostList.forEach(originalPost => {
-                // Postu kopyala
                 const clone = originalPost.cloneNode(true);
-
-                // 1. Sesi tekrar bağla (Observer)
-                observer.observe(clone);
-
-                // 2. Çift tıklama beğeniyi tekrar bağla
+                feedObserver.observe(clone);
                 attachDoubleTap(clone.querySelector('.post-content'));
-
-                // 3. Kaydet butonunu tekrar bağla
                 const saveBtn = clone.querySelector('.action-btn:last-child');
                 if (saveBtn && saveBtn.textContent.includes('🔖')) {
-                    // Butonun durumunu ve ikonunu sıfırla
                     saveBtn.classList.remove('saved');
                     saveBtn.textContent = '🔖';
                     saveBtn.onclick = function() { toggleSave(this); };
                 }
-
-                // 4. "Devamını Oku" özelliğini tekrar bağla
-                // Klonlama, HTML'deki "Devamını Oku" yazısını getirir ama tıklama olayını getirmez.
-                // Bu yüzden klondaki butonu bulup yeniden tıklama olayı veriyoruz.
                 const readMoreBtn = clone.querySelector('.read-more-btn');
                 if (readMoreBtn) {
                     const captionDiv = clone.querySelector('.post-caption');
@@ -1774,14 +1691,47 @@ sıvı almak önemlidir.</span>
                          e.stopPropagation();
                     };
                 }
-
-                // Kopyayı listeye ekle
                 postsContainer.appendChild(clone);
             });
         }
-        // --------------------------------------
+
+        // --- YENİ EKLENEN: REELS INFINITE SCROLL ---
+        let currentReelList = [];
+        setTimeout(() => { currentReelList = Array.from(document.querySelectorAll('.reel-container')); }, 300);
+
+        reelsViewEl.addEventListener('scroll', () => {
+            // Sona 400px kala (yaklaşık yarım reel) yeni yükle
+            if (reelsViewEl.scrollTop + reelsViewEl.clientHeight >= reelsViewEl.scrollHeight - 400) {
+                loadMoreReels();
+            }
+        });
+
+        function loadMoreReels() {
+            currentReelList.forEach(originalReel => {
+                const clone = originalReel.cloneNode(true);
+                
+                // Videoyu sıfırla
+                const video = clone.querySelector('.reel-video');
+                if(video) {
+                    video.pause();
+                    video.currentTime = 0;
+                    video.muted = true; // Başlangıçta sessiz, observer açacak
+                    video.preload = "metadata"; // Ağ tasarrufu için
+                }
+
+                // Gözlemciye ekle (Play/Pause/Preload için şart)
+                reelsObserver.observe(clone);
+
+                // Çift tıklama olayını ekle
+                attachDoubleTap(clone);
+
+                // Buton olaylarını tekrar bağlamak gerekirse buraya eklenir
+                // (HTML onclick attribute'u kullandığımız için likeReel otomatik çalışır)
+                
+                reelsViewEl.appendChild(clone);
+            });
+        }
 
     </script>
 </body>
 </html>
-
