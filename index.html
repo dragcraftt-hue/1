@@ -237,20 +237,41 @@
         });
 
         let soundEnabled = false, currentPostList = [], currentReelList = [];
-        const tips = ["Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.","Burçin hoca bizce bize yüksek not verecek <3","Dengeli beslenmek için bir diyetisyenle görüşün.","Stomalı bireyler gaz çıkışını kontrol edemez.","Stoma varlığı bir hastalık değildir.","Stoma bakımını aksatmayınız.","Dengeli beslenmek sağlığın temelidir.","Her gün 1-2L su içmek sağlığa yararlıdır.","Stomanızla barışık olun. (opsiyonel)","Yükleme ekranında 10 farklı bilgi vardır."];
+        
+        // --- DÜZELTME YAPILAN ALAN BAŞLANGIÇ ---
+        const tips = [
+            "Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.",
+            "Burçin hoca bizce bize yüksek not verecek ❤️", 
+            "Dengeli beslenmek için bir diyetisyenle görüşün.",
+            "Stomalı bireyler gaz çıkışını kontrol edemez.",
+            "Stoma varlığı bir hastalık değildir.",
+            "Stoma bakımını aksatmayınız.",
+            "Dengeli beslenmek sağlığın temelidir.",
+            "Her gün 1-2L su içmek sağlığa yararlıdır.",
+            "Stomanızla barışık olun. (opsiyonel)",
+            "Yükleme ekranında 10 farklı bilgi vardır."
+        ];
+        
         let tipIndex = 0, tipInterval;
         
         function displayTip() {
             const el = document.getElementById('loading-tip');
             el.style.opacity = 0;
             setTimeout(() => {
-el.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tips[tipIndex]}`;
+                el.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tips[tipIndex]}`;
                 el.style.opacity = 1;
                 tipIndex = (tipIndex + 1) % tips.length;
             }, 500);
         }
-        displayTip();
+
+        // İlk açılışta yazıyı hemen göster (beklemesiz)
+        const initialEl = document.getElementById('loading-tip');
+        initialEl.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tips[0]}`;
+        initialEl.style.opacity = 1;
+        tipIndex = 1;
+
         tipInterval = setInterval(displayTip, 2500);
+        // --- DÜZELTME YAPILAN ALAN SONU ---
 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
