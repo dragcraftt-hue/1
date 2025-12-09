@@ -518,7 +518,7 @@
             justify-content: center;
             background: #000; 
             overflow: hidden;
-            /* DÜZELTME: Alt barın yüksekliği kadar (yaklaşık 55-60px) boşluk bırakarak görsel ortalamayı yukarı taşıyoruz */
+            /* Alt barın altında kalmaması için görsel ortalamayı etkiler */
             padding-bottom: 55px; 
             box-sizing: border-box;
         }
@@ -538,21 +538,24 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 30%);
-            pointer-events: none; /* Tıklamaların arkaya geçmesini sağla */
+            /* Alt kısım daha okunaklı olsun diye gradient'i biraz daha yukarı taşıdım */
+            background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 40%);
+            pointer-events: none; 
         }
 
         /* Sağ Taraftaki Butonlar */
         .reel-actions {
             position: absolute;
-            /* DÜZELTME: Alt bardan kurtarmak için yukarı taşıdım */
-            bottom: 105px; 
+            /* DÜZELTME: Artık 105px değil, navbar'ın hemen üstü */
+            /* Navbar (yaklaşık 50px) + Güvenli alan + 25px boşluk = ~75px */
+            bottom: calc(55px + env(safe-area-inset-bottom)); 
             right: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             gap: 20px;
             pointer-events: auto;
+            z-index: 70; /* İçeriğin üstünde kalsın */
         }
 
         .reel-btn {
@@ -576,12 +579,15 @@
         /* Sol Alt Bilgiler */
         .reel-info {
             position: absolute;
-            /* DÜZELTME: Alt bardan kurtarmak için yukarı taşıdım */
-            bottom: 95px; 
+            /* DÜZELTME: Artık 95px değil, navbar'ın hemen üstü */
+            /* Navbar (50px) + Güvenli alan + 10px boşluk = ~60-65px */
+            /* Bu sayede 'Orijinal Ses' yazısı navbar'a yapışık gibi durur ama değmez */
+            bottom: calc(55px + env(safe-area-inset-bottom)); 
             left: 15px;
             width: 75%;
             pointer-events: auto;
             text-align: left;
+            z-index: 70;
         }
 
         .reel-user {
