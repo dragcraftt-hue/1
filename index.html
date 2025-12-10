@@ -95,6 +95,52 @@
         .reel-follow { border: 1px solid rgba(255,255,255,0.6); background: none; color: #fff; font-size: 12px; padding: 4px 10px; border-radius: 4px; font-weight: 600; margin-left: 5px; }
         .reel-description { font-size: 14px; line-height: 1.3; margin-bottom: 10px; text-shadow: 0 1px 2px rgba(0,0,0,0.5); max-height: 60px; overflow: hidden; }
         .music-ticker { display: flex; align-items: center; gap: 8px; font-size: 13px; background: rgba(0,0,0,0.4); padding: 4px 12px; border-radius: 20px; width: fit-content; }
+
+        /* YENİ EKLENEN CSSLER: REEL LOADER ve SES İKONU */
+        .reel-loader {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 32px;
+            height: 32px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: #fff;
+            animation: spin 1s linear infinite;
+            z-index: 55;
+            display: none; /* Varsayılan olarak gizli */
+            pointer-events: none;
+        }
+
+        .volume-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 40px;
+            background: rgba(0,0,0,0.6);
+            color: #fff;
+            padding: 15px;
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+            z-index: 65;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+        }
+        
+        .volume-icon.show {
+            opacity: 1;
+        }
+
+        @keyframes spin {
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
     </style>
 </head>
 <body>
@@ -214,12 +260,15 @@
             container.appendChild(el);
         });
 
-        reels.forEach(r => {
+        // REELS OLUŞTURMA KISMI (GÜNCELLENDİ: Loader ve Ses İkonu eklendi)
+        reels.sort(() => Math.random() - 0.5).forEach(r => {
             const el = document.createElement('div');
             el.className = 'reel-container';
             el.innerHTML = `
                 <video class="reel-video reel-bg" src="${r.video}" loop playsinline preload="none"></video>
                 <div class="reel-overlay"></div>
+                <div class="reel-loader"></div>
+                <div class="volume-icon">🔇</div>
                 <div class="reel-actions">
                     <button class="reel-btn" onclick="likeReel(this)">🤍 <span>${r.likes}</span></button>
                     <button class="reel-btn">💬 <span>${r.comments}</span></button>
@@ -236,12 +285,46 @@
                     <div class="music-ticker">🎵 Orijinal Ses - ${r.user}</div>
                 </div>
             `;
+            // Yeni eventleri tanımla
+            setupReelEvents(el);
             reelsView.appendChild(el);
         });
 
+        // Reels Eventlerini Ayarlayan Fonksiyon
+        function setupReelEvents(container) {
+            const video = container.querySelector('.reel-video');
+            const loader = container.querySelector('.reel-loader');
+            const volumeIcon = container.querySelector('.volume-icon');
+
+            // 1. Loading Durumu (Buffering)
+            video.addEventListener('waiting', () => {
+                loader.style.display = 'block';
+            });
+            video.addEventListener('playing', () => {
+                loader.style.display = 'none';
+            });
+
+            // 2. Tıklayınca Ses Aç/Kapat (Toggle Mute)
+            container.addEventListener('click', (e) => {
+                // Eğer butonlara tıklanırsa çalışmasın
+                if (e.target.closest('.reel-btn') || e.target.closest('.reel-follow')) return;
+
+                // Ses durumunu değiştir
+                video.muted = !video.muted;
+                
+                // İkonu göster
+                volumeIcon.textContent = video.muted ? "🔇" : "🔊";
+                volumeIcon.classList.add('show');
+                
+                // 1 saniye sonra ikonu gizle
+                setTimeout(() => {
+                    volumeIcon.classList.remove('show');
+                }, 1000);
+            });
+        }
+
         let soundEnabled = false, currentPostList = [], currentReelList = [];
         
-        // --- DÜZELTME YAPILAN ALAN BAŞLANGIÇ ---
         const tips = [
             "Sude Naz T. bu projeye 60 saatten fazla zaman harcadı.",
             "Burçin hoca bizce bize yüksek not verecek ❤️", 
@@ -267,14 +350,12 @@
             }, 500);
         }
 
-        // İlk açılışta yazıyı hemen göster (beklemesiz)
         const initialEl = document.getElementById('loading-tip');
         initialEl.innerHTML = `<strong>Bunu Biliyor Muydunuz:</strong> ${tips[0]}`;
         initialEl.style.opacity = 1;
         tipIndex = 1;
 
         tipInterval = setInterval(displayTip, 2500);
-        // --- DÜZELTME YAPILAN ALAN SONU ---
 
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
@@ -457,7 +538,7 @@
                 if (entry.isIntersecting) {
                     video.preload = "auto";
                     video.currentTime = 0;
-                    video.muted = false;
+                    video.muted = false; // Başlangıçta ses açık başlasın isterseniz bunu false yapın, varsayılan muted true ise ses gelmez
                     video.play().catch(e => console.log("Reel autoplay engellendi"));
                     const nextReel = entry.target.nextElementSibling;
                     if (nextReel) {
@@ -498,6 +579,7 @@
                     postsContainer.style.display = "block";
                     reelsViewEl.style.display = "block";
                     mainHeader.style.display = "none";
+                    reelsViewEl.scrollTo({ top: 0, behavior: 'smooth' });
                 } else {
                     navButtons.forEach(b => b.classList.remove('active'));
                     document.querySelector('[data-action="home"]').classList.add('active');
@@ -585,6 +667,7 @@
                         video.preload = "none";
                     }
                     reelsObserver.observe(clone);
+                    setupReelEvents(clone); // Yeni eklenen Reels'ler için de eventleri bağla
                     attachDoubleTap(clone);
                     reelsView.appendChild(clone);
                 });
@@ -637,5 +720,3 @@
     </script>
 </body>
 </html>
-
-
